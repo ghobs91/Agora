@@ -264,6 +264,32 @@ function StatusThread({ id, closeLink = '/', instance: propInstance }) {
         }
       }
 
+      // Automatically switch to users instance to allow interacting with a status
+      setUIState('loading');
+      (async () => {
+        try {
+          const results =
+            await currentMasto.v2.search.fetch({
+              q: heroStatus.url,
+              type: 'statuses',
+              resolve: true,
+              limit: 1,
+            });
+          if (results.statuses.length) {
+            const status = results.statuses[0];
+            location.hash = currentInstance
+              ? `/${currentInstance}/s/${status.id}`
+              : `/s/${status.id}`;
+          } else {
+            throw new Error('No results');
+          }
+        } catch (e) {
+          setUIState('default');
+          alert('Error: ' + e);
+          console.error(e);
+        }
+      })();
+
       try {
         const context = await contextFetch;
         const { ancestors, descendants } = context;
