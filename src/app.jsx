@@ -52,6 +52,9 @@ import states, { initStates } from './utils/states';
 import store from './utils/store';
 import { getCurrentAccount } from './utils/store-utils';
 import './utils/toast-alert';
+import Link from './components/link';
+import Icon from './components/icon';
+import AsyncText from './components/AsyncText';
 
 window.__STATES__ = states;
 
@@ -72,6 +75,36 @@ function App() {
   const snapStates = useSnapshot(states);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [uiState, setUIState] = useState('loading');
+
+  const formattedShortcuts = [
+    {
+      icon: "home",
+      id: "home",
+      path: "/",
+      subtitle: undefined,
+      title: "Home"
+    },
+    {
+      id: 'trending',
+      title: 'Trending',
+      subtitle: '',
+      path: '/mastodon.social/trending',
+      icon: 'chart',
+    },
+    {
+      id: 'search',
+      title: 'Search',
+      path: '/search',
+      icon: 'search',
+    },
+    {
+      icon: "notification",
+      id: "notifications",
+      path: "/notifications",
+      subtitle: undefined,
+      title: "Notifications"
+    },
+  ]
 
   useLayoutEffect(() => {
     const theme = store.local.get('theme');
@@ -253,6 +286,48 @@ function App() {
         snapStates.settings.shortcutsViewMode !== 'multi-column' && (
           <Shortcuts />
         )}
+        <nav class="tab-bar">
+          <ul>
+            {formattedShortcuts.map(
+              ({ id, path, title, subtitle, icon }, i) => {
+                return (
+                  <li key={i + title}>
+                    <Link
+                      class={subtitle ? 'has-subtitle' : ''}
+                      to={path}
+                      onClick={(e) => {
+                        if (e.target.classList.contains('is-active')) {
+                          e.preventDefault();
+                          const page = document.getElementById(`${id}-page`);
+                          console.log(id, page);
+                          if (page) {
+                            page.scrollTop = 0;
+                            const updatesButton =
+                              page.querySelector('.updates-button');
+                            if (updatesButton) {
+                              updatesButton.click();
+                            }
+                          }
+                        }
+                      }}
+                    >
+                      <Icon icon={icon} size="xl" alt={title} />
+                      <span>
+                        <AsyncText>{title}</AsyncText>
+                        {subtitle && (
+                          <>
+                            <br />
+                            <small>{subtitle}</small>
+                          </>
+                        )}
+                      </span>
+                    </Link>
+                  </li>
+                );
+              },
+            )}
+          </ul>
+        </nav>
       <Modals />
       {isLoggedIn && <NotificationService />}
       <BackgroundService isLoggedIn={isLoggedIn} />

@@ -53,16 +53,13 @@
 
 /* TAB BAR */
 
-#shortcuts .tab-bar:not([hidden]) {
-  position: fixed;
+.home-tab-bar {
+  display: flex;
+  justify-content: center;
   bottom: 0;
   left: 0;
   right: 0;
   z-index: 100;
-  background-color: var(--bg-blur-color);
-  backdrop-filter: blur(16px) saturate(3);
-  border-top: var(--hairline-width) solid var(--outline-color);
-  box-shadow: 0 -8px 16px -8px var(--drop-shadow-color);
   overflow: auto;
   transition: all 0.3s ease-in-out;
   padding: 0 env(safe-area-inset-right) env(safe-area-inset-bottom)
@@ -70,22 +67,24 @@
   user-select: none;
   -webkit-touch-callout: none;
 }
-#shortcuts .tab-bar ul {
+.home-tab-bar ul {
   display: flex;
   margin: 0;
   padding: 0;
 }
-#shortcuts .tab-bar li {
+
+.home-tab-bar li {
   flex-grow: 1;
   margin: 0;
   padding: 0;
   list-style: none;
   display: flex;
   justify-content: center;
-  min-width: 20vw;
+  min-width: 10rem;
   flex-basis: 20vw;
 }
-#shortcuts .tab-bar li a {
+
+.home-tab-bar li a {
   -webkit-tap-highlight-color: transparent;
   display: block;
   color: var(--text-insignificant-color);
@@ -105,14 +104,15 @@
     }
   }
 }
-#shortcuts .tab-bar li a:active {
+
+.home-tab-bar li a:active {
   transform: scale(0.95);
   transition: none;
 }
-#shortcuts .tab-bar li a * {
+.home-tab-bar li a * {
   pointer-events: none;
 }
-#shortcuts .tab-bar li a span {
+.home-tab-bar li a span {
   width: 100%;
   text-align: center;
   display: block;
@@ -120,7 +120,85 @@
   text-overflow: ellipsis;
   overflow: hidden;
 }
-#shortcuts .tab-bar li a.is-active {
+.home-tab-bar li a.is-active {
+  color: var(--link-color);
+  background-image: radial-gradient(
+    closest-side at 50% 50%,
+    var(--bg-color),
+    transparent
+  );
+}
+
+/*  */
+
+.tab-bar:not([hidden]) {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: var(--bg-blur-color);
+  backdrop-filter: blur(16px) saturate(3);
+  border-top: var(--hairline-width) solid var(--outline-color);
+  box-shadow: 0 -8px 16px -8px var(--drop-shadow-color);
+  overflow: auto;
+  transition: all 0.3s ease-in-out;
+  padding: 0 env(safe-area-inset-right) env(safe-area-inset-bottom)
+    env(safe-area-inset-left);
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+.tab-bar ul {
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+.tab-bar li {
+  flex-grow: 1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  min-width: 20vw;
+  flex-basis: 20vw;
+}
+.tab-bar li a {
+  -webkit-tap-highlight-color: transparent;
+  display: block;
+  color: var(--text-insignificant-color);
+  font-size: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 8px;
+  text-decoration: none;
+  text-shadow: 0 var(--hairline-width) var(--bg-color);
+  width: 100%;
+
+  @media (hover: hover) {
+    &:is(:hover, :focus) {
+      color: var(--text-color);
+    }
+  }
+}
+.tab-bar li a:active {
+  transform: scale(0.95);
+  transition: none;
+}
+.tab-bar li a * {
+  pointer-events: none;
+}
+.tab-bar li a span {
+  width: 100%;
+  text-align: center;
+  display: block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.tab-bar li a.is-active {
   color: var(--link-color);
   background-image: radial-gradient(
     closest-side at 50% 50%,
@@ -131,7 +209,7 @@
 #app:has(#home-page):not(:has(#home-page ~ .deck-container)):has(header[hidden])
   #shortcuts
   .tab-bar,
-#app:has(#home-page ~ .deck-container header[hidden]) #shortcuts .tab-bar,
+#app:has(#home-page ~ .deck-container header[hidden]) .tab-bar,
 shortcuts .tab-bar[hidden] {
   transform: translateY(200%);
   pointer-events: none;
@@ -139,15 +217,18 @@ shortcuts .tab-bar[hidden] {
 }
 
 @media (max-width: calc(40em - 1px)) {
+  .home-tab-bar {
+    display: none;
+  }
   #app[data-shortcuts-view-mode='tab-menu-bar'] .deck-container {
     padding-bottom: 52px;
   }
-  #shortcuts .tab-bar li a.has-subtitle .icon,
-  #shortcuts .tab-bar li a.has-subtitle .icon svg {
+  .tab-bar li a.has-subtitle .icon,
+  .tab-bar li a.has-subtitle .icon svg {
     width: 14px !important;
     height: 14px !important;
   }
-  #shortcuts .tab-bar li a span {
+  .tab-bar li a span {
     line-height: 1;
   }
 }
@@ -159,30 +240,31 @@ shortcuts .tab-bar[hidden] {
   #app[data-shortcuts-view-mode='tab-menu-bar'] .timeline-deck > header {
     --margin-top: calc(44px + 8px);
   }
-  #shortcuts .tab-bar:not([hidden]) {
-    top: 0;
+  .tab-bar:not([hidden]) {
+    /* top: 0;
     bottom: auto;
     padding: env(safe-area-inset-top) env(safe-area-inset-right) 0
       env(safe-area-inset-left);
     background-color: var(--bg-faded-blur-color);
     border: 0;
     box-shadow: none;
-    border-bottom: var(--hairline-width) solid var(--bg-faded-color);
+    border-bottom: var(--hairline-width) solid var(--bg-faded-color); */
+    display: none;
   }
-  #shortcuts .tab-bar ul:before {
+  .tab-bar ul:before {
     content: '';
     margin: auto;
   }
-  #shortcuts .tab-bar ul:after {
+  .tab-bar ul:after {
     content: '';
     margin: auto;
   }
-  #shortcuts .tab-bar li {
+  .tab-bar li {
     flex-grow: 0;
     min-width: auto;
     flex-basis: auto;
   }
-  #shortcuts .tab-bar li a {
+  .tab-bar li a {
     padding: 0 16px;
     width: auto;
     flex-direction: row;
@@ -190,7 +272,7 @@ shortcuts .tab-bar[hidden] {
     height: 44px;
     gap: 4px;
   }
-  #shortcuts .tab-bar li a span {
+  .tab-bar li a span {
     text-align: left;
     line-height: 1;
   }
@@ -199,7 +281,7 @@ shortcuts .tab-bar[hidden] {
     )
     #shortcuts
     .tab-bar,
-  #app:has(#home-page ~ .deck-container header[hidden]) #shortcuts .tab-bar,
+  #app:has(#home-page ~ .deck-container header[hidden]) .tab-bar,
   shortcuts .tab-bar[hidden] {
     transform: translateY(-150%);
     pointer-events: none;

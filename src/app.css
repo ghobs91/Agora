@@ -1272,6 +1272,7 @@ body:has(.media-modal-container + .status-deck) .media-post-link {
 /* COMPOSE BUTTON */
 
 #compose-button {
+  bottom: calc(68px + env(safe-area-inset-bottom)) !important;
   position: fixed;
   bottom: 16px;
   bottom: max(16px, env(safe-area-inset-bottom));

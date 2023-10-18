@@ -16,6 +16,7 @@ import Icon from './icon';
 import Link from './link';
 import NavMenu from './nav-menu';
 import Status from './status';
+import AsyncText from './AsyncText';
 
 const scrollIntoViewOptions = {
   block: 'nearest',
@@ -268,6 +269,29 @@ function Timeline({
 
   const hiddenUI = scrollDirection === 'end' && !nearReachStart;
 
+  const formattedShortcuts = [
+    {
+      icon: "home",
+      id: "home",
+      path: "/",
+      subtitle: undefined,
+      title: "Home"
+    },
+    {
+      id: 'trending',
+      title: 'Trending',
+      subtitle: '',
+      path: '/mastodon.social/trending',
+      icon: 'chart',
+    },
+    {
+      id: 'search',
+      title: 'Search',
+      path: '/search',
+      icon: 'search',
+    },
+  ]
+
   return (
     <div
       id={`${id}-page`}
@@ -309,7 +333,49 @@ function Timeline({
                 </Link>
               )}
             </div>
-            {title && (titleComponent ? titleComponent : <h1>{title}</h1>)}
+            {/* {title && (titleComponent ? titleComponent : <h1>{title}</h1>)} */}
+            <div class="home-tab-bar">
+              <ul>
+              {formattedShortcuts.map(
+                ({ id, path, title, subtitle, icon }, i) => {
+                  return (
+                    <li key={i + title}>
+                      <Link
+                        class={subtitle ? 'has-subtitle' : ''}
+                        to={path}
+                        onClick={(e) => {
+                          if (e.target.classList.contains('is-active')) {
+                            e.preventDefault();
+                            const page = document.getElementById(`${id}-page`);
+                            console.log(id, page);
+                            if (page) {
+                              page.scrollTop = 0;
+                              const updatesButton =
+                                page.querySelector('.updates-button');
+                              if (updatesButton) {
+                                updatesButton.click();
+                              }
+                            }
+                          }
+                        }}
+                      >
+                        <Icon icon={icon} size="xl" alt={title} />
+                        <span>
+                          <AsyncText>{title}</AsyncText>
+                          {subtitle && (
+                            <>
+                              <br />
+                              <small>{subtitle}</small>
+                            </>
+                          )}
+                        </span>
+                      </Link>
+                    </li>
+                  );
+                },
+              )}
+              </ul>
+            </div>
             <div class="header-side">
               {/* <Loader hidden={uiState !== 'loading'} /> */}
               {!!headerEnd && headerEnd}

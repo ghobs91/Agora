@@ -46,11 +46,21 @@ const states = proxy({
   showGenericAccounts: false,
   showMediaAlt: false,
   // Shortcuts
-  shortcuts: [],
+  shortcuts: [
+    {
+      type: 'following',
+    },
+    {
+      type: 'trending',
+    },
+    {
+      type: 'notifications',
+    },
+  ],
   // Settings
   settings: {
     autoRefresh: false,
-    shortcutsViewMode: null,
+    shortcutsViewMode: 'tab-menu-bar',
     shortcutsColumnsMode: false,
     boostsCarousel: true,
     contentTranslation: true,
