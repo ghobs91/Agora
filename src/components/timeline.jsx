@@ -400,7 +400,13 @@ function Timeline({
               </button>
             )}
         </header>
-        {!!timelineStart && <div class="timeline-start">{timelineStart}</div>}
+        {!!timelineStart && (
+          <div
+            class={`timeline-start ${uiState === 'loading' ? 'loading' : ''}`}
+          >
+            {timelineStart}
+          </div>
+        )}
         {!!items.length ? (
           <>
             <ul class="timeline">
