@@ -2374,3 +2374,7 @@ ul.link-list li a .icon {
     transform: translateX(calc(-50% + var(--main-width) / 2));
   }
 }
+
+.import-friends-block {
+  list-style: none;
+}

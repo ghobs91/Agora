@@ -56,6 +56,7 @@ import './utils/toast-alert';
 import Link from './components/link';
 import Icon from './components/icon';
 import AsyncText from './components/AsyncText';
+import ImportFriends from './pages/importFriends';
 
 window.__STATES__ = states;
 
@@ -334,6 +335,12 @@ function SecondaryRoutes({ isLoggedIn }) {
           <Route path="/l">
             <Route index element={<Lists />} />
             <Route path=":id" element={<List />} />
+          </Route>
+        )}
+        {isLoggedIn && (
+          <Route path="/importfriends">
+            <Route index element={<ImportFriends />} />
+            <Route path=":id" element={<ImportFriends />} />
           </Route>
         )}
         {isLoggedIn && <Route path="/ft" element={<FollowedHashtags />} />}
