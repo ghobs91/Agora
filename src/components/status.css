@@ -1389,7 +1389,9 @@ a.card:is(:hover, :focus):visited {
 
 .status .actions {
   display: flex;
-  gap: 8px;
+  gap: 25px;
+  margin-top: 10px;
+  margin-left: -50px;
 }
 .status.large .actions {
   padding-top: 4px;

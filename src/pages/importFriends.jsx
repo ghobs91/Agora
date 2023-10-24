@@ -43,14 +43,14 @@ function ImportFriends() {
             // const res = await masto.v2.search.fetch(params);
             // const res = await fetch(`https://fosstodon.org/api/v2/search?q=@${nostrFriend.pubkey}@mostr.pub&resolve=true&limit=40&type=accounts`, {method: "get"});
             
-            setTimeout(async () => {
+            // setTimeout(async () => {
                 const mostrBridgedFriendResponse = await masto.v2.search.fetch(searchParams);
                 const mostrBridgedFriend = mostrBridgedFriendResponse.accounts[0];
                 mostrBridgedFriendList.push(mostrBridgedFriend);
                 console.log(`mostrBridgedFriendList: ${mostrBridgedFriendList}`)
                 setImportFriends(mostrBridgedFriendList);
                 setUIState('default');
-              }, 1000);
+            //   }, 500);
 
 
         })
@@ -95,6 +95,7 @@ function ImportFriends() {
                             href={`/#/${instance}/a/${mostrBridgedFriend.id}`}
                             target={external ? '_blank' : null}
                             title={`@${mostrBridgedFriend.acct}`}
+                            key={mostrBridgedFriend.id}
                             onClick={(e) => {
                             if (external) return;
                             e.preventDefault();

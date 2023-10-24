@@ -74,7 +74,7 @@
 }
 #compose-container .status-preview {
   border-radius: 16px 16px 0 0;
-  max-height: 160px;
+  max-height: 50%;
   background-color: var(--bg-color);
   margin: 0 12px;
   border: 1px solid var(--outline-color);

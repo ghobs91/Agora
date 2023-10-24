@@ -369,16 +369,16 @@ function Status({
       return false;
     }
     try {
-      if (!reblogged) {
-        let confirmText = 'Boost this post?';
-        if (mediaNoDesc) {
-          confirmText += '\n\n⚠️ Some media have no descriptions.';
-        }
-        const yes = confirm(confirmText);
-        if (!yes) {
-          return false;
-        }
-      }
+      // if (!reblogged) {
+      //   let confirmText = 'Boost this post?';
+      //   if (mediaNoDesc) {
+      //     confirmText += '\n\n⚠️ Some media have no descriptions.';
+      //   }
+      //   const yes = confirm(confirmText);
+      //   if (!yes) {
+      //     return false;
+      //   }
+      // }
       // Optimistic
       states.statuses[sKey] = {
         ...status,
@@ -1433,7 +1433,7 @@ function Status({
               <Card card={card} instance={currentInstance} />
             )}
         </div>
-        {isSizeLarge && (
+        {/* {isSizeLarge && ( */}
           <>
             <div class="extra-meta">
               {_deleted ? (
@@ -1481,7 +1481,7 @@ function Status({
                   onClick={replyStatus}
                 />
               </div>
-              {/* <div class="action has-count">
+              <div class="action has-count">
                 <StatusButton
                   checked={reblogged}
                   title={['Boost', 'Unboost']}
@@ -1492,8 +1492,8 @@ function Status({
                   onClick={boostStatus}
                   disabled={!canBoost}
                 />
-              </div> */}
-              <MenuConfirm
+              </div>
+              {/* <MenuConfirm
                 disabled={!canBoost}
                 onClick={confirmBoostStatus}
                 confirmLabel={
@@ -1524,7 +1524,7 @@ function Status({
                     disabled={!canBoost}
                   />
                 </div>
-              </MenuConfirm>
+              </MenuConfirm> */}
               <div class="action has-count">
                 <StatusButton
                   checked={favourited}
@@ -1572,7 +1572,7 @@ function Status({
               </Menu>
             </div>
           </>
-        )}
+         {/* )} */}
       </div>
       {!!showEdited && (
         <Modal
