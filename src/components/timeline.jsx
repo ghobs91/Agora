@@ -328,13 +328,13 @@ function Timeline({
           <div class="header-grid">
             <div class="header-side">
               <NavMenu />
-              {headerStart !== null && headerStart !== undefined ? (
+              {/* {headerStart !== null && headerStart !== undefined ? (
                 headerStart
               ) : (
                 <Link to="/" class="button plain home-button">
                   <Icon icon="home" size="l" />
                 </Link>
-              )}
+              )} */}
             </div>
             {/* {title && (titleComponent ? titleComponent : <h1>{title}</h1>)} */}
             <div class="home-tab-bar">
