@@ -302,7 +302,7 @@ function App() {
                 return (
                   <li key={i + title}>
                     <Link
-                      class={subtitle ? 'has-subtitle' : ''}
+                      class={title === 'Notifications' && snapStates.notificationsShowNew ? 'has-badge-tab-bar' : ''}
                       to={path}
                       onClick={(e) => {
                         if (e.target.classList.contains('is-active')) {

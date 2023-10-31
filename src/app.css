@@ -958,11 +958,23 @@ a[href^='http'][rel*='nofollow']:visited:not(:has(div)) {
   content: '';
   display: inline-block;
   position: absolute;
-  right: 10px;
-  width: 4px;
-  height: 4px;
+  right: 13px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background-color: var(--link-color);
+  background-color: rgb(255, 0, 0);
+  opacity: 0.5;
+}
+
+.has-badge-tab-bar:after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  right: 30px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgb(255, 0, 0);
   opacity: 0.5;
 }
 
