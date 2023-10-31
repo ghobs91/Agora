@@ -168,9 +168,9 @@ function Login() {
         <Loader hidden={uiState !== 'loading'} />
         <hr />
         <p>
-          <a href="https://joinmastodon.org/servers" target="_blank">
-            Don't have an account? Create one!
-          </a>
+        <button class="large" disabled={uiState === 'loading'}>
+            Sign up
+          </button>{' '}
         </p>
         <p>
           <Link to="/">Go home</Link>

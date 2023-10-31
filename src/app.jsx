@@ -38,6 +38,7 @@ import Public from './pages/public';
 import Search from './pages/search';
 import StatusRoute from './pages/status-route';
 import Trending from './pages/trending';
+import Topics from './pages/topics';
 import Welcome from './pages/welcome';
 import {
   api,
@@ -76,7 +77,7 @@ function App() {
   const snapStates = useSnapshot(states);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [uiState, setUIState] = useState('loading');
-
+  const instanceURL = store.local.get('instanceURL');
   const formattedShortcuts = [
     {
       icon: "home",
@@ -89,7 +90,7 @@ function App() {
       id: 'trending',
       title: 'Trending',
       subtitle: '',
-      path: '/mastodon.social/trending',
+      path: `/${instanceURL}/trending`,
       icon: 'chart',
     },
     {
@@ -279,6 +280,7 @@ function App() {
           <Route path="l" element={<Public local />} />
         </Route>
         <Route path="/:instance?/trending" element={<Trending />} />
+        {isLoggedIn && <Route path="/topics" element={<Topics />} />}
         <Route path="/:instance?/search" element={<Search />} />
         {/* <Route path="/:anything" element={<NotFound />} /> */}
       </Routes>
