@@ -22,6 +22,9 @@ function NameText({
   const [_, acct1, acct2] = acct.match(/([^@]+)(@.+)/i) || [, acct];
 
   const trimmedUsername = username.toLowerCase().trim();
+  if ((acct.indexOf('mostr.pub') >= 0) && displayName) {
+    username = `${displayName}`;
+  }
   const trimmedDisplayName = (displayName || '').toLowerCase().trim();
   const shortenedDisplayName = trimmedDisplayName
     .replace(/(\:(\w|\+|\-)+\:)(?=|[\!\.\?]|$)/g, '') // Remove shortcodes, regex from https://regex101.com/r/iE9uV0/1
@@ -86,7 +89,7 @@ function NameText({
         <>
           <br />
           <i>
-            @{acct1}
+            @{username}
             <span class="ib">{acct2}</span>
           </i>
         </>
