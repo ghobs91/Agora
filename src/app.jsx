@@ -57,6 +57,7 @@ import Link from './components/link';
 import Icon from './components/icon';
 import AsyncText from './components/AsyncText';
 import ImportFriends from './pages/importFriends';
+import ImportTwitter from './pages/importTwitter';
 
 window.__STATES__ = states;
 
@@ -266,12 +267,8 @@ function App() {
             <Route path=":id" element={<List />} />
           </Route>
         )}
-        {isLoggedIn && (
-          <Route path="/importfriends">
-            <Route index element={<ImportFriends />} />
-            <Route path=":id" element={<ImportFriends />} />
-          </Route>
-        )}
+        {isLoggedIn && <Route path="/importfriends" element={<ImportFriends />} />}
+        {isLoggedIn && <Route path="/importtwitter" element={<ImportTwitter />} />}
         {isLoggedIn && <Route path="/ft" element={<FollowedHashtags />} />}
         <Route path="/:instance?/t/:hashtag" element={<Hashtag />} />
         <Route path="/:instance?/a/:id" element={<AccountStatuses />} />
