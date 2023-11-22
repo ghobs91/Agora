@@ -13,7 +13,7 @@ import useTitle from '../utils/useTitle';
 import { useParams, useSearchParams } from 'react-router-dom';
 import AccountBlock from '../components/account-block';
 import Avatar from '../components/avatar';
-
+import MenuConfirm from '../components/menu-confirm';
 
 function ImportTwitter() {
   const params = useParams();
@@ -504,51 +504,28 @@ function ImportTwitter() {
               </button>
             </div>
           </div>
-        </header>
-        <main>
-            <>
-            {/* <MenuConfirm
+          <MenuConfirm
               confirm={following || requested}
-              confirmLabel={
-                <span>
-                  {requested
-                    ? 'Withdraw follow request?'
-                    : `Unfollow @${info.acct || info.username}?`}
-                </span>
-              }
               menuItemClassName="danger"
               align="end"
-              disabled={loading}
               onClick={() => {
                 setRelationshipUIState('loading');
                 (async () => {
-                  try {
-                    let newRelationship;
-
-                    if (following || requested) {
-                      // const yes = confirm(
-                      //   requested
-                      //     ? 'Withdraw follow request?'
-                      //     : `Unfollow @${info.acct || info.username}?`,
-                      // );
-
-                      // if (yes) {
-                      newRelationship = await currentMasto.v1.accounts
-                        .$select(accountID.current)
-                        .unfollow();
-                      // }
-                    } else {
-                      newRelationship = await currentMasto.v1.accounts
-                        .$select(accountID.current)
+                  const { masto: currentMasto } = api();
+                  twitterBridgedFriendList.forEach(async (twitterBridgedFriend) => {
+                    try {
+                      let newRelationship;
+                      newRelationship = await masto.v1.accounts
+                        .$select(twitterBridgedFriend.id)
                         .follow();
+                      if (newRelationship) setRelationship(newRelationship);
+                      setRelationshipUIState('default');
+                      console.log(`followed twitterBridgedFriend with id ${twitterBridgedFriend.id}`);
+                    } catch (e) {
+                      alert(e);
+                      setRelationshipUIState('error');
                     }
-
-                    if (newRelationship) setRelationship(newRelationship);
-                    setRelationshipUIState('default');
-                  } catch (e) {
-                    alert(e);
-                    setRelationshipUIState('error');
-                  }
+                  });
                 })();
               }}
             >
@@ -556,60 +533,46 @@ function ImportTwitter() {
                 type="button"
                 class={`${following || requested ? 'light swap' : ''}`}
                 data-swap-state={following || requested ? 'danger' : ''}
-                disabled={loading}
               >
-                {following ? (
-                  <>
-                    <span>Following</span>
-                    <span>Unfollow…</span>
-                  </>
-                ) : requested ? (
-                  <>
-                    <span>Requested</span>
-                    <span>Withdraw…</span>
-                  </>
-                ) : locked ? (
-                  <>
-                    <Icon icon="lock" /> <span>Follow</span>
-                  </>
-                ) : (
-                  'Follow'
-                )}
+                  Follow All
               </button>
-            </MenuConfirm> */}
-            <ul class="timeline flat accounts-list">
-                {twitterBridgedFriendList.map((twitterBridgedFriend) => (
-                        <a
-                            class="account-block import-friends-block"
-                            href={`/#/${instance}/a/${twitterBridgedFriend.id}`}
-                            target={external ? '_blank' : null}
-                            title={`@${twitterBridgedFriend.acct}`}
-                            key={twitterBridgedFriend.id}
-                            onClick={(e) => {
-                            if (external) return;
-                            e.preventDefault();
-                            if (onClick) return onClick(e);
+            </MenuConfirm>
+        </header>
 
-                                // navigate(`/${instance}/a/${id}`);
-                                location.hash = `/${instance}/a/${twitterBridgedFriend.id}`;
-                            
-                            }}
-                        >
-                            <li>
-                                <Avatar
-                                    url={twitterBridgedFriend.avatar}
-                                    size="xl"
-                                    />
-                                <span>{twitterBridgedFriend.displayName}</span>
-                            {/* <AccountBlock
-                                account={mostrBridgedFriend}
-                                instance={instance}
-                                showStats
-                            /> */}
-                            </li>
-                        </a>
+        <main>
+            <>
+            <ul class="timeline flat accounts-list accounts-import-list">
+              {twitterBridgedFriendList.map((twitterBridgedFriend) => (
+                <a
+                    class="account-block import-friends-block"
+                    href={`/#/${instance}/a/${twitterBridgedFriend.id}`}
+                    target={external ? '_blank' : null}
+                    title={`@${twitterBridgedFriend.acct}`}
+                    key={twitterBridgedFriend.id}
+                    onClick={(e) => {
+                    if (external) return;
+                    e.preventDefault();
+                    if (onClick) return onClick(e);
 
-                ))}
+                        // navigate(`/${instance}/a/${id}`);
+                        location.hash = `/${instance}/a/${twitterBridgedFriend.id}`;
+                    
+                    }}
+                >
+                    <li>
+                        <Avatar
+                            url={twitterBridgedFriend.avatar}
+                            size="xl"
+                            />
+                        <span>{twitterBridgedFriend.displayName}</span>
+                    {/* <AccountBlock
+                        account={mostrBridgedFriend}
+                        instance={instance}
+                        showStats
+                    /> */}
+                    </li>
+                </a>
+              ))}
             </ul>
             </>
 
