@@ -56,7 +56,7 @@
   --backdrop-solid-color: #ccc;
   --img-bg-color: rgba(128, 128, 128, 0.2);
   --loader-color: #1c1e2199;
-  --comment-line-color: #e5e5e5;
+  --comment-line-color: #242526;
   --drop-shadow-color: rgba(0, 0, 0, 0.15);
   --close-button-bg-color: rgba(0, 0, 0, 0.1);
   --close-button-bg-active-color: rgba(0, 0, 0, 0.2);
@@ -108,7 +108,7 @@
     --backdrop-color: rgba(0, 0, 0, 0.5);
     --backdrop-solid-color: #333;
     --loader-color: #f0f2f599;
-    --comment-line-color: #565656;
+    --comment-line-color: #242526;
     --drop-shadow-color: rgba(0, 0, 0, 0.5);
     --close-button-bg-color: rgba(255, 255, 255, 0.2);
     --close-button-bg-active-color: rgba(255, 255, 255, 0.15);

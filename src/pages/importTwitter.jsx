@@ -433,7 +433,7 @@ function ImportTwitter() {
     "sm",
     "sindresorhus",
   ];
-  const slicedTwitterAccounts = twitterAccounts.slice(0, 150);
+  const slicedTwitterAccounts = twitterAccounts.slice(600, 750);
   
   useEffect(() => {
     setUIState('loading');

@@ -451,7 +451,7 @@ a[href^='http'][rel*='nofollow']:visited:not(:has(div)) {
   vertical-align: middle;
 }
 .timeline.contextual > li .replies {
-  margin-top: -12px;
+  margin-top: 0px;
 }
 .timeline.contextual > li .replies :is(ul, li):not(.content *) {
   margin: 0;
@@ -720,6 +720,7 @@ a[href^='http'][rel*='nofollow']:visited:not(:has(div)) {
   -webkit-tap-highlight-color: transparent;
   animation: appear 0.2s ease-out;
   -webkit-touch-callout: none;
+  margin-bottom: 15px;
 }
 @media (pointer: coarse) {
   .status-focus:not(.hero .status-focus) {

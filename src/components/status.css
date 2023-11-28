@@ -73,6 +73,11 @@
   align-items: flex-start;
   position: relative;
   font-size: var(--text-size);
+  border-color: #18181c !important;
+  border-radius: .75rem;
+  background-color: #242526 !important;
+  box-shadow: 0 0 10px #000000bf;
+  margin-bottom: 15px;
 }
 .status.large {
   --fade-in-out-bg: linear-gradient(
@@ -1391,7 +1396,6 @@ a.card:is(:hover, :focus):visited {
   display: flex;
   gap: 15px;
   margin-top: 10px;
-  margin-left: -50px;
 }
 .status.large .actions {
   padding-top: 4px;
