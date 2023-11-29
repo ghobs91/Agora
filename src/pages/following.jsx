@@ -34,7 +34,17 @@ function Following({ title, path, id, ...props }) {
 
       value = filteredItems(value, 'home');
       value.forEach((item) => {
-        saveStatus(item, instance);
+        if (item.reblog) {
+          if (!item.reblog.inReplyToAccountId && !item.reblog.inReplyToId) {
+            saveStatus(item, instance);
+          }
+        } else {
+          saveStatus(item, instance);
+        }
+
+        // if (!item.reblog?.inReplyToAccountId && !item.reblog?.inReplyToId) {
+        //   saveStatus(item, instance);
+        // }
       });
       value = dedupeBoosts(value, instance);
 

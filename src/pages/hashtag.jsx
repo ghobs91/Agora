@@ -19,6 +19,7 @@ import useTitle from '../utils/useTitle';
 
 const LIMIT = 20;
 
+
 // Limit is 4 per "mode"
 // https://github.com/mastodon/mastodon/issues/15194
 // Hard-coded https://github.com/mastodon/mastodon/blob/19614ba2477f3d12468f5ec251ce1cc5f8c6210c/app/models/tag_feed.rb#L4
@@ -26,6 +27,12 @@ const TAGS_LIMIT_PER_MODE = 4;
 const TOTAL_TAGS_LIMIT = TAGS_LIMIT_PER_MODE + 1;
 
 function Hashtags({ columnMode, ...props }) {
+  const [relationshipUIState, setRelationshipUIState] = useState('default');
+  const [relationship, setRelationship] = useState(null);
+  const {
+    following,
+    requested,
+  } = relationship || {};
   // const navigate = useNavigate();
   let { hashtag, ...params } = columnMode ? {} : useParams();
   if (props.hashtag) hashtag = props.hashtag;
@@ -159,11 +166,11 @@ function Hashtags({ columnMode, ...props }) {
                 onClick={() => {
                   setFollowUIState('loading');
                   if (info.following) {
-                    // const yes = confirm(`Unfollow #${hashtag}?`);
-                    // if (!yes) {
-                    //   setFollowUIState('default');
-                    //   return;
-                    // }
+                    const yes = confirm(`Unfollow #${hashtag}?`);
+                    if (!yes) {
+                      setFollowUIState('default');
+                      return;
+                    }
                     masto.v1.tags
                       .$select(hashtag)
                       .unfollow()
@@ -179,20 +186,51 @@ function Hashtags({ columnMode, ...props }) {
                         setFollowUIState('default');
                       });
                   } else {
-                    masto.v1.tags
-                      .$select(hashtag)
-                      .follow()
-                      .then(() => {
+                    // masto.v1.tags
+                    //   .$select(hashtag)
+                      // .follow()
+                      // .then(
+                      (async () => {
+                        const bridgedLemmyWorldCommunityResponse = await masto.v2.search.fetch({
+                          q: `@${hashtag}@lemmy.world`,
+                          type: 'accounts',
+                          limit: 1,
+                          resolve: authenticated,
+                        });
+                        const bridgedLemmyMlCommunityResponse = await masto.v2.search.fetch({
+                          q: `@${hashtag}@lemmy.ml`,
+                          type: 'accounts',
+                          limit: 1,
+                          resolve: authenticated,
+                        });
+                        if (bridgedLemmyWorldCommunityResponse.accounts.length > 0) {
+                          const bridgedLemmyCommunity = bridgedLemmyWorldCommunityResponse.accounts[0];
+                          let newRelationship;
+                          newRelationship = await masto.v1.accounts
+                            .$select(bridgedLemmyCommunity.id)
+                            .follow();
+                          if (newRelationship) setRelationship(newRelationship);
+                          setRelationshipUIState('default');
+                        } else {
+                          const bridgedLemmyCommunity = bridgedLemmyMlCommunityResponse.accounts[0];
+                          let newRelationship;
+                          newRelationship = await masto.v1.accounts
+                            .$select(bridgedLemmyCommunity.id)
+                            .follow();
+                          if (newRelationship) setRelationship(newRelationship);
+                          setRelationshipUIState('default');
+                        }
                         setInfo({ ...info, following: true });
                         showToast(`Followed #${hashtag}`);
-                      })
-                      .catch((e) => {
-                        alert(e);
-                        console.error(e);
-                      })
-                      .finally(() => {
-                        setFollowUIState('default');
-                      });
+                      })();
+                      // })
+                      // .catch((e) => {
+                      //   alert(e);
+                      //   console.error(e);
+                      // })
+                      // .finally(() => {
+                      //   setFollowUIState('default');
+                      // });
                   }
                 }}
               >
