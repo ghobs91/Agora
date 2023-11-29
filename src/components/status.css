@@ -51,7 +51,7 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  margin-bottom: -8px;
+  margin-bottom: 14px;
 }
 .status-reblog .status-pre-meta .icon {
   color: var(--reblog-color);
