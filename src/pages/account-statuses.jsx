@@ -181,10 +181,17 @@ function AccountStatuses() {
     }
     const { value, done } = await accountStatusesIterator.current.next();
     if (value?.length) {
-      results.push(...value);
+      value.forEach((post) => {
+        if (!post.reblog.inReplyToAccountId && !post.reblog.inReplyToId) {
+          results.push(post);
+        }
+      });
+      // results.push(...value);
 
       value.forEach((item) => {
-        saveStatus(item, instance);
+        if (!item.reblog.inReplyToAccountId && !item.reblog.inReplyToId) {
+          saveStatus(item, instance);
+        }
       });
     }
     return {
