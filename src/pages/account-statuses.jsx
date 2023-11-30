@@ -182,17 +182,23 @@ function AccountStatuses() {
     const { value, done } = await accountStatusesIterator.current.next();
     if (value?.length) {
       value.forEach((post) => {
-        if (!post.reblog.inReplyToAccountId && !post.reblog.inReplyToId) {
+        if (!post.reblog) {
           results.push(post);
+          saveStatus(post, instance);
+        } else {
+          if (!post.reblog.inReplyToAccountId && !post.reblog.inReplyToId) {
+            results.push(post);
+            saveStatus(post, instance);
+          }
         }
       });
       // results.push(...value);
 
-      value.forEach((item) => {
-        if (!item.reblog.inReplyToAccountId && !item.reblog.inReplyToId) {
-          saveStatus(item, instance);
-        }
-      });
+      // value.forEach((item) => {
+      //   if (!item.reblog.inReplyToAccountId && !item.reblog.inReplyToId) {
+      //     saveStatus(item, instance);
+      //   }
+      // });
     }
     return {
       value: results,

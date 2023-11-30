@@ -42,9 +42,9 @@ function Following({ title, path, id, ...props }) {
           saveStatus(item, instance);
         }
 
-        // if (!item.reblog?.inReplyToAccountId && !item.reblog?.inReplyToId) {
-        //   saveStatus(item, instance);
-        // }
+        if (!item.reblog?.inReplyToAccountId && !item.reblog?.inReplyToId) {
+          saveStatus(item, instance);
+        }
       });
       value = dedupeBoosts(value, instance);
 
