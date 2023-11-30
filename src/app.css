@@ -263,6 +263,7 @@ a[href^='http'][rel*='nofollow']:visited:not(:has(div)) {
 }
 .timeline.contextual > li.descendant {
   padding-bottom: 1em;
+  padding-right: 10px;
 }
 .timeline.contextual
   > li.descendant:not(.thread)
@@ -302,6 +303,9 @@ a[href^='http'][rel*='nofollow']:visited:not(:has(div)) {
       (var(--line-margin-end) * (var(--comments-level) - 1))
   );
 }
+.descendant.thread {
+  padding: 0 10px 0 10px;
+}
 /* .timeline.contextual
   > li.descendant.thread
   > .status-link
@@ -334,6 +338,8 @@ a[href^='http'][rel*='nofollow']:visited:not(:has(div)) {
     var(--avatar-size) + var(--avatar-margin-start) + var(--avatar-margin-end) +
       (var(--line-margin-end) * (var(--comments-level) - 1))
   );
+  margin-bottom: 7px;
+  margin-top: 15px;
 }
 /* .timeline.contextual
   > li.descendant.thread
@@ -396,7 +402,14 @@ a[href^='http'][rel*='nofollow']:visited:not(:has(div)) {
   padding-left: calc(
     var(--thread-start) + var(--line-margin-end) * var(--comments-level)
   );
+  margin-bottom: 7px;
+  margin-top: 15px;
 }
+.thread > .status-link {
+  margin-bottom: 7px;
+  margin-top: 15px;
+}
+
 /* .timeline.contextual
   > li.descendant:not(.thread)
   > .status-link
@@ -720,7 +733,6 @@ a[href^='http'][rel*='nofollow']:visited:not(:has(div)) {
   -webkit-tap-highlight-color: transparent;
   animation: appear 0.2s ease-out;
   -webkit-touch-callout: none;
-  margin-bottom: 15px;
 }
 @media (pointer: coarse) {
   .status-focus:not(.hero .status-focus) {

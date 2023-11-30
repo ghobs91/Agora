@@ -77,7 +77,6 @@
   border-radius: .75rem;
   background-color: #242526 !important;
   box-shadow: 0 0 10px #000000bf;
-  margin-bottom: 15px;
 }
 .status.large {
   --fade-in-out-bg: linear-gradient(
@@ -89,6 +88,7 @@
   );
   padding-bottom: 8px;
   background-image: var(--fade-in-out-bg);
+  border-radius: 0;
 }
 .status.large.visibility-direct {
   background-image: var(--fade-in-out-bg), var(--yellow-stripes);
