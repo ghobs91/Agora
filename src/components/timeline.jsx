@@ -501,62 +501,66 @@ function Timeline({
                             !_differentAuthor &&
                             !items[i - 1]._differentAuthor &&
                             !items[i + 1]._differentAuthor)));
-                    return (
-                      <li
-                        key={`timeline-${statusID}`}
-                        class={`timeline-item-container timeline-item-container-type-${type} timeline-item-container-${
-                          i === 0
-                            ? 'start'
-                            : i === items.length - 1
-                            ? 'end'
-                            : 'middle'
-                        } ${
-                          _differentAuthor ? 'timeline-item-diff-author' : ''
-                        }`}
-                      >
-                        <Link class="status-link timeline-item" to={url}>
-                          {showCompact ? (
-                            <TimelineStatusCompact
-                              status={item}
-                              instance={instance}
-                            />
-                          ) : useItemID ? (
-                            <Status
-                              statusID={statusID}
-                              instance={instance}
-                              allowFilters={allowFilters}
-                            />
-                          ) : (
-                            <Status
-                              status={item}
-                              instance={instance}
-                              allowFilters={allowFilters}
-                            />
-                          )}
-                        </Link>
-                      </li>
-                    );
+                    if (!item.reblog || (item.reblog && (!item.reblog.inReplyToAccountId && !item.reblog.inReplyToId))){
+                      return (
+                        <li
+                          key={`timeline-${statusID}`}
+                          class={`timeline-item-container timeline-item-container-type-${type} timeline-item-container-${
+                            i === 0
+                              ? 'start'
+                              : i === items.length - 1
+                              ? 'end'
+                              : 'middle'
+                          } ${
+                            _differentAuthor ? 'timeline-item-diff-author' : ''
+                          }`}
+                        >
+                          <Link class="status-link timeline-item" to={url}>
+                            {showCompact ? (
+                              <TimelineStatusCompact
+                                status={item}
+                                instance={instance}
+                              />
+                            ) : useItemID ? (
+                              <Status
+                                statusID={statusID}
+                                instance={instance}
+                                allowFilters={allowFilters}
+                              />
+                            ) : (
+                              <Status
+                                status={item}
+                                instance={instance}
+                                allowFilters={allowFilters}
+                              />
+                            )}
+                          </Link>
+                        </li>
+                      );
+                    }
                   });
                 }
-                return (
-                  <li key={`timeline-${statusID + _pinned}`}>
-                    <Link class="status-link timeline-item" to={url}>
-                      {useItemID ? (
-                        <Status
-                          statusID={statusID}
-                          instance={instance}
-                          allowFilters={allowFilters}
-                        />
-                      ) : (
-                        <Status
-                          status={status}
-                          instance={instance}
-                          allowFilters={allowFilters}
-                        />
-                      )}
-                    </Link>
-                  </li>
-                );
+                if (!status.reblog || (status.reblog && (!status.reblog.inReplyToAccountId && !status.reblog.inReplyToId))){
+                  return (
+                    <li key={`timeline-${statusID + _pinned}`}>
+                      <Link class="status-link timeline-item" to={url}>
+                        {useItemID ? (
+                          <Status
+                            statusID={statusID}
+                            instance={instance}
+                            allowFilters={allowFilters}
+                          />
+                        ) : (
+                          <Status
+                            status={status}
+                            instance={instance}
+                            allowFilters={allowFilters}
+                          />
+                        )}
+                      </Link>
+                    </li>
+                  );
+                }
               })}
               {showMore && uiState === 'loading' && (
                 <>
