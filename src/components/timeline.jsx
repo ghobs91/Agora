@@ -542,7 +542,7 @@ function Timeline({
                 }
                 if (!status.reblog || (status.reblog && (!status.reblog.inReplyToAccountId && !status.reblog.inReplyToId))){
                   return (
-                    <li key={`timeline-${statusID + _pinned}`}>
+                    <li class="status-container" key={`timeline-${statusID + _pinned}`}>
                       <Link class="status-link timeline-item" to={url}>
                         {useItemID ? (
                           <Status

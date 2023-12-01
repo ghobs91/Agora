@@ -206,8 +206,8 @@ a[href^='http'][rel*='nofollow']:visited:not(:has(div)) {
 }
 
 .timeline {
-  margin: 0 auto;
-  padding: 0;
+  margin: 10px auto 0 auto;
+  padding: 0 5px 0 5px;
 }
 .timeline.grow {
   /* min-height: 100vh;
@@ -260,10 +260,6 @@ a[href^='http'][rel*='nofollow']:visited:not(:has(div)) {
 }
 .timeline.contextual > li.descendant {
   position: relative;
-}
-.status-link.timeline-item {
-  margin-bottom: 10px;
-  padding: 0 5px 0 5px;
 }
 .timeline.contextual > li.descendant {
   padding-bottom: 1em;

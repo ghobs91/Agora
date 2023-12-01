@@ -6,6 +6,8 @@
     var(--reblog-faded-color),
     transparent min(160px, 50%)
   );
+  border-radius: .75rem;
+  border: 1px solid #3a3a3a;
 }
 .status-group {
   background: linear-gradient(
@@ -13,6 +15,8 @@
     var(--group-faded-color),
     transparent min(160px, 50%)
   );
+  border-radius: .75rem;
+  border: 1px solid #3a3a3a;
 }
 .status-reply-to {
   background: linear-gradient(
@@ -89,6 +93,7 @@
   padding-bottom: 8px;
   background-image: var(--fade-in-out-bg);
   border-radius: 0;
+  margin-bottom: 10px;
 }
 .status.large.visibility-direct {
   background-image: var(--fade-in-out-bg), var(--yellow-stripes);
@@ -1638,6 +1643,10 @@ a.card:is(:hover, :focus):visited {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.status-container {
+  margin-bottom: 10px !important;
 }
 
 #filtered-status-peek {
