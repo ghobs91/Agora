@@ -109,7 +109,6 @@ function Login() {
   return (
     <main id="login" style={{ textAlign: 'center' }}>
       <form onSubmit={onSubmit}>
-        <h1>Log in</h1>
         <label>
           <p>Instance</p>
           <input
@@ -162,20 +161,104 @@ function Login() {
         )}
         <div>
           <button class="large" disabled={uiState === 'loading'}>
-            Log in
+            Log in with Mastodon
           </button>{' '}
         </div>
         <Loader hidden={uiState !== 'loading'} />
-        <hr />
+        {/* <hr /> */}
         <p>
         <button class="large" disabled={uiState === 'loading'}>
             Sign up
           </button>{' '}
         </p>
-        <p>
+        {/* <p>
           <Link to="/">Go home</Link>
-        </p>
+        </p> */}
       </form>
+      <hr />
+      <hr />
+      <form onSubmit={onSubmit}>
+        <label>
+          <input
+            value={"ditto.pub"}
+            required
+            type="text"
+            class="large hidden-login-input"
+            id="instanceURL"
+            ref={instanceURLRef}
+            disabled={uiState === 'loading'}
+            // list="instances-list"
+            autocorrect="off"
+            autocapitalize="off"
+            autocomplete="off"
+            spellcheck={false}
+            placeholder="instance domain"
+            onInput={(e) => {
+              setInstanceText(e.target.value);
+            }}
+          />
+          {/* <datalist id="instances-list">
+            {instancesList.map((instance) => (
+              <option value={instance} />
+            ))}
+          </datalist> */}
+        </label>
+        {uiState === 'error' && (
+          <p class="error">
+            Failed to log in. Please try again or another instance.
+          </p>
+        )}
+        <div>
+          <button class="large" disabled={uiState === 'loading'}>
+            Log in with Nostr
+          </button>{' '}
+        </div>
+        {/* <Loader hidden={uiState !== 'loading'} /> */}
+        <hr />
+      </form>
+      <hr />
+      <form onSubmit={onSubmit}>
+        <label>
+          <input
+            value={"skybridge.fly.dev"}
+            required
+            type="text"
+            class="large hidden-login-input"
+            id="instanceURL"
+            ref={instanceURLRef}
+            disabled={uiState === 'loading'}
+            // list="instances-list"
+            autocorrect="off"
+            autocapitalize="off"
+            autocomplete="off"
+            spellcheck={false}
+            placeholder="instance domain"
+            onInput={(e) => {
+              setInstanceText(e.target.value);
+            }}
+          />
+          {/* <datalist id="instances-list">
+            {instancesList.map((instance) => (
+              <option value={instance} />
+            ))}
+          </datalist> */}
+        </label>
+        {uiState === 'error' && (
+          <p class="error">
+            Failed to log in. Please try again or another instance.
+          </p>
+        )}
+        <div>
+          <button class="large" disabled={uiState === 'loading'}>
+            Log in with BlueSky
+          </button>{' '}
+        </div>
+        {/* <Loader hidden={uiState !== 'loading'} /> */}
+        <hr />
+      </form>
+      <p>
+        <Link to="/">Go home</Link>
+      </p>
     </main>
   );
 }
