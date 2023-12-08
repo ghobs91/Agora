@@ -306,6 +306,12 @@ a[href^='http'][rel*='nofollow']:visited:not(:has(div)) {
 .descendant.thread {
   padding: 0 10px 0 10px;
 }
+.timeline.flat.contextual.grow > .ancestor {
+  margin-top: 10px;
+}
+.timeline.flat.contextual.grow > .hero {
+  margin-top: 10px;
+}
 /* .timeline.contextual
   > li.descendant.thread
   > .status-link

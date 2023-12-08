@@ -59,6 +59,7 @@ import { isMediaCaptionLong } from './media';
 import MenuLink from './menu-link';
 import RelativeTime from './relative-time';
 import TranslationBlock from './translation-block';
+import { useLocation } from 'react-router-dom';
 
 const INLINE_TRANSLATE_LIMIT = 140;
 const throttle = pThrottle({
@@ -342,8 +343,12 @@ function Status({
   // - authenticated AND
   // - visibility != direct OR
   // - visibility = private AND isSelf
+  const location = useLocation();
+  const locationUrl = location.pathname;
   let canBoost =
     authenticated && visibility !== 'direct' && visibility !== 'private';
+  let cantLike = !canBoost
+  let cantReply = !canBoost
   if (visibility === 'private' && isSelf) {
     canBoost = true;
   }
@@ -1477,6 +1482,7 @@ function Status({
                   alt="Comments"
                   class="reply-button"
                   icon="comment"
+                  disabled = {cantReply}
                   count={repliesCount}
                   onClick={replyStatus}
                 />
@@ -1532,6 +1538,7 @@ function Status({
                   alt={['Favourite', 'Favourited']}
                   class="favourite-button"
                   icon="heart"
+                  disabled = {cantLike}
                   count={favouritesCount}
                   onClick={favouriteStatus}
                 />

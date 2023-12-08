@@ -34,9 +34,10 @@ function Trending({ columnMode, ...props }) {
   const snapStates = useSnapshot(states);
   const params = columnMode ? {} : useParams();
   const { masto, instance } = api({
-    instance: props?.instance || params.instance,
+    // instance: props?.instance || params.instance,
+    instance: "mastodon.social",
   });
-  const title = `Trending (${instance})`;
+  const title = `Trending`;
   useTitle(title, `/:instance?/trending`);
   // const navigate = useNavigate();
   const latestItem = useRef();

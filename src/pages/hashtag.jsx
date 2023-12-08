@@ -186,51 +186,52 @@ function Hashtags({ columnMode, ...props }) {
                         setFollowUIState('default');
                       });
                   } else {
-                    // masto.v1.tags
-                    //   .$select(hashtag)
-                      // .follow()
-                      // .then(
-                      (async () => {
-                        const bridgedLemmyWorldCommunityResponse = await masto.v2.search.fetch({
-                          q: `@${hashtag}@lemmy.world`,
-                          type: 'accounts',
-                          limit: 1,
-                          resolve: authenticated,
-                        });
-                        const bridgedLemmyMlCommunityResponse = await masto.v2.search.fetch({
-                          q: `@${hashtag}@lemmy.ml`,
-                          type: 'accounts',
-                          limit: 1,
-                          resolve: authenticated,
-                        });
-                        if (bridgedLemmyWorldCommunityResponse.accounts.length > 0) {
-                          const bridgedLemmyCommunity = bridgedLemmyWorldCommunityResponse.accounts[0];
-                          let newRelationship;
-                          newRelationship = await masto.v1.accounts
-                            .$select(bridgedLemmyCommunity.id)
-                            .follow();
-                          if (newRelationship) setRelationship(newRelationship);
-                          setRelationshipUIState('default');
-                        } else {
-                          const bridgedLemmyCommunity = bridgedLemmyMlCommunityResponse.accounts[0];
-                          let newRelationship;
-                          newRelationship = await masto.v1.accounts
-                            .$select(bridgedLemmyCommunity.id)
-                            .follow();
-                          if (newRelationship) setRelationship(newRelationship);
-                          setRelationshipUIState('default');
-                        }
-                        setInfo({ ...info, following: true });
-                        showToast(`Followed #${hashtag}`);
-                      })();
-                      // })
-                      // .catch((e) => {
-                      //   alert(e);
-                      //   console.error(e);
-                      // })
-                      // .finally(() => {
-                      //   setFollowUIState('default');
-                      // });
+                    masto.v1.tags
+                      .$select(hashtag)
+                      .follow()
+                      .then(() => {
+
+                      })
+                      .catch((e) => {
+                        alert(e);
+                        console.error(e);
+                      })
+                      .finally(() => {
+                        (async () => {
+                          const bridgedLemmyWorldCommunityResponse = await masto.v2.search.fetch({
+                            q: `@${hashtag}@lemmy.world`,
+                            type: 'accounts',
+                            limit: 1,
+                            resolve: authenticated,
+                          });
+                          const bridgedLemmyMlCommunityResponse = await masto.v2.search.fetch({
+                            q: `@${hashtag}@lemmy.ml`,
+                            type: 'accounts',
+                            limit: 1,
+                            resolve: authenticated,
+                          });
+                          if (bridgedLemmyWorldCommunityResponse.accounts.length > 0) {
+                            const bridgedLemmyCommunity = bridgedLemmyWorldCommunityResponse.accounts[0];
+                            let newRelationship;
+                            newRelationship = await masto.v1.accounts
+                              .$select(bridgedLemmyCommunity.id)
+                              .follow();
+                            if (newRelationship) setRelationship(newRelationship);
+                            setRelationshipUIState('default');
+                          } else {
+                            const bridgedLemmyCommunity = bridgedLemmyMlCommunityResponse.accounts[0];
+                            let newRelationship;
+                            newRelationship = await masto.v1.accounts
+                              .$select(bridgedLemmyCommunity.id)
+                              .follow();
+                            if (newRelationship) setRelationship(newRelationship);
+                            setRelationshipUIState('default');
+                          }
+                          setInfo({ ...info, following: true });
+                          showToast(`Followed #${hashtag}`);
+                        })();
+                        setFollowUIState('default');
+                      });
                   }
                 }}
               >
