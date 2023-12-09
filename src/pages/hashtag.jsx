@@ -161,7 +161,7 @@ function Hashtags({ columnMode, ...props }) {
               <MenuConfirm
                 subMenu
                 confirm={info.following}
-                confirmLabel={`Unfollow #${hashtag}?`}
+                confirmLabel={info.following ? `Unfollow #${hashtag}?` : `follow #${hashtag}?`}
                 disabled={followUIState === 'loading' || !authenticated}
                 onClick={() => {
                   setFollowUIState('loading');
@@ -198,28 +198,18 @@ function Hashtags({ columnMode, ...props }) {
                       })
                       .finally(() => {
                         (async () => {
-                          const bridgedLemmyWorldCommunityResponse = await masto.v2.search.fetch({
-                            q: `@${hashtag}@lemmy.world`,
+                          const matchedLemmyCommunity = await fetch(`https://sh.itjust.works/api/v3/search?q=${hashtag}&type_=Communities&limit=20&listing_type=All&sort=TopAll`, {method: "get"});
+                          const matchedLemmyCommunityResponse = await matchedLemmyCommunity.json();
+                          const matchedLemmyCommunityHandle = matchedLemmyCommunityResponse.communities[0].community.name + "@" + matchedLemmyCommunityResponse.communities[0].community.actor_id.replace('https://', '').split('/c/')[0]
+                          console.log(`matchedLemmyCommunityHandle: ${matchedLemmyCommunityHandle}`);
+                          const bridgedLemmyCommunityOnMastodon = await masto.v2.search.fetch({
+                            q: matchedLemmyCommunityHandle,
                             type: 'accounts',
                             limit: 1,
                             resolve: authenticated,
                           });
-                          const bridgedLemmyMlCommunityResponse = await masto.v2.search.fetch({
-                            q: `@${hashtag}@lemmy.ml`,
-                            type: 'accounts',
-                            limit: 1,
-                            resolve: authenticated,
-                          });
-                          if (bridgedLemmyWorldCommunityResponse.accounts.length > 0) {
-                            const bridgedLemmyCommunity = bridgedLemmyWorldCommunityResponse.accounts[0];
-                            let newRelationship;
-                            newRelationship = await masto.v1.accounts
-                              .$select(bridgedLemmyCommunity.id)
-                              .follow();
-                            if (newRelationship) setRelationship(newRelationship);
-                            setRelationshipUIState('default');
-                          } else {
-                            const bridgedLemmyCommunity = bridgedLemmyMlCommunityResponse.accounts[0];
+                          if (bridgedLemmyCommunityOnMastodon.accounts.length > 0) {
+                            const bridgedLemmyCommunity = bridgedLemmyCommunityOnMastodon.accounts[0];
                             let newRelationship;
                             newRelationship = await masto.v1.accounts
                               .$select(bridgedLemmyCommunity.id)

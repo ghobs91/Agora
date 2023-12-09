@@ -250,7 +250,7 @@ function Login() {
         )}
         <div>
           <button class="large" disabled={uiState === 'loading'}>
-            Log in with BlueSky
+            Log in with Bluesky
           </button>{' '}
         </div>
         {/* <Loader hidden={uiState !== 'loading'} /> */}
