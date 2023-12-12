@@ -3,7 +3,7 @@ import './settings.css';
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { useSnapshot } from 'valtio';
 
-import logo from '../assets/logo.svg';
+import logo from '../../public/logo-192.png';
 
 import Icon from '../components/icon';
 import Link from '../components/link';
