@@ -28,7 +28,7 @@ function Welcome() {
               marginBlockEnd: -16,
             }}
           />
-          <img src={logoText} alt="Phanpy" width="250" />
+          <img src={logoText} alt="Agora" width="250" />
         </h1>
         <p>
           <big>
@@ -100,7 +100,7 @@ function Welcome() {
       </div>
       <hr />
       <p>
-        <a href="https://github.com/cheeaun/phanpy" target="_blank">
+        <a href="https://github.com/ghobs91/phanpy" target="_blank">
           Built
         </a>{' '}
         by{' '}
@@ -116,7 +116,7 @@ function Welcome() {
         </a>
         .{' '}
         <a
-          href="https://github.com/cheeaun/phanpy/blob/main/PRIVACY.MD"
+          href="https://github.com/cheeaun/ghobs91/blob/main/PRIVACY.MD"
           target="_blank"
         >
           Privacy Policy

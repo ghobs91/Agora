@@ -448,21 +448,10 @@ function Settings({ onClose }) {
               }}
             />
             <div>
-              <b>Phanpy</b>{' '}
-              <a
-                href="https://hachyderm.io/@phanpy"
-                // target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => {
-                  e.preventDefault();
-                  states.showAccount = 'phanpy@hachyderm.io';
-                }}
-              >
-                @phanpy
-              </a>
+              <b>Agora</b>{' '}
               <br />
               <a
-                href="https://github.com/cheeaun/phanpy"
+                href="https://github.com/ghobs91/phanpy"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -470,15 +459,15 @@ function Settings({ onClose }) {
               </a>{' '}
               by{' '}
               <a
-                href="https://mastodon.social/@cheeaun"
+                href="https://fosstodon.org/@spiritedpause"
                 // target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => {
                   e.preventDefault();
-                  states.showAccount = 'cheeaun@mastodon.social';
+                  states.showAccount = 'spiritedpause@fosstodon.org';
                 }}
               >
-                @cheeaun
+                @spiritedpause
               </a>
             </div>
           </div>
@@ -492,7 +481,7 @@ function Settings({ onClose }) {
             </a>{' '}
             &middot;{' '}
             <a
-              href="https://www.buymeacoffee.com/cheeaun"
+              href="https://www.buymeacoffee.com/ghobs"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -500,7 +489,7 @@ function Settings({ onClose }) {
             </a>{' '}
             &middot;{' '}
             <a
-              href="https://github.com/cheeaun/phanpy/blob/main/PRIVACY.MD"
+              href="https://github.com/ghobs91/phanpy/blob/main/PRIVACY.MD"
               target="_blank"
               rel="noopener noreferrer"
             >
