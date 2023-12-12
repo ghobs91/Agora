@@ -94,6 +94,7 @@ function Status({
   allowFilters,
   onMediaClick,
   quoted,
+  isGroupStatus,
   onStatusLinkClick = () => {},
 }) {
   if (skeleton) {
@@ -247,6 +248,7 @@ function Status({
           <Status
             status={statusID ? null : reblog}
             statusID={statusID ? reblog.id : null}
+            isGroupStatus={true}
             instance={instance}
             size={size}
             contentTextWeight={contentTextWeight}
@@ -435,29 +437,52 @@ function Status({
     }
   };
 
-  const favouriteStatus = async () => {
-    if (!sameInstance || !authenticated) {
-      return alert(unauthInteractionErrorMessage);
-    }
-    try {
-      // Optimistic
-      states.statuses[sKey] = {
-        ...status,
-        favourited: !favourited,
-        favouritesCount: favouritesCount + (favourited ? -1 : 1),
-      };
-      if (favourited) {
-        const newStatus = await masto.v1.statuses.$select(id).unfavourite();
-        saveStatus(newStatus, instance);
-      } else {
-        const newStatus = await masto.v1.statuses.$select(id).favourite();
-        saveStatus(newStatus, instance);
+  const favouriteStatus = async (e) => {
+
+    if (!sameInstance) {
+      (async () => {
+        try {
+          const results = await currentInstance.v2.search.fetch({
+            q: url,
+            type: 'statuses',
+            resolve: true,
+            limit: 1,
+          });
+          if (results.statuses.length) {
+            const status = results.statuses[0];
+            location.hash = currentInstance
+              ? `/${currentInstance}/s/${status.id}`
+              : `/s/${status.id}`;
+          } else {
+            throw new Error('No results');
+          }
+        } catch (e) {
+          alert('Error: ' + e);
+          console.error(e);
+        }
+      })();
+    } else {
+      try {
+        // Optimistic
+        states.statuses[sKey] = {
+          ...status,
+          favourited: !favourited,
+          favouritesCount: favouritesCount + (favourited ? -1 : 1),
+        };
+        if (favourited) {
+          const newStatus = await masto.v1.statuses.$select(id).unfavourite();
+          saveStatus(newStatus, instance);
+        } else {
+          const newStatus = await masto.v1.statuses.$select(id).favourite();
+          saveStatus(newStatus, instance);
+        }
+      } catch (e) {
+        console.error(e);
+        // Revert optimistism
+        states.statuses[sKey] = status;
       }
-    } catch (e) {
-      console.error(e);
-      // Revert optimistism
-      states.statuses[sKey] = status;
     }
+
   };
 
   const bookmarkStatus = async () => {
@@ -1482,7 +1507,6 @@ function Status({
                   alt="Comments"
                   class="reply-button"
                   icon="comment"
-                  disabled = {cantReply}
                   count={repliesCount}
                   onClick={replyStatus}
                 />
@@ -1538,7 +1562,6 @@ function Status({
                   alt={['Favourite', 'Favourited']}
                   class="favourite-button"
                   icon="heart"
-                  disabled = {cantLike}
                   count={favouritesCount}
                   onClick={favouriteStatus}
                 />

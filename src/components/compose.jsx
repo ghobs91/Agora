@@ -454,7 +454,7 @@ function Compose({
         const item = items[i];
         if (item.kind === 'file') {
           const file = item.getAsFile();
-          if (file && supportedMimeTypes.includes(file.type)) {
+          if (file && supportedMimeTypes?.includes(file.type)) {
             files.push(file);
           }
         }
@@ -1014,7 +1014,7 @@ function Compose({
               <label class="toolbar-button">
                 <input
                   type="file"
-                  accept={supportedMimeTypes.join(',')}
+                  accept={supportedMimeTypes?.join(',')}
                   multiple={mediaAttachments.length < maxMediaAttachments - 1}
                   disabled={
                     uiState === 'loading' ||
