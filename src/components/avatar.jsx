@@ -8,7 +8,7 @@ const SIZES = {
   s: 16,
   m: 20,
   l: 24,
-  xl: 32,
+  xl: 40,
   xxl: 50,
   xxxl: 64,
 };

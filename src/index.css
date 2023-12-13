@@ -40,7 +40,7 @@
   --button-bg-blur-color: #4169e1aa;
   --button-text-color: white;
   --button-plain-bg-hover-color: rgba(128, 128, 128, 0.1);
-  --reblog-color: var(--purple-color);
+  --reblog-color: rgb(0, 186, 124);
   --reblog-faded-color: #892be220;
   --group-color: var(--green-color);
   --group-faded-color: #00640020;

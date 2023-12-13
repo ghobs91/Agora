@@ -4,6 +4,10 @@
   gap: 8px;
   color: var(--text-color);
   text-decoration: none;
+  background-color: #323232;
+  padding: 10px;
+  border-radius: 10px;
+  width: 259px;
 }
 .account-block:hover b {
   text-decoration: underline;
@@ -14,14 +18,16 @@
 }
 
 .account-block .short-desc {
-  max-height: 1.2em; /* just in case clamping ain't working */
+  max-height: 3.2em; /* just in case clamping ain't working */
 }
 .account-block .short-desc,
 .account-block .short-desc > * {
   display: -webkit-box;
-  -webkit-line-clamp: 1;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  font-size: 15px;
+  margin-top: 5px;
 }
 .account-block .short-desc > * + * {
   display: none;

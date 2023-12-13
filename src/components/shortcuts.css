@@ -121,7 +121,7 @@
   overflow: hidden;
 }
 .home-tab-bar li a.is-active {
-  color: var(--link-color);
+  color: var(--button-bg-blur-color);
   background-image: radial-gradient(
     closest-side at 50% 50%,
     var(--bg-color),
