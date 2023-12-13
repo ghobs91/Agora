@@ -44,6 +44,21 @@ const SearchForm = forwardRef((props, ref) => {
             const params = {
               q: query,
             };
+            if (instance === "ditto.pub") {
+              console.log(`instance === "ditto.pub"`)
+            } else if (instance === "skybridge.fly.dev") {
+              console.log(`instance === "skybridge.fly.dev"`)
+            } else {
+              if (query.indexOf("@") === -1) {
+                if (query.indexOf("bsky.social") > -1 || query.indexOf("bsky.team") > -1) {
+                  params.q += "@atproto.brid.gy"
+                } else if (query.match(/^[0-9a-fA-F]{64}$/)) {
+                  params.q += "@mostr.pub"
+                }
+              } else if (query.indexOf("@twitter.com") > -1) {
+                params.q.replace("twitter.com", "bird.makeup");
+              }
+            }
             if (type) params.type = type; // Preserve type
             setSearchParams(params);
           } else {
