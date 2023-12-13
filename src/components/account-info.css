@@ -635,6 +635,7 @@
     letter-spacing: -0.5px;
     mix-blend-mode: multiply;
     gap: 12px;
+    background-color: transparent;
   }
   .timeline-start .account-container header .account-block .avatar {
     width: 112px !important;
