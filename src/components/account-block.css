@@ -4,7 +4,7 @@
   gap: 8px;
   color: var(--text-color);
   text-decoration: none;
-  background-color: #323232;
+  background-color: var(--bg-faded-color);
   padding: 10px;
   border-radius: 10px;
   width: 100%;

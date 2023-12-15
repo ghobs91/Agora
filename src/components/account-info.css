@@ -403,6 +403,21 @@
 }
 .timeline-start .account-container .account-block .account-block-acct {
   opacity: 0.5;
+  color: var(--text-insignificant-color);
+}
+
+div.timeline-start div.account-container header a.account-block span div.short-desc {
+  display: none;
+}
+
+div.sheet div.account-container header a.account-block span div.short-desc {
+  display: none;
+}
+
+.account-block-acct {
+  border: 1px solid white;
+  padding: 0 5px;
+  border-radius: 10px;
 }
 
 @keyframes swoosh-bg-image {
