@@ -6,7 +6,7 @@ import multiColumnUrl from '../assets/features/multi-column.jpg';
 import multiHashtagTimelineUrl from '../assets/features/multi-hashtag-timeline.jpg';
 import nestedCommentsThreadUrl from '../assets/features/nested-comments-thread.jpg';
 import logoText from '../assets/logo-text.svg';
-import logo from '../assets/logo.svg';
+import logo from '../assets/logo.png';
 
 import Link from '../components/link';
 import states from '../utils/states';
@@ -28,7 +28,7 @@ function Welcome() {
               marginBlockEnd: -16,
             }}
           />
-          <img src={logoText} alt="Agora" width="250" />
+          <h2>Agora</h2>
         </h1>
         <p>
           <big>
@@ -39,7 +39,7 @@ function Welcome() {
             </b>
           </big>
         </p>
-        <p class="desc">A minimalistic opinionated Mastodon web client.</p>
+        <p class="desc">Follow your interests, and learn new things!</p>
       </div>
       <div id="why-container">
         <div class="sections">
@@ -105,18 +105,18 @@ function Welcome() {
         </a>{' '}
         by{' '}
         <a
-          href="https://mastodon.social/@cheeaun"
+          href="https://fosstodon.org/@spiritedpause"
           target="_blank"
           onClick={(e) => {
             e.preventDefault();
-            states.showAccount = 'cheeaun@mastodon.social';
+            states.showAccount = 'spiritedpause@fosstodon.org';
           }}
         >
-          @cheeaun
+          @spiritedpause
         </a>
         .{' '}
         <a
-          href="https://github.com/cheeaun/ghobs91/blob/main/PRIVACY.MD"
+          href="https://github.com/ghobs91/phanpy/blob/main/PRIVACY.MD"
           target="_blank"
         >
           Privacy Policy

@@ -176,7 +176,6 @@ function Login() {
         </p> */}
       </form>
       <hr />
-      <hr />
       <form onSubmit={onSubmit}>
         <label>
           <input
@@ -209,14 +208,13 @@ function Login() {
           </p>
         )}
         <div>
-          <button class="large" disabled={uiState === 'loading'}>
+          <button class="large nostr-login-button" disabled={uiState === 'loading'}>
             Log in with Nostr
           </button>{' '}
         </div>
         {/* <Loader hidden={uiState !== 'loading'} /> */}
         <hr />
       </form>
-      <hr />
       <form onSubmit={onSubmit}>
         <label>
           <input
@@ -249,7 +247,7 @@ function Login() {
           </p>
         )}
         <div>
-          <button class="large" disabled={uiState === 'loading'}>
+          <button class="large bluesky-login-button" disabled={uiState === 'loading'}>
             Log in with Bluesky
           </button>{' '}
         </div>

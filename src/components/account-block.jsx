@@ -106,7 +106,7 @@ function AccountBlock({
         <span class="account-block-acct">
           @{acct1}
           <wbr />
-          {acct2}
+          {acct2.replace("@atproto.brid.gy", "")}
         </span>
         {showActivity && (
           <>
