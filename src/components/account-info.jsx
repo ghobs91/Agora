@@ -264,8 +264,27 @@ function AccountInfo({
     return results;
   }
 
+  const getAccountLink = async () => {
+    if (api().instance === "ditto.pub") {
+      (async () => {
+        console.log(`account.username: ${account.username}`)
+        const accountInstanceBase = account.url.split("/@")[0].replace("https://", "");
+        const handleFormattedForMostr = account.username + "_at_" + accountInstanceBase;
+        const matchedMostrHexPing = await fetch(`https://mostr.pub/.well-known/nostr.json?name=${handleFormattedForMostr}`, {method: "get"});
+        const matchedMostrHexPingResponse = await matchedMostrHexPing.json();
+        const matchedMostrHex = matchedMostrHexPingResponse["names"][handleFormattedForMostr]
+        const accountLink = `/${instance}/a/${matchedMostrHex}`
+      })().then((accountLink) => {
+        return accountLink;
+      })
+    } else {
+      const accountLink = instance ? `/${instance}/a/${id}` : `/a/${id}`;
+      return accountLink;
+    }
+  }
+
   const LinkOrDiv = standalone ? 'div' : Link;
-  const accountLink = instance ? `/${instance}/a/${id}` : `/a/${id}`;
+  const accountLink = getAccountLink();
 
   const [familiarFollowers, setFamiliarFollowers] = useState([]);
   const [postingStats, setPostingStats] = useState();

@@ -7,7 +7,7 @@
   background-color: #323232;
   padding: 10px;
   border-radius: 10px;
-  min-width: 259px;
+  width: 100%;
 }
 .account-block:hover b {
   text-decoration: underline;

@@ -95,12 +95,14 @@ function AccountBlock({
             <br />
           </>
         )}
+        {/\/a/.test(location.hash) && (
         <div
           class="short-desc"
           dangerouslySetInnerHTML={{
             __html: enhanceContent(note, { emojis }),
           }}
         />
+        )}
         <span class="account-block-acct">
           @{acct1}
           <wbr />

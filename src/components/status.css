@@ -153,7 +153,8 @@
   padding: 12px;
   border: 1px solid var(--outline-color);
   background-color: var(--bg-color);
-  box-shadow: inset 0 0 4px var(--outline-color);
+  /* box-shadow: inset 0 0 4px var(--outline-color); */
+  box-shadow: 0 0 10px rgba(0,0,0,0.74902);
   /* box-shadow: inset 0 0 0 2px var(--bg-faded-color); */
   /* filter: drop-shadow(0 2px 4px var(--bg-faded-color)); */
 }
@@ -1392,7 +1393,7 @@ a.card:is(:hover, :focus):visited {
 }
 .status.large .extra-meta {
   padding-top: 0;
-  margin-left: calc(-50px - 16px);
+  margin-left: calc(20px - 16px);
 }
 
 /* ACTIONS */

@@ -309,8 +309,9 @@ a[href^='http'][rel*='nofollow']:visited:not(:has(div)) {
 .timeline.flat.contextual.grow > .ancestor {
   margin-top: 10px;
 }
-.timeline.flat.contextual.grow > .hero {
-  margin-top: 10px;
+.timeline.flat.contextual.grow {
+  padding: 0 !important;
+  margin-top: 0;
 }
 /* .timeline.contextual
   > li.descendant.thread
@@ -739,6 +740,7 @@ a[href^='http'][rel*='nofollow']:visited:not(:has(div)) {
   -webkit-tap-highlight-color: transparent;
   animation: appear 0.2s ease-out;
   -webkit-touch-callout: none;
+  border-radius: .75rem !important;
 }
 @media (pointer: coarse) {
   .status-focus:not(.hero .status-focus) {
