@@ -58,6 +58,8 @@ import Icon from './components/icon';
 import AsyncText from './components/AsyncText';
 import ImportFriends from './pages/importFriends';
 import ImportTwitter from './pages/importTwitter';
+import Modal from './components/modal';
+import ListManageMembers from './pages/list';
 
 window.__STATES__ = states;
 
@@ -286,6 +288,21 @@ function App() {
           <Route path="/:instance?/s/:id" element={<StatusRoute />} />
         </Routes>
       )}
+            {/* {true && (
+        <Modal
+          class="light"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setShowManageMembersModal(false);
+            }
+          }}
+        >
+          <ListManageMembers
+            listID={"8133"}
+            onClose={() => setShowManageMembersModal(false)}
+          />
+        </Modal>
+      )} */}
       {isLoggedIn && <ComposeButton />}
       {isLoggedIn &&
         !snapStates.settings.shortcutsColumnsMode &&

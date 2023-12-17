@@ -88,6 +88,21 @@ function Login() {
     submitInstance(instanceURL);
   };
 
+  const onSignupSubmit = (e) => {
+    e.preventDefault();
+    const { elements } = e.target;
+    let instanceURL = "https://mastodon.social"
+    // Remove @acct@ or acct@ from instance URL
+    instanceURL = instanceURL.replace(/^@?[^@]+@/, '');
+    if (!/\./.test(instanceURL)) {
+      instanceURL = instancesList.find((instance) =>
+        instance.includes(instanceURL),
+      );
+    }
+    const signupURL = instanceURL + "/auth/sign_up"
+    window.open(signupURL, '_blank').focus();
+  };
+
   const instancesSuggestions = instanceText
     ? instancesList
         .filter((instance) => instance.includes(instanceText))
@@ -166,11 +181,11 @@ function Login() {
         </div>
         <Loader hidden={uiState !== 'loading'} />
         {/* <hr /> */}
-        <p>
+        {/* <p>
         <button class="large" disabled={uiState === 'loading'}>
             Sign up
           </button>{' '}
-        </p>
+        </p> */}
         {/* <p>
           <Link to="/">Go home</Link>
         </p> */}
@@ -249,6 +264,45 @@ function Login() {
         <div>
           <button class="large bluesky-login-button" disabled={uiState === 'loading'}>
             Log in with Bluesky
+          </button>{' '}
+        </div>
+        {/* <Loader hidden={uiState !== 'loading'} /> */}
+        <hr />
+      </form>
+      <form onSubmit={onSignupSubmit}>
+        <label>
+          <input
+            value={"skybridge.fly.dev"}
+            required
+            type="text"
+            class="large hidden-login-input"
+            id="instanceURL"
+            ref={instanceURLRef}
+            disabled={uiState === 'loading'}
+            // list="instances-list"
+            autocorrect="off"
+            autocapitalize="off"
+            autocomplete="off"
+            spellcheck={false}
+            placeholder="instance domain"
+            onInput={(e) => {
+              setInstanceText(e.target.value);
+            }}
+          />
+          {/* <datalist id="instances-list">
+            {instancesList.map((instance) => (
+              <option value={instance} />
+            ))}
+          </datalist> */}
+        </label>
+        {uiState === 'error' && (
+          <p class="error">
+            Failed to log in. Please try again or another instance.
+          </p>
+        )}
+        <div>
+          <button class="large" disabled={uiState === 'loading'}>
+            Sign up
           </button>{' '}
         </div>
         {/* <Loader hidden={uiState !== 'loading'} /> */}

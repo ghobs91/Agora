@@ -33,6 +33,7 @@ const fetchLinks = pmem(
 function Trending({ columnMode, ...props }) {
   const snapStates = useSnapshot(states);
   const params = columnMode ? {} : useParams();
+  const [uiState, setUIState] = useState('default');
   const { masto, instance } = api({
     // instance: props?.instance || params.instance,
     instance: "mastodon.social",
@@ -78,21 +79,44 @@ function Trending({ columnMode, ...props }) {
       }
     }
     const results = await trendIterator.current.next();
-    let { value } = results;
-    if (value?.length) {
-      if (firstLoad) {
-        latestItem.current = value[0].id;
-      }
 
-      value = filteredItems(value, 'public'); // Might not work here
-      value.forEach((item) => {
-        saveStatus(item, instance);
-      });
+    
+    async function getBridgedProfileUrl(result) {
+      // results.value.forEach(async (result) => {
+        if (result.account.url.indexOf("mostr.pub") === -1) {
+          const accountInstanceBase = result.account.url.split("/@")[0].replace("https://", "");
+          const handleFormattedForMostr = result.account.username + "_at_" + accountInstanceBase;
+          const matchedMostrHexPing = await fetch(`https://mostr.pub/.well-known/nostr.json?name=${handleFormattedForMostr}`, {method: "get"});
+          const matchedMostrHexPingResponse = await matchedMostrHexPing.json();
+          if (matchedMostrHexPingResponse && matchedMostrHexPingResponse["names"]) {
+            const matchedMostrHex = matchedMostrHexPingResponse["names"][handleFormattedForMostr]
+            result.account.url = `https://ditto.pub/a/${matchedMostrHex}`
+          }
+          saveStatus(result, instance);
+        } else {
+          saveStatus(result, instance);
+        }
+      // });
     }
-    return {
-      ...results,
-      value,
-    };
+
+    // getBridgedProfileUrls(results).then(() => {
+      let { value } = results;
+      if (value?.length) {
+        if (firstLoad) {
+          latestItem.current = value[0].id;
+        }
+  
+        value = filteredItems(value, 'public'); // Might not work here
+        value.forEach((item) => {
+          getBridgedProfileUrl(item);
+        });
+      }
+      return {
+        ...results,
+        value,
+      };
+    // })
+
   }
 
   async function checkForUpdates() {
