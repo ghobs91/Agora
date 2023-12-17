@@ -8,6 +8,7 @@ import states from '../utils/states';
 import Avatar from './avatar';
 import EmojiText from './emoji-text';
 import Icon from './icon';
+import { api } from '../utils/api';
 
 function AccountBlock({
   skeleton,
@@ -71,16 +72,21 @@ function AccountBlock({
         e.preventDefault();
         if (onClick) return onClick(e);
         if (internal) {
-          (async () => {
-            const userId = url.split("users/")[1]
-            const dittoProfileCall = await fetch(`https://ditto.pub/api/v1/accounts/${userId}`, {method: "get"});
-            const dittoProfileCallResponse = await dittoProfileCall.json();
-            if (dittoProfileCallResponse.length) {
-              location.hash = url.replace("https:/", "").replace("users", "a");
-            } else {
-              location.hash = `/${instance}/a/${id}`;
-            }
-          })();
+          const myCurrentInstance = api().instance;
+          if (myCurrentInstance === "ditto.pub") {
+            (async () => {
+              const userId = url.split("users/")[1]
+              const dittoProfileCall = await fetch(`https://ditto.pub/api/v1/accounts/${userId}`, {method: "get"});
+              const dittoProfileCallResponse = await dittoProfileCall.json();
+              if (dittoProfileCallResponse.length) {
+                location.hash = url.replace("https:/", "").replace("users", "a");
+              } else {
+                location.hash = `/${instance}/a/${id}`;
+              }
+            })();
+          } else {
+            location.hash = `/${instance}/a/${id}`;
+          }
         } else {
           states.showAccount = {
             account,
