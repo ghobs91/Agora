@@ -91,6 +91,7 @@ function Login() {
   const onSignupSubmit = (e) => {
     e.preventDefault();
     const { elements } = e.target;
+    document.getElementById("instanceURL").value = "mastodon.social"
     let instanceURL = "https://mastodon.social"
     // Remove @acct@ or acct@ from instance URL
     instanceURL = instanceURL.replace(/^@?[^@]+@/, '');
@@ -304,6 +305,7 @@ function Login() {
           <button class="large" disabled={uiState === 'loading'}>
             Sign up
           </button>{' '}
+          <div id="instances-eg">After you finish signing up, come back here and click "Log in with Mastodon"!</div>
         </div>
         {/* <Loader hidden={uiState !== 'loading'} /> */}
         <hr />
