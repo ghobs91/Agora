@@ -265,7 +265,9 @@ function AccountInfo({
   }
 
   const LinkOrDiv = standalone ? 'div' : Link;
-  const accountLink = instance ? `/${instance}/a/${id}` : `/a/${id}`;
+  // const accountLink = instance ? `/${instance}/a/${id}` : `/a/${id}`;
+  const myCurrentInstance = api().instance;
+  const accountLink = myCurrentInstance ? `/${myCurrentInstance}/a/${id}` : `/a/${id}`;
 
   const [familiarFollowers, setFamiliarFollowers] = useState([]);
   const [postingStats, setPostingStats] = useState();

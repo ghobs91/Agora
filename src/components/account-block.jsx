@@ -71,8 +71,16 @@ function AccountBlock({
         e.preventDefault();
         if (onClick) return onClick(e);
         if (internal) {
-          // navigate(`/${instance}/a/${id}`);
-          location.hash = `/${instance}/a/${id}`;
+          (async () => {
+            const userId = url.split("users/")[1]
+            const dittoProfileCall = await fetch(`https://ditto.pub/api/v1/accounts/${userId}`, {method: "get"});
+            const dittoProfileCallResponse = await dittoProfileCall.json();
+            if (dittoProfileCallResponse.length) {
+              location.hash = url.replace("https:/", "").replace("users", "a");
+            } else {
+              location.hash = `/${instance}/a/${id}`;
+            }
+          })();
         } else {
           states.showAccount = {
             account,
@@ -106,7 +114,7 @@ function AccountBlock({
         <span class="account-block-acct">
           @{acct1}
           <wbr />
-          {acct2.replace("@atproto.brid.gy", "")}
+          {acct2?.replace("@atproto.brid.gy", "")}
         </span>
         {showActivity && (
           <>

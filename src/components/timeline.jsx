@@ -284,7 +284,7 @@ function Timeline({
       id: 'trending',
       title: 'Trending',
       subtitle: '',
-      path: `/${instance}/trending`,
+      path: `/mastodon.social/trending`,
       icon: 'chart',
     },
     {

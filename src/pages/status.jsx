@@ -909,7 +909,7 @@ function StatusThread({ id, closeLink = '/', instance: propInstance }) {
                 <span class="hero-heading">
                   <NameText
                     account={heroStatus.account}
-                    instance={instance}
+                    instance={currentmasto}
                     showAvatar
                     short
                   />{' '}

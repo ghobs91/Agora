@@ -34,6 +34,7 @@ function Trending({ columnMode, ...props }) {
   const snapStates = useSnapshot(states);
   const params = columnMode ? {} : useParams();
   const [uiState, setUIState] = useState('default');
+
   const { masto, instance } = api({
     // instance: props?.instance || params.instance,
     instance: "mastodon.social",
@@ -82,21 +83,24 @@ function Trending({ columnMode, ...props }) {
 
     
     async function getBridgedProfileUrl(result) {
-      // results.value.forEach(async (result) => {
-        if (result.account.url.indexOf("mostr.pub") === -1) {
-          const accountInstanceBase = result.account.url.split("/@")[0].replace("https://", "");
-          const handleFormattedForMostr = result.account.username + "_at_" + accountInstanceBase;
-          const matchedMostrHexPing = await fetch(`https://mostr.pub/.well-known/nostr.json?name=${handleFormattedForMostr}`, {method: "get"});
-          const matchedMostrHexPingResponse = await matchedMostrHexPing.json();
-          if (matchedMostrHexPingResponse && matchedMostrHexPingResponse["names"]) {
-            const matchedMostrHex = matchedMostrHexPingResponse["names"][handleFormattedForMostr]
-            result.account.url = `https://ditto.pub/a/${matchedMostrHex}`
+        const myCurrentInstance = api().instance;
+        if (myCurrentInstance === "ditto.pub") {
+          if (result.account.url.indexOf("mostr.pub") === -1) {
+            const accountInstanceBase = result.account.url.split("/@")[0].replace("https://", "");
+            const handleFormattedForMostr = result.account.username + "_at_" + accountInstanceBase;
+            const matchedMostrHexPing = await fetch(`https://mostr.pub/.well-known/nostr.json?name=${handleFormattedForMostr}`, {method: "get"});
+            const matchedMostrHexPingResponse = await matchedMostrHexPing.json();
+            if (matchedMostrHexPingResponse && matchedMostrHexPingResponse["names"]) {
+              const matchedMostrHex = matchedMostrHexPingResponse["names"][handleFormattedForMostr]
+              result.account.url = `https://ditto.pub/users/${matchedMostrHex}`
+            }
+            saveStatus(result, instance);
+          } else {
+            saveStatus(result, instance);
           }
-          saveStatus(result, instance);
         } else {
           saveStatus(result, instance);
         }
-      // });
     }
 
     // getBridgedProfileUrls(results).then(() => {
