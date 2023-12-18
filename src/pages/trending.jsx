@@ -36,7 +36,7 @@ function Trending({ columnMode, ...props }) {
   const [uiState, setUIState] = useState('default');
 
   const { masto, instance } = api({
-    instance: props?.instance || params.instance,
+    instance: params.instance === 'ditto.pub' ? 'mastodon.social' : props?.instance || params.instance,
   });
   const title = `Trending`;
   useTitle(title, `/:instance?/trending`);

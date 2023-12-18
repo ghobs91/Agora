@@ -81,6 +81,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [uiState, setUIState] = useState('loading');
   const instanceURL = store.local.get('instanceURL');
+  const { instance } = api();
   const formattedShortcuts = [
     {
       icon: "home",
