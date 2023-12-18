@@ -415,9 +415,7 @@ div.sheet div.account-container header a.account-block span div.short-desc {
 }
 
 .account-block-acct {
-  border: 1px solid white;
   padding: 0 5px;
-  border-radius: 10px;
 }
 
 @keyframes swoosh-bg-image {

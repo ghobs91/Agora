@@ -22,7 +22,7 @@ function NameText({
   const [_, acct1, acct2] = acct.match(/([^@]+)(@.+)/i) || [, acct];
 
   const trimmedUsername = username.toLowerCase().trim();
-  if ((acct.indexOf('mostr.pub') >= 0) && displayName) {
+  if ((acct.indexOf('mostr.pub') >= -1) && displayName) {
     username = `${displayName}`;
   }
   const trimmedDisplayName = (displayName || '').toLowerCase().trim();
@@ -89,7 +89,7 @@ function NameText({
         <>
           <br />
           <i>
-            @{username}
+            @{username ? username : acct1}
             <span class="ib">{acct2}</span>
           </i>
         </>

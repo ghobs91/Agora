@@ -118,9 +118,11 @@ function AccountBlock({
         />
         )}
         <span class="account-block-acct">
-          @{acct1}
+          @{acct1.replace("_at_", "@")}
           <wbr />
-          {acct2?.replace("@atproto.brid.gy", "")}
+          {acct2?.indexOf("@atproto.brid.gy") > -1 ? "(Bluesky)" : acct2?.indexOf("@mostr.pub") > -1 ? "(Nostr)" : ""}
+          <wbr />
+          {acct2?.replace("@atproto.brid.gy", "").replace("@mostr.pub", "")}
         </span>
         {showActivity && (
           <>
