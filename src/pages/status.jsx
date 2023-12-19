@@ -267,7 +267,7 @@ function StatusThread({ id, closeLink = '/', instance: propInstance }) {
 
       // Automatically switch to users instance to allow interacting with a status
       
-      if (myCurrentInstance != 'ditto.pub' && myCurrentInstance != 'skybridge.fly.dev') {
+      if (myCurrentInstance != 'ditto.pub' && myCurrentInstance != 'skybridge.fly.dev' && heroStatus.account.acct.indexOf("mostr.pub") === -1) {
         setUIState('loading');
         (async () => {
           try {

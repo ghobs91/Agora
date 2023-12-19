@@ -1509,6 +1509,7 @@ function Status({
                   icon="comment"
                   count={repliesCount}
                   onClick={replyStatus}
+                  disabled={!canBoost}
                 />
               </div>
               <div class="action has-count">
@@ -1564,6 +1565,7 @@ function Status({
                   icon="heart"
                   count={favouritesCount}
                   onClick={favouriteStatus}
+                  disabled={!canBoost}
                 />
               </div>
               <div class="action">
@@ -1574,6 +1576,7 @@ function Status({
                   class="bookmark-button"
                   icon="bookmark"
                   onClick={bookmarkStatus}
+                  disabled={!canBoost}
                 />
               </div>
               <Menu
