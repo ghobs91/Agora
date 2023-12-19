@@ -58,7 +58,7 @@ export default defineConfig({
         id: CLIENT_ID,
         name: CLIENT_NAME,
         short_name: CLIENT_NAME,
-        description: 'Minimalistic opinionated Mastodon web client',
+        description: 'Follow your interests across social networks!',
         theme_color: '#ffffff',
         icons: [
           {
