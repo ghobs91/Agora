@@ -40,6 +40,7 @@ function Welcome() {
           </big>
         </p>
         <p class="desc">Follow your interests across social networks!</p>
+        <p class="desc">To install as an app, tap your browsers share button and then "Add to Home Screen"</p>
       </div>
       <div id="why-container">
         <div class="sections">
