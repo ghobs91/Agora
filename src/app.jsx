@@ -310,7 +310,7 @@ function App() {
         snapStates.settings.shortcutsViewMode !== 'multi-column' && (
           <Shortcuts />
         )}
-        <nav class="tab-bar">
+        {isLoggedIn && <nav class="tab-bar">
           <ul>
             {formattedShortcuts.map(
               ({ id, path, title, subtitle, icon }, i) => {
@@ -351,7 +351,8 @@ function App() {
               },
             )}
           </ul>
-        </nav>
+        </nav>}
+
       <Modals />
       {isLoggedIn && <NotificationService />}
       <BackgroundService isLoggedIn={isLoggedIn} />

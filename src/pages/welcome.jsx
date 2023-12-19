@@ -39,7 +39,7 @@ function Welcome() {
             </b>
           </big>
         </p>
-        <p class="desc">Follow your interests, and learn new things!</p>
+        <p class="desc">Follow your interests across social networks!</p>
       </div>
       <div id="why-container">
         <div class="sections">

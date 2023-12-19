@@ -56,7 +56,8 @@ const SearchForm = forwardRef((props, ref) => {
                   params.q += "@mostr.pub"
                 }
               } else if (query.indexOf("@twitter.com") > -1) {
-                params.q.replace("twitter.com", "bird.makeup");
+                const replacedString = params.q.replace("twitter.com", "bird.makeup")
+                params.q = replacedString
               }
             }
             if (type) params.type = type; // Preserve type

@@ -358,7 +358,10 @@ function Search(props) {
             </p>
           ) : (
             <p class="ui-state">
-              Enter your search term or paste a URL above to get started.
+              <p class="ui-state">To find a Mastodon profile, search their handle in this format: <strong>@gargron@mastodon.social</strong></p>
+              <p class="ui-state">To find a Bluesky profile, search their handle in this format: <strong>andrew.bsky.social</strong></p>
+              <p class="ui-state">To find a Nostr profile, search their profile hex code in this format: <strong>b17c59874dc05d7f6ec975bce04770c8b7fa9d37f3ad0096fdb76c9385d68928@mostr.pub</strong></p>
+              <p class="ui-state">To find a Twitter profile, search their handle in this format: <strong>elonmusk@twitter.com</strong></p>
             </p>
           )}
         </main>
