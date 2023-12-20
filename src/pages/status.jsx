@@ -271,8 +271,9 @@ function StatusThread({ id, closeLink = '/', instance: propInstance }) {
         setUIState('loading');
         (async () => {
           try {
+            const apiEndpoint = currentMasto ? currentMasto : myCurrentInstance
             const results =
-              await currentMasto.v2.search.fetch({
+              await apiEndpoint.v2.search.fetch({
                 q: heroStatus.url,
                 type: 'statuses',
                 resolve: true,
@@ -759,7 +760,7 @@ function StatusThread({ id, closeLink = '/', instance: propInstance }) {
                       setUIState('loading');
                       (async () => {
                         try {
-                          const results = await currentMasto.v2.search.fetch({
+                          const results = await currentMasto?.v2.search.fetch({
                             q: heroStatus.url,
                             type: 'statuses',
                             resolve: true,
@@ -913,7 +914,7 @@ function StatusThread({ id, closeLink = '/', instance: propInstance }) {
                 <span class="hero-heading">
                   <NameText
                     account={heroStatus.account}
-                    instance={currentmasto ? currentMasto : instance}
+                    instance={currentMasto ? currentMasto : instance}
                     showAvatar
                     short
                   />{' '}
