@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="design/logo-4.svg" width="128" height="128" alt="">
+  <img src="public/logo-192.png" width="128" height="128" alt="">
 
 Agora
 ===
@@ -12,8 +12,8 @@ Agora
 ## Features
 - You can log in to a Mastodon, Bluesky, or Nostr account on Agora and it'll pull in your following/followers list from that account, while still allowing you to view/interact with posts from the other 2 protocols using bridges behind the scenes.
 - Intelligently loads your instance's version of a post so that you can like/boost/comment on it without having to think about what instance it's on.
-- I've integrated those bridges into the search, so that if you search for a Bluesky handle like aoc.bsky.social or a nostr users hex code, and it'll automatically know to use the bridges for those protocols and search for the bridged profile. You can even search for elonmusk@twitter.com and it'll treat Twitter like another instance, and load up the bridged version of the account!
-- When you follow a hashtag like #linux, it'll automatically follow the corresponding Lemmy community for that topic, so that for example, you'd see posts from linux@lemmy.ml in your feed.
+- I've integrated those bridges into the search, so that if you search for a Bluesky handle like [aoc.bsky.social](https://agorasocial.app/#/fosstodon.org/a/111133786401697678) or a nostr users hex code like [Jack Dorsey's](https://agorasocial.app/#/fosstodon.org/a/109934331230225572), and it'll automatically know to use the bridges for those protocols and search for the bridged profile. You can even search for [elonmusk@twitter.com](https://agorasocial.app/#/fosstodon.org/a/109418526633386531) and it'll treat Twitter like another instance, and load up the bridged version of the account!
+- When you follow a hashtag like #linux, it'll automatically follow the corresponding [Lemmy community](https://agorasocial.app/#/fosstodon.org/a/107294672647205675) for that topic in your feed.
 - 👪 Multiple accounts
 - 🪟 Compose window pop-out/in
 - 🌗 Light/dark/auto theme
@@ -87,7 +87,7 @@ Prerequisites: Node.js 18+
 
 This is a **pure static web app**. You can host it anywhere you want. Build it by running `npm run build` (after `npm install`) and serve the `dist` folder.
 
-Try search for "how to self-host static sites" as there are many ways to do it.
+I personally use Vercel to host Agora.
 
 ## Tech stack
 
@@ -101,36 +101,6 @@ Try search for "how to self-host static sites" as there are many ways to do it.
 - Vanilla CSS - *Yes, I'm old school.*
 
 Some of these may change in the future. The front-end world is ever-changing.
-
-## Costs
-
-Costs involved in running and developing this web app:
-
-- Domain name (.social): **USD$23.18/year** (USD$6.87 1st year)
-- Hosting: Free
-- Development, design, maintenance: "Free" (My precious time)
-
-## Mascot
-
-[Phanpy](https://bulbapedia.bulbagarden.net/wiki/Phanpy_(Pok%C3%A9mon)) is a Ground-type Pokémon.
-
-## Maintainers + contributors
-
-- [Chee Aun](https://github.com/cheeaun) ([Mastodon](https://mastodon.social/@cheeaun)) ([Twitter](https://twitter.com/cheeaun))
-
-[![Contributors](https://contrib.rocks/image?repo=cheeaun/phanpy)](https://github.com/cheeaun/phanpy/graphs/contributors)
-
-## Backstory
-
-I am one of the earliest users of Twitter. Twitter was launched on [15 July 2006](https://en.wikipedia.org/wiki/Twitter). I joined on December 2006 and my [first tweet](https://twitter.com/cheeaun/status/1298723) was posted on 18 December 2006.
-
-I know how early Twitter looks like. It was fun.
-
-Back then, I [made a Twitter clone](https://twitter.com/cheeaun/status/789031599) called "Twig" written in Python and Google App Engine. I almost made my own [Twitter desktop client](https://github.com/cheeaun/chidori) written in Appcelerator Titanium. I [gave one of my best talks about the Twitter client](https://www.slideshare.net/cheeaun/story-of-a-thousand-birds) in a mini-conference. I built this thing called "Twitter [Columns](https://twitter.com/columns)", a web app that shows your list of followings, your followings' followings, your followers, your followers' followers and so on. In 2009, I wrote a blog post titled ["How I got started with Twitter"](https://cheeaun.com/blog/2009/04/how-i-got-started-with-twitter/). I created [two](https://twitter.com/cheeaun/status/1273422454) [themes](https://twitter.com/cheeaun/status/1487781343) for DestroyTwitter (a desktop client made with Adobe Air by Jonnie Hallman) and one of them is called ["Vimeo"](https://dribbble.com/shots/31624). In 2013, I wrote [my own tweets backup site](https://github.com/cheeaun/tweets) with a front-end to view my tweets and a [CouchDB backend](https://github.com/cheeaun/tweet-couch) to store them.
-
-It's been **more than 15 years**.
-
-And here I am. Building a Mastodon web client.
 
 ## Alternative web clients
 
