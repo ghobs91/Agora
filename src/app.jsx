@@ -62,7 +62,6 @@ import Modal from './components/modal';
 import ListManageMembers from './pages/list';
 import SuggestedFollows from './pages/suggested-follows';
 import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from "@vercel/speed-insights/next"
 
 window.__STATES__ = states;
 
@@ -289,7 +288,6 @@ function App() {
         {/* <Route path="/:anything" element={<NotFound />} /> */}
       </Routes>
       <Analytics />
-      <SpeedInsights/>
       {uiState === 'default' && (
         <Routes>
           <Route path="/:instance?/s/:id" element={<StatusRoute />} />

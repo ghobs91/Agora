@@ -34,14 +34,6 @@
     }
   }
   .nav-menu section:last-child {
-    background-image: linear-gradient(
-        to right,
-        var(--divider-color) 1px,
-        transparent 1px
-      ),
-      linear-gradient(to bottom left, var(--bg-blur-color), transparent),
-      url(../assets/phanpy-bg.svg);
-    background-repeat: no-repeat;
     /* background-size: auto, auto, 200%; */
     background-position: 0 0, 0 0, 2em 90%;
     background-blend-mode: normal, normal, overlay;
