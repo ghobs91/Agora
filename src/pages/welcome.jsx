@@ -101,7 +101,7 @@ function Welcome() {
       </div>
       <hr />
       <p>
-        <a href="https://github.com/ghobs91/phanpy" target="_blank">
+        <a href="https://github.com/ghobs91/agora" target="_blank">
           Built
         </a>{' '}
         by{' '}
@@ -117,7 +117,7 @@ function Welcome() {
         </a>
         .{' '}
         <a
-          href="https://github.com/ghobs91/phanpy/blob/main/PRIVACY.MD"
+          href="https://github.com/ghobs91/agora/blob/main/PRIVACY.MD"
           target="_blank"
         >
           Privacy Policy

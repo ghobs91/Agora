@@ -451,7 +451,7 @@ function Settings({ onClose }) {
               <b>Agora</b>{' '}
               <br />
               <a
-                href="https://github.com/ghobs91/phanpy"
+                href="https://github.com/ghobs91/agora"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -489,7 +489,7 @@ function Settings({ onClose }) {
             </a>{' '}
             &middot;{' '}
             <a
-              href="https://github.com/ghobs91/phanpy/blob/main/PRIVACY.MD"
+              href="https://github.com/ghobs91/agora/blob/main/PRIVACY.MD"
               target="_blank"
               rel="noopener noreferrer"
             >
