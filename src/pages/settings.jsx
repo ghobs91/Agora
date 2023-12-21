@@ -522,7 +522,7 @@ function Settings({ onClose }) {
               <span class="ib insignificant">
                 (
                 <a
-                  href={`https://github.com/cheeaun/phanpy/commit/${__COMMIT_HASH__}`}
+                  href={`https://github.com/ghobs91/agora/commit/${__COMMIT_HASH__}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
