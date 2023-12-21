@@ -1,34 +1,19 @@
 <div align="center">
   <img src="design/logo-4.svg" width="128" height="128" alt="">
 
-Phanpy
+Agora
 ===
 
-**Minimalistic opinionated Mastodon web client.**
+**Follow your interests across social networks!**
 </div>
 
-![Fancy screenshot](readme-assets/fancy-screenshot.jpg)
 
-**🗣️ Pronunciation**: [`/fænpi/`](https://ythi.net/how-do-you-pronounce/phanpy/english/) ([`FAN-pee`](https://www.smogon.com/forums/threads/the-official-name-pronunciation-guide.3474941/)) [🔊 Listen](https://www.youtube.com/watch?v=DIUbWe-ysJI)
-
-This is an alternative web client for [Mastodon](https://joinmastodon.org/).
-
-- 🏢 **Production**: https://phanpy.social
-  - `production` branch
-  - break less often
-  - slower fixes unless critical
-- 🏗️ **Development**: https://dev.phanpy.social
-  - `main` branch
-  - may see new cool stuff sooner
-  - may break more often
-  - may be fixed much faster too
-
-🐘 Follow [@phanpy on Mastodon](https://hachyderm.io/@phanpy) for updates ✨
-
-Everything is designed and engineered following my taste and vision. This is a personal side project for me to learn about Mastodon and experiment with new UI/UX ideas.
 
 ## Features
-
+- You can log in to a Mastodon, Bluesky, or Nostr account on Agora and it'll pull in your following/followers list from that account, while still allowing you to view/interact with posts from the other 2 protocols using bridges behind the scenes.
+- Intelligently loads your instance's version of a post so that you can like/boost/comment on it without having to think about what instance it's on.
+- I've integrated those bridges into the search, so that if you search for a Bluesky handle like aoc.bsky.social or a nostr users hex code, and it'll automatically know to use the bridges for those protocols and search for the bridged profile. You can even search for elonmusk@twitter.com and it'll treat Twitter like another instance, and load up the bridged version of the account!
+- When you follow a hashtag like #linux, it'll automatically follow the corresponding Lemmy community for that topic, so that for example, you'd see posts from linux@lemmy.ml in your feed.
 - 👪 Multiple accounts
 - 🪟 Compose window pop-out/in
 - 🌗 Light/dark/auto theme
@@ -36,16 +21,7 @@ Everything is designed and engineered following my taste and vision. This is a p
 - 🪺 Nested comments thread
 - 📬 Unsent draft recovery
 - 🎠 Boosts Carousel™️
-- ⚡ Shortcuts™️ with view modes like multi-column or tab bar
 - #️⃣ Multi-hashtag timeline
-
-## Design decisions
-
-- **Status actions (reply, boost, favourite, bookmark, etc) are hidden by default**.<br>They only appear in individual status page. This is to reduce clutter and distraction. It may result in lower engagement, but we're not chasing numbers here.
-- **Boost is represented with the rocket icon**.<br>The green double arrow icon (retweet for Twitter) doesn't look right for the term "boost". Green rocket looks weird, so I use purple.
-- **Short usernames (`@username`) are displayed in timelines, instead of the full account username (`@username@instance`)**.<br>Despite the [guideline](https://docs.joinmastodon.org/api/guidelines/#username) mentioned that "Decentralization must be transparent to the user", I don't think we should shove it to the face every single time. There are also some [screen-reader-related accessibility concerns](https://twitter.com/lifeofablindgrl/status/1595864647554502656) with the full username, though this web app is unfortunately not accessible yet.
-- **No autoplay for video/GIF/whatever in timeline**.<br>The timeline is already a huge mess with lots of people, brands, news and media trying to grab your attention. Let's not make it worse. (Current exception now would be animated emojis.)
-- **Hash-based URLs**.<br>This web app is not meant to be a full-fledged replacement to Mastodon's existing front-end. There's no SEO, database, serverless or any long-running servers. I could be wrong one day.
 
 ## Subtle UI implementations
 
