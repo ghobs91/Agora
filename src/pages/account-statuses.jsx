@@ -65,30 +65,37 @@ function AccountStatuses() {
     [instance],
   );
   const [searchEnabled, setSearchEnabled] = useState(false);
+  const canAutoSwitchToUsersInstance = () => {
+    return account.acct && account?.acct != 'bird.makeup' && account?.acct != 'threads.net';
+  }
   useEffect(() => {
     // Only enable for current logged-in instance
     // Most remote instances don't allow unauthenticated searches
+
     if (!sameCurrentInstance) return;
     if (!account?.acct) return;
+    if (canAutoSwitchToUsersInstance()) {
+      (async () => {
+        try {
+          const { masto } = api({
+            instance: accountInstance,
+          });
+          const acc = await masto.v1.accounts.lookup({
+            acct: account.acct,
+          });
+          const { id } = acc;
+          location.hash = `/${accountInstance}/a/${id}`;
+        } catch (e) {
+          console.error(e);
+          alert('Unable to fetch account info');
+        }
+      })();
+    }
+
     (async () => {
       const enabled = await isSearchEnabled(instance);
       console.log({ enabled });
       setSearchEnabled(enabled);
-    })();
-    (async () => {
-      try {
-        const { masto } = api({
-          instance: accountInstance,
-        });
-        const acc = await masto.v1.accounts.lookup({
-          acct: account.acct,
-        });
-        const { id } = acc;
-        location.hash = `/${accountInstance}/a/${id}`;
-      } catch (e) {
-        console.error(e);
-        alert('Unable to fetch account info');
-      }
     })();
   }, [instance, sameCurrentInstance, account?.acct]);
 
