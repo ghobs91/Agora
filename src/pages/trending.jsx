@@ -34,12 +34,13 @@ function Trending({ columnMode, ...props }) {
   const snapStates = useSnapshot(states);
   const params = columnMode ? {} : useParams();
   const [uiState, setUIState] = useState('default');
+  const myCurrentInstance = api().instance;
 
   const { masto, instance } = api({
     instance: params.instance === 'ditto.pub' ? 'mastodon.social' : params.instance === 'skybridge.fly.dev' ? 'mastodon.social' :  props?.instance || params.instance,
   });
   const title = `Trending`;
-  useTitle(title, `/:instance?/trending`);
+  useTitle(title, `/:myCurrentInstance?/trending`);
   // const navigate = useNavigate();
   const latestItem = useRef();
 

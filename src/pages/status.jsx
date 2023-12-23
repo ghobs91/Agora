@@ -248,30 +248,12 @@ function StatusThread({ id, closeLink = '/', instance: propInstance }) {
 
       const hasStatus = !!snapStates.statuses[sKey];
       let heroStatus = snapStates.statuses[sKey];
-      if (hasStatus && !reloadHero) {
-        console.debug('Hero status is cached');
-      } else {
-        try {
-          heroStatus = await heroFetch();
-          saveStatus(heroStatus, instance);
-          // Give time for context to appear
-          await new Promise((resolve) => {
-            setTimeout(resolve, 100);
-          });
-        } catch (e) {
-          console.error(e);
-          setUIState('error');
-          return;
-        }
-      }
-
       // Automatically switch to users instance to allow interacting with a status
-
       const canAutoLoadThisInstance = () => {
         return myCurrentInstance != 'ditto.pub' && myCurrentInstance != 'skybridge.fly.dev' && heroStatus.account.acct.indexOf("mostr.pub") === -1 && heroStatus.account.acct.indexOf("threads.net") === -1;
       }
-      
-      if (canAutoLoadThisInstance()) {
+
+      const autoLoadThisInstance = () => {
         setUIState('loading');
         (async () => {
           try {
@@ -297,6 +279,29 @@ function StatusThread({ id, closeLink = '/', instance: propInstance }) {
             console.error(e);
           }
         })();
+      }
+      if (hasStatus && !reloadHero) {
+        if (canAutoLoadThisInstance()) {
+          autoLoadThisInstance();
+        }
+        console.debug('Hero status is cached');
+      } else {
+        try {
+          heroStatus = await heroFetch();
+          saveStatus(heroStatus, instance);
+
+          if (canAutoLoadThisInstance()) {
+            autoLoadThisInstance();
+          }
+          // Give time for context to appear
+          await new Promise((resolve) => {
+            setTimeout(resolve, 100);
+          });
+        } catch (e) {
+          console.error(e);
+          setUIState('error');
+          return;
+        }
       }
 
       try {

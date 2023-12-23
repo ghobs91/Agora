@@ -83,6 +83,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [uiState, setUIState] = useState('loading');
   const instanceURL = store.local.get('instanceURL');
+  const myCurrentInstance = api().instance;
   const { instance } = api();
   const formattedShortcuts = [
     {
@@ -282,7 +283,7 @@ function App() {
           <Route index element={<Public />} />
           <Route path="l" element={<Public local />} />
         </Route>
-        <Route path="/:instance?/trending" element={<Trending />} />
+        <Route path="/:myCurrentInstance?/trending" element={<Trending />} />
         {isLoggedIn && <Route path="/topics" element={<Topics />} />}
         <Route path="/:instance?/search" element={<Search />} />
         {/* <Route path="/:anything" element={<NotFound />} /> */}
