@@ -1436,6 +1436,15 @@ a.card:is(:hover, :focus):visited {
 .status .action > button.plain.reblog-button:not(:disabled):is(:hover, :focus) {
   color: var(--reblog-color);
 }
+li.timeline-item-container > .status-link {
+  margin-bottom: 10px !important;
+}
+.timeline-item-container {
+  background-color: #18191a !important;
+  -moz-border-radius: 15px 15px 0px 0px;
+  -webkit-border-radius: 15px 15px 0px 0px;
+  border-radius: 15px 15px 0px 0px;
+}
 .status .action > button.plain.reblog-button.checked {
   color: var(--reblog-color);
   border-color: var(--reblog-color);
