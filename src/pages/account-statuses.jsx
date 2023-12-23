@@ -75,6 +75,21 @@ function AccountStatuses() {
       console.log({ enabled });
       setSearchEnabled(enabled);
     })();
+    (async () => {
+      try {
+        const { masto } = api({
+          instance: accountInstance,
+        });
+        const acc = await masto.v1.accounts.lookup({
+          acct: account.acct,
+        });
+        const { id } = acc;
+        location.hash = `/${accountInstance}/a/${id}`;
+      } catch (e) {
+        console.error(e);
+        alert('Unable to fetch account info');
+      }
+    })();
   }, [instance, sameCurrentInstance, account?.acct]);
 
   async function fetchAccountStatuses(firstLoad) {
@@ -222,15 +237,15 @@ function AccountStatuses() {
       } catch (e) {
         console.error(e);
       }
-      try {
-        const featuredTags = await masto.v1.accounts
-          .$select(id)
-          .featuredTags.list();
-        console.log({ featuredTags });
-        setFeaturedTags(featuredTags);
-      } catch (e) {
-        console.error(e);
-      }
+      // try {
+      //   const featuredTags = await masto.v1.accounts
+      //     .$select(id)
+      //     .featuredTags.list();
+      //   console.log({ featuredTags });
+      //   setFeaturedTags(featuredTags);
+      // } catch (e) {
+      //   console.error(e);
+      // }
     })();
   }, [id]);
 

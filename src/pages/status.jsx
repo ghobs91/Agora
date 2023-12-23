@@ -266,8 +266,12 @@ function StatusThread({ id, closeLink = '/', instance: propInstance }) {
       }
 
       // Automatically switch to users instance to allow interacting with a status
+
+      const canAutoLoadThisInstance = () => {
+        return myCurrentInstance != 'ditto.pub' && myCurrentInstance != 'skybridge.fly.dev' && heroStatus.account.acct.indexOf("mostr.pub") === -1 && heroStatus.account.acct.indexOf("threads.net") === -1;
+      }
       
-      if (myCurrentInstance != 'ditto.pub' && myCurrentInstance != 'skybridge.fly.dev' && heroStatus.account.acct.indexOf("mostr.pub") === -1) {
+      if (canAutoLoadThisInstance()) {
         setUIState('loading');
         (async () => {
           try {
