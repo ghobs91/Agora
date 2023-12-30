@@ -6,7 +6,7 @@ import { useSnapshot } from 'valtio';
 
 import states, { statusKey } from '../utils/states';
 import statusPeek from '../utils/status-peek';
-import { groupBoosts, groupContext } from '../utils/timeline-utils';
+import { groupBoosts, groupContext, applyMutedWords } from '../utils/timeline-utils';
 import useInterval from '../utils/useInterval';
 import usePageVisibility from '../utils/usePageVisibility';
 import useScroll from '../utils/useScroll';
@@ -64,7 +64,10 @@ function Timeline({
               value = groupBoosts(value);
             }
             value = groupContext(value);
-            console.log(value);
+            if (value) {
+              value = applyMutedWords(value);
+            }
+            // console.log(value);
             if (firstLoad) {
               setItems(value);
             } else {

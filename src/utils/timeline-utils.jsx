@@ -1,4 +1,5 @@
 import store from './store';
+import { api } from './api';
 
 export function groupBoosts(values) {
   let newValues = [];
@@ -47,6 +48,36 @@ export function groupBoosts(values) {
   } else {
     return values;
   }
+}
+
+export function applyMutedWords(values) {
+  const { masto } = api();
+  (async () => {
+    try {
+      const filterResults = await masto.v2.filters.fetch({
+        resolve: true
+      });
+      if (filterResults) {
+        let newValues = [];
+        console.log(`users filters: ${filterResults}`);
+        values.forEach((value) => {
+          filterResults.forEach((filterList) => {
+            filterList.keywords.forEach((keyword) => {
+              if (value.indexOf(keyword) === -1) {
+                newValues.push(value);
+              }
+            });
+          });
+        });
+        return newValues;
+      } else {
+        return values;
+      }
+    } catch (e) {
+      alert('Error: ' + e);
+      console.error(e);
+    }
+  })();
 }
 
 export function dedupeBoosts(items, instance) {

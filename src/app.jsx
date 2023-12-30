@@ -85,6 +85,7 @@ function App() {
   const instanceURL = store.local.get('instanceURL');
   const myCurrentInstance = api().instance;
   const { instance } = api();
+  const { masto } = api({ instance });
   const formattedShortcuts = [
     {
       icon: "home",
@@ -114,6 +115,8 @@ function App() {
       title: "Notifications"
     },
   ]
+
+
 
   useLayoutEffect(() => {
     const theme = store.local.get('theme');
