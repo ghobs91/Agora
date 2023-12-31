@@ -64,9 +64,9 @@ function Timeline({
               value = groupBoosts(value);
             }
             value = groupContext(value);
-            if (value) {
-              value = applyMutedWords(value);
-            }
+            // if (value) {
+            //   value = applyMutedWords(value);
+            // }
             // console.log(value);
             if (firstLoad) {
               setItems(value);
