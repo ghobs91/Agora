@@ -78,6 +78,50 @@ export default defineConfig({
             purpose: 'maskable',
           },
         ],
+        screenshots : [
+          {
+            'src': 'agora-social-desktop-1.png',
+            'sizes': '1280x720',
+            'type': 'image/webp',
+            'form_factor': 'wide',
+            'label': ''
+          },
+          {
+            'src': 'agora-social-desktop-2.png',
+            'sizes': '1280x720',
+            'type': 'image/webp',
+            'form_factor': 'wide',
+            'label': ''
+          },
+          {
+            'src': 'agora-social-desktop-3.png',
+            'sizes': '1280x720',
+            'type': 'image/webp',
+            'form_factor': 'wide',
+            'label': ''
+          },
+          {
+            'src': 'agora-social-mobile-1.png',
+            'sizes': '1280x720',
+            'type': 'image/webp',
+            'form_factor': 'narrow',
+            'label': ''
+          },
+          {
+            'src': 'agora-social-mobile-2.png',
+            'sizes': '1280x720',
+            'type': 'image/webp',
+            'form_factor': 'narrow',
+            'label': ''
+          },
+          {
+            'src': 'agora-social-mobile-3.png',
+            'sizes': '1280x720',
+            'type': 'image/webp',
+            'form_factor': 'narrow',
+            'label': ''
+          },
+        ],
       },
       strategies: 'injectManifest',
       injectRegister: 'inline',
