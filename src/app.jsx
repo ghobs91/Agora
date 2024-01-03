@@ -61,7 +61,6 @@ import ImportTwitter from './pages/importTwitter';
 import Modal from './components/modal';
 import ListManageMembers from './pages/list';
 import SuggestedFollows from './pages/suggested-follows';
-import { Analytics } from '@vercel/analytics/react';
 
 window.__STATES__ = states;
 
@@ -291,7 +290,6 @@ function App() {
         <Route path="/:instance?/search" element={<Search />} />
         {/* <Route path="/:anything" element={<NotFound />} /> */}
       </Routes>
-      <Analytics />
       {uiState === 'default' && (
         <Routes>
           <Route path="/:instance?/s/:id" element={<StatusRoute />} />
