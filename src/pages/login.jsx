@@ -100,7 +100,7 @@ function Login() {
         instance.includes(instanceURL),
       );
     }
-    const signupURL = instanceURL + "/auth/sign_up"
+    const signupURL = "https://fosstodon.org/invite/LGrCjEF8"
     window.open(signupURL, '_blank').focus();
   };
 
