@@ -43,6 +43,7 @@
     "valtio": "1.9.0"
   },
   "devDependencies": {
+    "@iconify/react": "^4.1.1",
     "@preact/preset-vite": "~2.6.0",
     "@trivago/prettier-plugin-sort-imports": "~4.2.0",
     "postcss": "~8.4.31",
@@ -57,7 +58,8 @@
     "workbox-cacheable-response": "~7.0.0",
     "workbox-expiration": "~7.0.0",
     "workbox-routing": "~7.0.0",
-    "workbox-strategies": "~7.0.0"
+    "workbox-strategies": "~7.0.0",
+    "fedialgo": "github:pkreissel/fedialgo"
   },
   "postcss": {
     "plugins": {

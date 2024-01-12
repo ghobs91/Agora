@@ -66,7 +66,7 @@ function AccountStatuses() {
   );
   const [searchEnabled, setSearchEnabled] = useState(false);
   const canAutoSwitchToUsersInstance = () => {
-    return account.acct && account?.acct != 'bird.makeup' && account?.acct != 'threads.net';
+    return account?.acct && account?.acct.indexOf('bird.makeup') === -1 && account?.acct.indexOf('threads.net') === -1;
   }
   useEffect(() => {
     // Only enable for current logged-in instance

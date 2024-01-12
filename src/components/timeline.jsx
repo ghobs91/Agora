@@ -67,13 +67,12 @@ function Timeline({
             // if (value) {
             //   value = applyMutedWords(value);
             // }
-            // console.log(value);
             if (firstLoad) {
               setItems(value);
             } else {
               setItems((items) => [...items, ...value]);
             }
-            if (!value.length) done = true;
+            if (!value?.length) done = true;
             setShowMore(!done);
           } else {
             setShowMore(false);
@@ -291,6 +290,13 @@ function Timeline({
       icon: 'chart',
     },
     {
+      id: 'foryou',
+      title: 'For You',
+      subtitle: '',
+      path: `/foryou`,
+      icon: 'algorithm',
+    },
+    {
       id: 'search',
       title: 'Search',
       path: '/search',
@@ -387,7 +393,7 @@ function Timeline({
               {!!headerEnd && headerEnd}
             </div>
           </div>
-          {items.length > 0 &&
+          {items?.length > 0 &&
             uiState !== 'loading' &&
             !hiddenUI &&
             showNew && (
@@ -413,7 +419,7 @@ function Timeline({
             {timelineStart}
           </div>
         )}
-        {!!items.length ? (
+        {!!items?.length ? (
           <>
             <ul class="timeline">
               {items.map((status) => {

@@ -80,7 +80,7 @@
   list-style: none;
   display: flex;
   justify-content: center;
-  min-width: 10rem;
+  min-width: 8rem;
   flex-basis: 20vw;
 }
 
