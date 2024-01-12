@@ -49,8 +49,6 @@ function ForYou(props) {
 
     let newWeights = weights
     const newFeed = await algo.setWeights(newWeights)
-
-
     if (firstLoad || !listIterator.current) {
       listIterator.current = newFeed;
     }
@@ -115,7 +113,6 @@ function ForYou(props) {
         errorText="Unable to load posts."
         instance={instance}
         fetchItems={fetchList}
-        checkForUpdates={checkForUpdates}
         useItemID
         boostsCarousel={snapStates.settings.boostsCarousel}
         allowFilters
