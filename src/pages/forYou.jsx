@@ -62,12 +62,12 @@ function ForYou(props) {
 
       value = filteredItems(value, 'home');
       value.forEach(async (item) => {
-        const localVersionOfStatus = await getLocalVersionOfStatus(item);
-        if (localVersionOfStatus) {
-          saveStatus(localVersionOfStatus, instance);
-        } else {
+        // const localVersionOfStatus = await getLocalVersionOfStatus(item);
+        // if (localVersionOfStatus) {
+        //   saveStatus(localVersionOfStatus, instance);
+        // } else {
           saveStatus(item, instance);
-        }
+        // }
       });
     }
     return {
