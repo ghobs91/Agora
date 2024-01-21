@@ -52,7 +52,7 @@ function Home() {
   );
 }
 
-function NotificationsLink() {
+export function NotificationsLink() {
   const snapStates = useSnapshot(states);
   const notificationLinkRef = useRef();
   const [menuState, setMenuState] = useState(undefined);

@@ -48,27 +48,49 @@ function ForYou(props) {
     weights["Diversity"] = 3
 
     let newWeights = weights
-    const newFeed = await algo.setWeights(newWeights)
+    const newFeed = await algo.setWeights(newWeights);
     if (firstLoad || !listIterator.current) {
       listIterator.current = newFeed;
     }
 
     const results = await listIterator.current;
-    let  value  = results;
+    let  value  = results.slice(0, 40);
     if (value?.length) {
       if (firstLoad) {
         latestItem.current = value[0].id;
       }
 
       value = filteredItems(value, 'home');
-      value.forEach((item) => {
-        saveStatus(item, instance);
+      value.forEach(async (item) => {
+        const localVersionOfStatus = await getLocalVersionOfStatus(item);
+        if (localVersionOfStatus) {
+          saveStatus(localVersionOfStatus, instance);
+        } else {
+          saveStatus(item, instance);
+        }
       });
     }
     return {
       ...results,
       value,
     };
+  }
+
+  async function getLocalVersionOfStatus (status) {
+    const apiEndpoint = masto;
+    const results =
+      await apiEndpoint.v2.search.fetch({
+        q: status.url ? status.url : status.uri,
+        type: 'statuses',
+        resolve: true,
+        limit: 1,
+      });
+    if (results.statuses.length) {
+      const localVersionOfStatus = results.statuses[0];
+      return localVersionOfStatus;
+    } else {
+      return null;
+    }
   }
 
   async function checkForUpdates() {
@@ -119,61 +141,6 @@ function ForYou(props) {
         // refresh={reloadCount}
       />
     </>
-  );
-}
-
-function RemoveAddButton({ account, listID }) {
-  const { masto } = api();
-  const [uiState, setUIState] = useState('default');
-  const [removed, setRemoved] = useState(false);
-
-  return (
-    <MenuConfirm
-      confirm={!removed}
-      confirmLabel={<span>Remove @{account.username} from list?</span>}
-      align="end"
-      menuItemClassName="danger"
-      onClick={() => {
-        if (removed) {
-          setUIState('loading');
-          (async () => {
-            try {
-              await masto.v1.lists.$select(listID).accounts.create({
-                accountIds: [account.id],
-              });
-              setUIState('default');
-              setRemoved(false);
-            } catch (e) {
-              setUIState('error');
-            }
-          })();
-        } else {
-          // const yes = confirm(`Remove ${account.username} from this list?`);
-          // if (!yes) return;
-          setUIState('loading');
-
-          (async () => {
-            try {
-              await masto.v1.lists.$select(listID).accounts.remove({
-                accountIds: [account.id],
-              });
-              setUIState('default');
-              setRemoved(true);
-            } catch (e) {
-              setUIState('error');
-            }
-          })();
-        }
-      }}
-    >
-      <button
-        type="button"
-        class={`light ${removed ? '' : 'danger'}`}
-        disabled={uiState === 'loading'}
-      >
-        {removed ? 'Add' : 'Remove…'}
-      </button>
-    </MenuConfirm>
   );
 }
 

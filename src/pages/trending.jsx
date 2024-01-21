@@ -81,7 +81,6 @@ function Trending({ columnMode, ...props }) {
     }
     const results = await trendIterator.current.next();
 
-    
     async function getBridgedProfileUrl(result) {
         const myCurrentInstance = api().instance;
         if (myCurrentInstance === "ditto.pub") {

@@ -78,18 +78,6 @@ function Welcome() {
           </section>
           <section>
             <img
-              src={multiColumnUrl}
-              alt="Screenshot of multi-column UI"
-              loading="lazy"
-            />
-            <h4>Single or multi-column</h4>
-            <p>
-              By default, single column for zen-mode seekers. Configurable
-              multi-column for power users.
-            </p>
-          </section>
-          <section>
-            <img
               src={multiHashtagTimelineUrl}
               alt="Screenshot of multi-hashtag timeline with a form to add more hashtags"
               loading="lazy"
