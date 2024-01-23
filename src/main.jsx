@@ -7,6 +7,7 @@ import { HashRouter } from 'react-router-dom';
 
 import { App } from './app';
 import { Analytics } from '@vercel/analytics/react';
+import "@storedotapp/pwa-install-dialog";
 
 
 if (import.meta.env.DEV) {

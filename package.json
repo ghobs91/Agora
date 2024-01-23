@@ -15,6 +15,7 @@
     "@github/text-expander-element": "~2.5.0",
     "@iconify-icons/mingcute": "~1.2.8",
     "@justinribeiro/lite-youtube": "~1.5.0",
+    "@storedotapp/pwa-install-dialog": "^1.1.2",
     "@szhsin/react-menu": "~4.1.0",
     "@uidotdev/usehooks": "~2.4.0",
     "@vercel/analytics": "^1.1.2",
