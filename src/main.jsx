@@ -6,6 +6,8 @@ import { render } from 'preact';
 import { HashRouter } from 'react-router-dom';
 
 import { App } from './app';
+import { Analytics } from '@vercel/analytics/react';
+
 
 if (import.meta.env.DEV) {
   import('preact/debug');
@@ -27,6 +29,7 @@ if ('AbortSignal' in window) {
 render(
   <HashRouter>
     <App />
+    <Analytics />
   </HashRouter>,
   document.getElementById('app'),
 );
