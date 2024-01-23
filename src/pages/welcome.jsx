@@ -16,6 +16,7 @@ function Welcome() {
   useTitle(null, ['/', '/welcome']);
   return (
     <main id="welcome">
+      <pwa-install-dialog id="install-dialog" app="agorasocial-app" open theme="dark"></pwa-install-dialog>
       <div class="hero-container">
         <h1>
           <img
