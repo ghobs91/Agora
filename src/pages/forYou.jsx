@@ -32,8 +32,6 @@ function ForYou(props) {
 
   const listIterator = useRef();
   async function fetchList(firstLoad) {
-
-
     const currAccount = getCurrentAccount();
     const currUser = currAccount.info;
     const algo = new TheAlgorithm(masto, currUser)
@@ -53,8 +51,10 @@ function ForYou(props) {
       listIterator.current = newFeed;
     }
 
-    const results = await listIterator.current;
-    let  value  = results.slice(0, 40);
+    // const results = await listIterator.current;
+    const results = await newFeed;
+    // let  value  = results.slice(0, 30);
+    let  value  = results;
     if (value?.length) {
       if (firstLoad) {
         latestItem.current = value[0].id;
@@ -62,12 +62,12 @@ function ForYou(props) {
 
       value = filteredItems(value, 'home');
       value.forEach(async (item) => {
-        // const localVersionOfStatus = await getLocalVersionOfStatus(item);
-        // if (localVersionOfStatus) {
-        //   saveStatus(localVersionOfStatus, instance);
-        // } else {
+        const localVersionOfStatus = await getLocalVersionOfStatus(item);
+        if (localVersionOfStatus) {
+          saveStatus(localVersionOfStatus, instance);
+        } else {
           saveStatus(item, instance);
-        // }
+        }
       });
     }
     return {
