@@ -286,14 +286,14 @@ function Timeline({
       id: 'trending',
       title: 'Trending',
       subtitle: '',
-      path: `/${instance}/trending`,
+      path: instance.indexOf('skybridge.fly.dev') > -1 ? `/l/1795987464373403648` : `/${instance}/trending`,
       icon: 'chart',
     },
     {
       id: 'foryou',
       title: 'For You',
       subtitle: '',
-      path: `/foryou`,
+      path: instance.indexOf('skybridge.fly.dev') > -1 ? `/l/1861184890822197248` : `/foryou`,
       icon: 'algorithm',
     },
     {
