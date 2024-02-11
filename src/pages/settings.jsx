@@ -80,28 +80,19 @@ function Settings({ onClose }) {
                     const theme = formData.get('theme');
                     const html = document.documentElement;
 
-                    if (theme === 'auto') {
-                      html.classList.remove('is-light', 'is-dark');
-                    } else {
-                      html.classList.toggle('is-light', theme === 'light');
-                      html.classList.toggle('is-dark', theme === 'dark');
-                    }
+                    html.classList.toggle('is-dark', theme === 'dark');
                     document
                       .querySelector('meta[name="color-scheme"]')
                       .setAttribute(
                         'content',
-                        theme === 'auto' ? 'dark light' : theme,
+                        theme === 'auto' ? 'dark' : theme,
                       );
 
-                    if (theme === 'auto') {
-                      store.local.del('theme');
-                    } else {
-                      store.local.set('theme', theme);
-                    }
+                    store.local.set('theme', theme);
                   }}
                 >
                   <div class="radio-group">
-                    <label>
+                    {/* <label>
                       <input
                         type="radio"
                         name="theme"
@@ -109,7 +100,7 @@ function Settings({ onClose }) {
                         defaultChecked={currentTheme === 'light'}
                       />
                       <span>Light</span>
-                    </label>
+                    </label> */}
                     <label>
                       <input
                         type="radio"

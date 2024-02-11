@@ -89,8 +89,8 @@ function NameText({
         <>
           <br />
           <i>
-            @{username ? username : acct1}
-            <span class="ib">{acct2}</span>
+            @
+            <span class="ib">{acct.split('@skybridge.fly.dev')[0]}</span>
           </i>
         </>
       )}

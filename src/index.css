@@ -473,3 +473,15 @@ kbd {
 .shazam-container-horizontal[hidden] {
   grid-template-columns: 0fr;
 }
+
+.mastodon-account-pill {
+  background-color: #563ACC !important;
+}
+
+.bluesky-account-pill {
+  background-color: #1f7efd !important;
+}
+
+.nostr-account-pill {
+  background-color: #b300ff !important
+}

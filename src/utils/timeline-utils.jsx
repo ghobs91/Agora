@@ -59,15 +59,21 @@ export function applyMutedWords(values) {
       });
       if (filterResults) {
         let newValues = [];
+        let allFilters = [];
+        filterResults.forEach((filterList) => {
+          filterList.keywords.forEach((keyword) => {
+            allFilters.push(keyword);
+          });
+        });
         console.log(`users filters: ${filterResults}`);
         values.forEach((value) => {
-          filterResults.forEach((filterList) => {
-            filterList.keywords.forEach((keyword) => {
-              if (value.indexOf(keyword) === -1) {
+          if (value) {
+            allFilters.forEach((filteredWord) => {
+              if (value.content?.indexOf(filteredWord) > -1) {
                 newValues.push(value);
               }
             });
-          });
+          }
         });
         return newValues;
       } else {

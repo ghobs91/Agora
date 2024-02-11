@@ -39,6 +39,9 @@ function Accounts({ onClose }) {
             {accounts.map((account, i) => {
               const isCurrent = account.info.id === currentAccount;
               const isDefault = i === 0; // first account is always default
+              const isBluesky = (account.instanceURL.indexOf('skybridge.fly.dev') > -1)
+              const isNostr = (account.instanceURL.indexOf('ditto.pub') > -1)
+              const isMastodon = (!isBluesky && !isNostr)
               return (
                 <li key={account.info.id}>
                   <div>
@@ -90,6 +93,21 @@ function Accounts({ onClose }) {
                     {isDefault && moreThanOneAccount && (
                       <>
                         <span class="tag">Default</span>{' '}
+                      </>
+                    )}
+                    {isMastodon && (
+                      <>
+                        <span class="tag mastodon-account-pill">Mastodon</span>{' '}
+                      </>
+                    )}
+                    {isBluesky && (
+                      <>
+                        <span class="tag bluesky-account-pill">Bluesky</span>{' '}
+                      </>
+                    )}
+                    {isNostr && (
+                      <>
+                        <span class="tag nostr-account-pill">Nostr</span>{' '}
                       </>
                     )}
                     <Menu
