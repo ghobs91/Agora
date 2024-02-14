@@ -47,11 +47,20 @@ const SearchForm = forwardRef((props, ref) => {
             if (instance === "ditto.pub") {
               console.log(`instance === "ditto.pub"`)
             } else if (instance === "skybridge.fly.dev") {
-              console.log(`instance === "skybridge.fly.dev"`)
+              if (query.indexOf("@") === 0) {
+                let replacedString = params.q.replace("@", "");
+                replacedString = replacedString.replace("@", ".");
+                replacedString += ".ap.brid.gy";
+                params.q = replacedString
+              } else if (query.indexOf("@") > 0) {
+                let replacedString = params.q.replace("@", ".");
+                replacedString += ".ap.brid.gy";
+                params.q = replacedString
+              }
             } else {
               if (query.indexOf("@") === -1) {
                 if (query.indexOf("bsky.social") > -1 || query.indexOf("bsky.team") > -1) {
-                  params.q += "@atproto.brid.gy"
+                  params.q += "@bsky.brid.gy"
                 } else if (query.match(/^[0-9a-fA-F]{64}$/)) {
                   params.q += "@mostr.pub"
                 }
