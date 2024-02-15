@@ -58,6 +58,10 @@ const SearchForm = forwardRef((props, ref) => {
                 params.q = replacedString
               }
             } else {
+              if (query.indexOf("/" === 0)) {
+                let replacedString = params.q.replace("/", "");
+                params.q = replacedString;
+              }
               if (query.indexOf("@") === -1) {
                 if (query.indexOf("bsky.social") > -1 || query.indexOf("bsky.team") > -1) {
                   params.q += "@bsky.brid.gy"

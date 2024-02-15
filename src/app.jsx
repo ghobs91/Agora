@@ -98,7 +98,7 @@ function App() {
       id: 'trending',
       title: 'Trending',
       subtitle: '',
-      path: `/${instanceURL}/trending`,
+      path: instance.indexOf('skybridge.fly.dev') > -1 ? `/l/1795987464373403648`: instance.indexOf('masto.host') > -1 ? `/mastodon.social/trending` : `/${instance}/trending`,
       icon: 'chart',
     },
     {
@@ -293,7 +293,7 @@ function App() {
           <Route index element={<Public />} />
           <Route path="l" element={<Public local />} />
         </Route>
-        <Route path="/:myCurrentInstance?/trending" element={<Trending />} />
+        <Route path="/:instance?/trending" element={<Trending />} />
         <Route path="/foryou" element={<ForYou />} />
         {isLoggedIn && <Route path="/topics" element={<Topics />} />}
         <Route path="/:instance?/search" element={<Search />} />
