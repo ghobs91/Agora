@@ -173,11 +173,11 @@ function StatusThread({ id, closeLink = '/', instance: propInstance }) {
   const { masto, instance } = api({ instance: propInstance });
   const {
     masto: currentMasto,
-    instance: currentInstance,
+    instance: myLocalInstance,
     authenticated,
   } = api();
   const myCurrentInstance = api().instance;
-  const sameInstance = instance === currentInstance;
+  const sameInstance = instance === myLocalInstance;
   const snapStates = useSnapshot(states);
   const [statuses, setStatuses] = useState([]);
   const [uiState, setUIState] = useState('default');
@@ -250,10 +250,11 @@ function StatusThread({ id, closeLink = '/', instance: propInstance }) {
       let heroStatus = snapStates.statuses[sKey];
       // Automatically switch to users instance to allow interacting with a status
       const canAutoLoadThisInstance = () => {
-        return myCurrentInstance != 'ditto.pub' && myCurrentInstance != 'skybridge.fly.dev' && heroStatus.account.acct.indexOf("mostr.pub") === -1 && heroStatus.account.acct.indexOf("threads.net") === -1;
+        return false;
+        // return myCurrentInstance != 'ditto.pub' && myCurrentInstance != 'skybridge.fly.dev' && heroStatus.account.acct.indexOf("mostr.pub") === -1 && heroStatus.account.acct.indexOf("threads.net") === -1;
       }
 
-      const autoLoadThisInstance = () => {
+      const autoLoadLocalInstanceVersion = () => {
         setUIState('loading');
         (async () => {
           try {
@@ -267,8 +268,8 @@ function StatusThread({ id, closeLink = '/', instance: propInstance }) {
               });
             if (results.statuses.length) {
               const status = results.statuses[0];
-              location.hash = currentInstance
-                ? `/${currentInstance}/s/${status.id}`
+              location.hash = myLocalInstance
+                ? `/${myLocalInstance}/s/${status.id}`
                 : `/s/${status.id}`;
             } else {
               throw new Error('No results');
@@ -280,9 +281,10 @@ function StatusThread({ id, closeLink = '/', instance: propInstance }) {
           }
         })();
       }
+
       if (hasStatus && !reloadHero) {
         if (canAutoLoadThisInstance()) {
-          autoLoadThisInstance();
+          autoLoadLocalInstanceVersion();
         }
         console.debug('Hero status is cached');
       } else {
@@ -291,7 +293,7 @@ function StatusThread({ id, closeLink = '/', instance: propInstance }) {
           saveStatus(heroStatus, instance);
 
           if (canAutoLoadThisInstance()) {
-            autoLoadThisInstance();
+            autoLoadLocalInstanceVersion();
           }
           // Give time for context to appear
           await new Promise((resolve) => {
@@ -777,8 +779,8 @@ function StatusThread({ id, closeLink = '/', instance: propInstance }) {
                           });
                           if (results.statuses.length) {
                             const status = results.statuses[0];
-                            location.hash = currentInstance
-                              ? `/${currentInstance}/s/${status.id}`
+                            location.hash = myLocalInstance
+                              ? `/${myLocalInstance}/s/${status.id}`
                               : `/s/${status.id}`;
                           } else {
                             throw new Error('No results');

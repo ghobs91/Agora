@@ -113,8 +113,11 @@ function Status({
     );
   }
   const { masto, instance, authenticated } = api({ instance: propInstance });
-  const { instance: currentInstance } = api();
-  const sameInstance = instance === currentInstance;
+  const { instance: myLocalInstance } = api();
+  const {
+    masto: currentMasto
+  } = api();
+  const sameInstance = instance === myLocalInstance;
 
   let sKey = statusKey(statusID, instance);
   const snapStates = useSnapshot(states);
@@ -438,21 +441,34 @@ function Status({
   };
 
   const favouriteStatus = async (e) => {
-
     if (!sameInstance) {
       (async () => {
         try {
-          const results = await currentInstance.v2.search.fetch({
-            q: url,
+          const results = await currentMasto?.v2.search.fetch({
+            q: status.url,
             type: 'statuses',
             resolve: true,
             limit: 1,
           });
           if (results.statuses.length) {
             const status = results.statuses[0];
-            location.hash = currentInstance
-              ? `/${currentInstance}/s/${status.id}`
-              : `/s/${status.id}`;
+            // location.hash = myLocalInstance
+            //   ? `/${myLocalInstance}/s/${status.id}`
+            //   : `/s/${status.id}`;
+
+            states.statuses[sKey] = {
+              ...status,
+              favourited: !favourited,
+              favouritesCount: favouritesCount + (favourited ? -1 : 1),
+            };
+            if (favourited) {
+              const newStatus = await currentMasto.v1.statuses.$select(status.id).unfavourite();
+              saveStatus(newStatus, myLocalInstance);
+            } else {
+              const newStatus = await currentMasto.v1.statuses.$select(status.id).favourite();
+              saveStatus(newStatus, myLocalInstance);
+            }
+
           } else {
             throw new Error('No results');
           }
@@ -482,7 +498,6 @@ function Status({
         states.statuses[sKey] = status;
       }
     }
-
   };
 
   const bookmarkStatus = async () => {
@@ -1319,7 +1334,7 @@ function Status({
                         return !isPostItself && isMastodonLinkMaybe(url);
                       })
                       .forEach((a, i) => {
-                        unfurlMastodonLink(currentInstance, a.href).then(
+                        unfurlMastodonLink(myLocalInstance, a.href).then(
                           (result) => {
                             if (!result) return;
                             a.removeAttribute('target');
@@ -1460,7 +1475,7 @@ function Status({
             !poll &&
             !mediaAttachments.length &&
             !snapStates.statusQuotes[sKey] && (
-              <Card card={card} instance={currentInstance} />
+              <Card card={card} instance={myLocalInstance} />
             )}
         </div>
         {/* {isSizeLarge && ( */}
@@ -1565,7 +1580,6 @@ function Status({
                   icon="heart"
                   count={favouritesCount}
                   onClick={favouriteStatus}
-                  disabled={!canBoost}
                 />
               </div>
               <div class="action">

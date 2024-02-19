@@ -82,8 +82,8 @@ function App() {
   const snapStates = useSnapshot(states);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [uiState, setUIState] = useState('loading');
-  const instanceURL = store.local.get('instanceURL');
   const myCurrentInstance = api().instance;
+  store.local.set('instanceURL', myCurrentInstance);
   const { instance } = api();
   const { masto } = api({ instance });
   const formattedShortcuts = [
@@ -98,7 +98,7 @@ function App() {
       id: 'trending',
       title: 'Trending',
       subtitle: '',
-      path: instance.indexOf('skybridge.fly.dev') > -1 ? `/l/1795987464373403648`: instance.indexOf('masto.host') > -1 ? `/mastodon.social/trending` : `/${instance}/trending`,
+      path: instance.indexOf('skybridge.fly.dev') > -1 ? `/l/1860062187893555200`: instance.indexOf('masto.host') > -1 ? `/mastodon.social/trending` : `/${instance}/trending`,
       icon: 'chart',
     },
     {
