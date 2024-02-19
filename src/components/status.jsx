@@ -373,37 +373,62 @@ function Status({
       (attachment) => !attachment.description?.trim?.(),
     );
   }, [mediaAttachments]);
+
   const boostStatus = async () => {
-    if (!sameInstance || !authenticated) {
-      alert(unauthInteractionErrorMessage);
-      return false;
-    }
+    // if (!authenticated) {
+    //   alert(unauthInteractionErrorMessage);
+    //   return false;
+    // }
     try {
-      // if (!reblogged) {
-      //   let confirmText = 'Boost this post?';
-      //   if (mediaNoDesc) {
-      //     confirmText += '\n\n⚠️ Some media have no descriptions.';
-      //   }
-      //   const yes = confirm(confirmText);
-      //   if (!yes) {
-      //     return false;
-      //   }
-      // }
-      // Optimistic
-      states.statuses[sKey] = {
-        ...status,
-        reblogged: !reblogged,
-        reblogsCount: reblogsCount + (reblogged ? -1 : 1),
-      };
-      if (reblogged) {
-        const newStatus = await masto.v1.statuses.$select(id).unreblog();
-        saveStatus(newStatus, instance);
-        return true;
+      if (!sameInstance) {
+        (async () => {
+          const results = await currentMasto?.v2.search.fetch({
+            q: status.url,
+            type: 'statuses',
+            resolve: true,
+            limit: 1,
+          });
+          if (results.statuses.length) {
+            const status = results.statuses[0];
+            states.statuses[sKey] = {
+              ...status,
+              reblogged: !reblogged,
+              reblogsCount: reblogsCount + (reblogged ? -1 : 1),
+            };
+            if (reblogged) {
+              const newStatus = await currentMasto.v1.statuses.$select(status.id).unreblog();
+              saveStatus(newStatus, myLocalInstance);
+              return true;
+            } else {
+              const newStatus = await currentMasto.v1.statuses.$select(status.id).reblog();
+              saveStatus(newStatus, myLocalInstance);
+              return true;
+            }
+          }
+        })();
       } else {
-        const newStatus = await masto.v1.statuses.$select(id).reblog();
-        saveStatus(newStatus, instance);
-        return true;
+        try {
+          states.statuses[sKey] = {
+            ...status,
+            reblogged: !reblogged,
+            reblogsCount: reblogsCount + (reblogged ? -1 : 1),
+          };
+          if (reblogged) {
+            const newStatus = await masto.v1.statuses.$select(id).unreblog();
+            saveStatus(newStatus, instance);
+            return true;
+          } else {
+            const newStatus = await masto.v1.statuses.$select(id).reblog();
+            saveStatus(newStatus, instance);
+            return true;
+          }
+        } catch (e) {
+          console.error(e);
+          // Revert optimistism
+          states.statuses[sKey] = status;
+        }
       }
+
     } catch (e) {
       console.error(e);
       // Revert optimistism
@@ -1536,7 +1561,6 @@ function Status({
                   icon="rocket"
                   count={reblogsCount}
                   onClick={boostStatus}
-                  disabled={!canBoost}
                 />
               </div>
               {/* <MenuConfirm
