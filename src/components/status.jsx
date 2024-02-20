@@ -394,6 +394,8 @@ function Status({
               ...status,
               reblogged: !reblogged,
               reblogsCount: reblogsCount + (reblogged ? -1 : 1),
+              favouritesCount: favouritesCount,
+              repliesCount: repliesCount,
             };
             if (reblogged) {
               const newStatus = await currentMasto.v1.statuses.$select(status.id).unreblog();
@@ -485,6 +487,8 @@ function Status({
               ...status,
               favourited: !favourited,
               favouritesCount: favouritesCount + (favourited ? -1 : 1),
+              reblogsCount: reblogsCount,
+              repliesCount: repliesCount
             };
             if (favourited) {
               const newStatus = await currentMasto.v1.statuses.$select(status.id).unfavourite();
@@ -1549,7 +1553,6 @@ function Status({
                   icon="comment"
                   count={repliesCount}
                   onClick={replyStatus}
-                  disabled={!canBoost}
                 />
               </div>
               <div class="action has-count">

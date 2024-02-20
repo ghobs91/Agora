@@ -747,7 +747,7 @@ function StatusThread({ id, closeLink = '/', instance: propInstance }) {
                 forceTranslate={translate}
               />
             </InView>
-            {uiState !== 'loading' && !authenticated ? (
+            {/* {uiState !== 'loading' && !authenticated ? (
               <div class="post-status-banner">
                 <p>
                   You're not logged in. Interactions (reply, boost, etc) are not
@@ -757,7 +757,8 @@ function StatusThread({ id, closeLink = '/', instance: propInstance }) {
                   Log in
                 </Link>
               </div>
-            ) : (
+            ) 
+            : (
               !sameInstance && (
                 <div class="post-status-banner">
                   <p>
@@ -798,7 +799,8 @@ function StatusThread({ id, closeLink = '/', instance: propInstance }) {
                   </button>
                 </div>
               )
-            )}
+            )
+            } */}
           </>
         ) : (
           // <StatusParent>
