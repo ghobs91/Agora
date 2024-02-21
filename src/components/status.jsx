@@ -359,9 +359,9 @@ function Status({
   }
 
   const replyStatus = () => {
-    if (!sameInstance || !authenticated) {
-      return alert(unauthInteractionErrorMessage);
-    }
+    // if (!sameInstance || !authenticated) {
+    //   return alert(unauthInteractionErrorMessage);
+    // }
     states.showCompose = {
       replyToStatus: status,
     };

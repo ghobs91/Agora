@@ -17,7 +17,7 @@ import db from '../utils/db';
 import emojifyText from '../utils/emojify-text';
 import localeMatch from '../utils/locale-match';
 import openCompose from '../utils/open-compose';
-import states, { saveStatus } from '../utils/states';
+import states, { saveStatus, statusKey } from '../utils/states';
 import store from '../utils/store';
 import {
   getCurrentAccount,
@@ -112,6 +112,9 @@ function Compose({
 }) {
   console.warn('RENDER COMPOSER');
   const { masto, instance } = api();
+  const {
+    masto: currentMasto
+  } = api();
   const [uiState, setUIState] = useState('default');
   const UID = useRef(draftStatus?.uid || uid());
   console.log('Compose UID', UID.current);
@@ -811,29 +814,50 @@ function Compose({
                 } else if (!editStatus) {
                   params.visibility = visibility;
                   // params.inReplyToId = replyToStatus?.id || undefined;
-                  params.in_reply_to_id = replyToStatus?.id || undefined;
+                  // params.in_reply_to_id = replyToStatus?.id || undefined;
                 }
                 params = removeNullUndefined(params);
                 console.log('POST', params);
 
                 let newStatus;
-                if (editStatus) {
-                  newStatus = await masto.v1.statuses
-                    .$select(editStatus.id)
-                    .update(params);
-                  saveStatus(newStatus, instance, {
-                    skipThreading: true,
-                  });
-                } else {
-                  try {
-                    newStatus = await masto.v1.statuses.create(params, {
-                      idempotencyKey: UID.current,
+                let sKey = statusKey(replyToStatus?.id, instance);
+                const results = await currentMasto?.v2.search.fetch({
+                  q: replyToStatus.url,
+                  type: 'statuses',
+                  resolve: true,
+                  limit: 1,
+                });
+
+                if (results.statuses.length) {
+                  const status = results.statuses[0];
+                  params.in_reply_to_id = status?.id || undefined;
+                  // states.statuses[sKey] = {
+                  //   ...status,
+                  //   reblogged: !reblogged,
+                  //   reblogsCount: reblogsCount + (reblogged ? -1 : 1),
+                  //   favouritesCount: favouritesCount,
+                  //   repliesCount: repliesCount,
+                  // };
+                  if (editStatus) {
+                    // newStatus = await masto.v1.statuses
+                    newStatus = await instance.v1.statuses
+                      .$select(editStatus.id)
+                      .update(params);
+                    saveStatus(newStatus, instance, {
+                      skipThreading: true,
                     });
-                  } catch (_) {
-                    // If idempotency key fails, try again without it
-                    newStatus = await masto.v1.statuses.create(params);
+                  } else {
+                    try {
+                      newStatus = await currentMasto.v1.statuses.create(params, {
+                        idempotencyKey: UID.current,
+                      });
+                    } catch (_) {
+                      // If idempotency key fails, try again without it
+                      newStatus = await currentMasto.v1.statuses.create(params);
+                    }
                   }
                 }
+
                 setUIState('default');
 
                 // Close
