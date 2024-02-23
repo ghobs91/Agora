@@ -820,24 +820,45 @@ function Compose({
                 console.log('POST', params);
 
                 let newStatus;
-                let sKey = statusKey(replyToStatus?.id, instance);
-                const results = await currentMasto?.v2.search.fetch({
-                  q: replyToStatus.url,
-                  type: 'statuses',
-                  resolve: true,
-                  limit: 1,
-                });
-
-                if (results.statuses.length) {
-                  const status = results.statuses[0];
-                  params.in_reply_to_id = status?.id || undefined;
-                  // states.statuses[sKey] = {
-                  //   ...status,
-                  //   reblogged: !reblogged,
-                  //   reblogsCount: reblogsCount + (reblogged ? -1 : 1),
-                  //   favouritesCount: favouritesCount,
-                  //   repliesCount: repliesCount,
-                  // };
+                if (replyToStatus) {
+                  let sKey = statusKey(replyToStatus?.id, instance);
+                  const results = await currentMasto?.v2.search.fetch({
+                    q: replyToStatus?.url,
+                    type: 'statuses',
+                    resolve: true,
+                    limit: 1,
+                  });
+                  if (results.statuses.length) {
+                    const status = results.statuses[0];
+                    params.in_reply_to_id = status?.id || undefined;
+                    // states.statuses[sKey] = {
+                    //   ...status,
+                    //   reblogged: !reblogged,
+                    //   reblogsCount: reblogsCount + (reblogged ? -1 : 1),
+                    //   favouritesCount: favouritesCount,
+                    //   repliesCount: repliesCount,
+                    // };
+                    if (editStatus) {
+                      // newStatus = await masto.v1.statuses
+                      newStatus = await instance.v1.statuses
+                        .$select(editStatus.id)
+                        .update(params);
+                      saveStatus(newStatus, instance, {
+                        skipThreading: true,
+                      });
+                    } else {
+                      try {
+                        newStatus = await currentMasto.v1.statuses.create(params, {
+                          idempotencyKey: UID.current,
+                        });
+                      } catch (_) {
+                        // If idempotency key fails, try again without it
+                        newStatus = await currentMasto.v1.statuses.create(params);
+                      }
+                    }
+                  }
+                }
+ else {
                   if (editStatus) {
                     // newStatus = await masto.v1.statuses
                     newStatus = await instance.v1.statuses
