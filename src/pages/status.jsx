@@ -257,7 +257,7 @@ function StatusThread({ id, closeLink = '/', instance: propInstance }) {
       const autoLoadLocalInstanceVersion = () => {
         setUIState('loading');
         (async () => {
-          try {
+          try {autoLoadLocalInstanceVersion
             const apiEndpoint = currentMasto ? currentMasto : myCurrentInstance
             const results =
               await apiEndpoint.v2.search.fetch({
@@ -307,6 +307,14 @@ function StatusThread({ id, closeLink = '/', instance: propInstance }) {
       }
 
       try {
+        async () => {
+          const statusURL = getInstanceStatusURL(heroStatus.url);
+          if (statusURL) {
+            location.hash = statusURL;
+          } else {
+            alert('Unable to switch');
+          }
+        }
         const context = await contextFetch;
         const { ancestors, descendants } = context;
 

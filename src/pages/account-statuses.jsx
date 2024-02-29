@@ -65,7 +65,7 @@ function AccountStatuses() {
     [instance],
   );
   const [searchEnabled, setSearchEnabled] = useState(false);
-  const canAutoSwitchToUsersInstance = () => {
+  const canAutoSwitchToUsersInstance = async () => {
     return account?.acct && account?.acct.indexOf('bird.makeup') === -1 && account?.acct.indexOf('threads.net') === -1;
   }
   useEffect(() => {
@@ -86,8 +86,9 @@ function AccountStatuses() {
           const { id } = acc;
           location.hash = `/${accountInstance}/a/${id}`;
         } catch (e) {
-          console.error(e);
-          alert('Unable to fetch account info');
+          return;
+          // console.error(e);
+          // alert('Unable to fetch account info');
         }
       })();
     }

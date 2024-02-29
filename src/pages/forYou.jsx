@@ -128,13 +128,14 @@ function ForYou(props) {
   return (
     <>
       <Timeline
-        key={id}
+        key={instance}
         title={list.title}
-        id="list"
+        id="foryou"
         emptyText="Nothing yet."
         errorText="Unable to load posts."
         instance={instance}
         fetchItems={fetchList}
+        checkForUpdates={checkForUpdates}
         useItemID
         boostsCarousel={snapStates.settings.boostsCarousel}
         allowFilters
