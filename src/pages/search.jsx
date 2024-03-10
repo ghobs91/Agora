@@ -14,6 +14,9 @@ import SearchForm from '../components/search-form';
 import Status from '../components/status';
 import { api } from '../utils/api';
 import useTitle from '../utils/useTitle';
+import {
+  getCurrentAccount
+} from '../utils/store-utils';
 
 const SHORT_LIMIT = 5;
 const LIMIT = 40;
@@ -28,6 +31,9 @@ function Search(props) {
   const searchFormRef = useRef();
   const q = props?.query || searchParams.get('q');
   const type = props?.type || searchParams.get('type');
+  const currentAccount = getCurrentAccount();
+  const currentAccountInfo = currentAccount.info;
+  const handle = `https://suggestedfriends.vercel.app/?handle=${currentAccountInfo.username}@${currentAccountInfo.url.replace('https://', '').split('/@')[0]}`
   useTitle(
     q
       ? `Search: ${q}${
@@ -357,7 +363,10 @@ function Search(props) {
               <Loader abrupt />
             </p>
           ) : (
-            <p class="ui-state">
+            <p class="ui-state search-blurb-container">
+              <a href={handle} class='suggest-friends-button'>
+                  Find Suggested Friends
+              </a>
               <p class="ui-state">To find a Mastodon profile, search their handle in this format: <strong>@gargron@mastodon.social</strong></p>
               <p class="ui-state">To find a Bluesky profile, search their handle in this format: <strong>andrew.bsky.social</strong></p>
               <p class="ui-state">To find a Nostr profile, search their profile hex code in this format: <strong>b17c59874dc05d7f6ec975bce04770c8b7fa9d37f3ad0096fdb76c9385d68928@mostr.pub</strong></p>

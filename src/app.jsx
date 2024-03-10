@@ -61,7 +61,6 @@ import ImportFriends from './pages/importFriends';
 import ImportTwitter from './pages/importTwitter';
 import Modal from './components/modal';
 import ListManageMembers from './pages/list';
-import SuggestedFollows from './pages/suggested-follows';
 
 window.__STATES__ = states;
 
@@ -285,7 +284,6 @@ function App() {
         )}
         {isLoggedIn && <Route path="/importfriends" element={<ImportFriends />} />}
         {isLoggedIn && <Route path="/importtwitter" element={<ImportTwitter />} />}
-        {isLoggedIn && <Route path="/suggestedfollows" element={<SuggestedFollows />} />}
         {isLoggedIn && <Route path="/ft" element={<FollowedHashtags />} />}
         <Route path="/:instance?/t/:hashtag" element={<Hashtag />} />
         <Route path="/:instance?/a/:id" element={<AccountStatuses />} />
