@@ -45,6 +45,21 @@ const SearchForm = forwardRef((props, ref) => {
               q: query,
             };
             if (instance === "ditto.pub") {
+              let convertedQuery = query;
+              if (query.indexOf("@") === 0) {
+                convertedQuery = query.replace("@", "")
+              }
+              (async () => {
+                convertedQuery = query.replace("@", "_at_");
+                const matchedMostrHexPing = await fetch(`https://mostr.pub/.well-known/nostr.json?name=${convertedQuery}`, {method: "get"});
+                const matchedMostrHexPingResponse = await matchedMostrHexPing.json();
+                if (matchedMostrHexPingResponse && matchedMostrHexPingResponse["names"]) {
+                  const matchedMostrHex = matchedMostrHexPingResponse["names"][convertedQuery]
+                  const dittoProfileCall = await fetch(`https://ditto.pub/api/v1/accounts/${matchedMostrHex}`, {method: "get"});
+                  const dittoProfileCallResponse = await dittoProfileCall.json();
+                  location.hash = `/${instance}/a/${dittoProfileCallResponse.id}`;
+                }
+              })();
               console.log(`instance === "ditto.pub"`)
             } else if (instance === "skybridge.fly.dev") {
               if (query.indexOf("@") === 0) {

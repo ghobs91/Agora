@@ -35,7 +35,7 @@ function Welcome() {
           <big>
             <b>
               <Link to="/login" class="button">
-                Log in
+                Get Started
               </Link>
             </b>
           </big>
