@@ -250,34 +250,17 @@ function StatusThread({ id, closeLink = '/', instance: propInstance }) {
       let heroStatus = snapStates.statuses[sKey];
       // Automatically switch to users instance to allow interacting with a status
       const canAutoLoadThisInstance = () => {
-        return false;
-        // return myCurrentInstance != 'ditto.pub' && myCurrentInstance != 'skybridge.fly.dev' && heroStatus.account.acct.indexOf("mostr.pub") === -1 && heroStatus.account.acct.indexOf("threads.net") === -1;
+        return myCurrentInstance != 'ditto.pub' && myCurrentInstance != 'skybridge.fly.dev' && heroStatus.account.acct.indexOf("mostr.pub") === -1 && heroStatus.account.acct.indexOf("threads.net") === -1;
       }
 
       const autoLoadLocalInstanceVersion = () => {
         setUIState('loading');
         (async () => {
-          try {autoLoadLocalInstanceVersion
-            const apiEndpoint = currentMasto ? currentMasto : myCurrentInstance
-            const results =
-              await apiEndpoint.v2.search.fetch({
-                q: heroStatus.url,
-                type: 'statuses',
-                resolve: true,
-                limit: 1,
-              });
-            if (results.statuses.length) {
-              const status = results.statuses[0];
-              location.hash = myLocalInstance
-                ? `/${myLocalInstance}/s/${status.id}`
-                : `/s/${status.id}`;
-            } else {
-              throw new Error('No results');
-            }
-          } catch (e) {
-            setUIState('default');
-            alert('Error: ' + e);
-            console.error(e);
+          const statusURL = getInstanceStatusURL(heroStatus.url);
+          if (statusURL) {
+            location.hash = statusURL;
+          } else {
+            alert('Unable to switch');
           }
         })();
       }
