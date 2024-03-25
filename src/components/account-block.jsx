@@ -61,6 +61,8 @@ function AccountBlock({
 
   const verifiedField = fields?.find((f) => !!f.verifiedAt && !!f.value);
 
+
+
   return (
     <a
       class="account-block"
@@ -78,7 +80,7 @@ function AccountBlock({
               const userId = url.split("users/")[1]
               const dittoProfileCall = await fetch(`https://ditto.pub/api/v1/accounts/${userId}`, {method: "get"});
               const dittoProfileCallResponse = await dittoProfileCall.json();
-              if (dittoProfileCallResponse.length) {
+              if (dittoProfileCallResponse) {
                 location.hash = url.replace("https:/", "").replace("users", "a");
               } else {
                 location.hash = `/${instance}/a/${id}`;
