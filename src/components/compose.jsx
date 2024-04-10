@@ -814,7 +814,7 @@ function Compose({
                 } else if (!editStatus) {
                   params.visibility = visibility;
                   // params.inReplyToId = replyToStatus?.id || undefined;
-                  // params.in_reply_to_id = replyToStatus?.id || undefined;
+                  params.in_reply_to_id = replyToStatus?.id || undefined;
                 }
                 params = removeNullUndefined(params);
                 console.log('POST', params);
