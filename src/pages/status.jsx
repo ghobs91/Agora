@@ -41,6 +41,7 @@ import useScroll from '../utils/useScroll';
 import useTitle from '../utils/useTitle';
 
 import getInstanceStatusURL from './../utils/get-instance-status-url';
+import { canAutoLoadThisInstance } from '../utils/protocol-translator';
 
 const LIMIT = 40;
 const SUBCOMMENTS_OPEN_ALL_LIMIT = 10;
@@ -248,11 +249,6 @@ function StatusThread({ id, closeLink = '/', instance: propInstance }) {
 
       const hasStatus = !!snapStates.statuses[sKey];
       let heroStatus = snapStates.statuses[sKey];
-      // Automatically switch to users instance to allow interacting with a status
-      const canAutoLoadThisInstance = () => {
-        return myCurrentInstance != 'ditto.pub' && myCurrentInstance != 'skybridge.fly.dev' && heroStatus.account.acct.indexOf("mostr.pub") === -1 && heroStatus.account.acct.indexOf("threads.net") === -1;
-      }
-
       const autoLoadLocalInstanceVersion = () => {
         setUIState('loading');
         (async () => {
@@ -266,7 +262,7 @@ function StatusThread({ id, closeLink = '/', instance: propInstance }) {
       }
 
       if (hasStatus && !reloadHero) {
-        if (canAutoLoadThisInstance()) {
+        if (canAutoLoadThisInstance(myCurrentInstance, heroStatus)) {
           autoLoadLocalInstanceVersion();
         }
         console.debug('Hero status is cached');
@@ -275,7 +271,7 @@ function StatusThread({ id, closeLink = '/', instance: propInstance }) {
           heroStatus = await heroFetch();
           saveStatus(heroStatus, instance);
 
-          if (canAutoLoadThisInstance()) {
+          if (canAutoLoadThisInstance(myCurrentInstance, heroStatus)) {
             autoLoadLocalInstanceVersion();
           }
           // Give time for context to appear

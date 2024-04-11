@@ -860,8 +860,7 @@ function Compose({
                 }
  else {
                   if (editStatus) {
-                    // newStatus = await masto.v1.statuses
-                    newStatus = await instance.v1.statuses
+                    newStatus = await masto.v1.statuses
                       .$select(editStatus.id)
                       .update(params);
                     saveStatus(newStatus, instance, {

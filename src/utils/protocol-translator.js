@@ -50,3 +50,8 @@ export function bridgifySearchQuery(instance, query, params) {
         }
       }
 }
+
+export function canAutoLoadThisInstance(myCurrentInstance, heroStatus) {
+    // Automatically switch to users instance to allow interacting with a status
+    return myCurrentInstance != 'ditto.pub' && myCurrentInstance != 'skybridge.fly.dev' && heroStatus.account.acct.indexOf("mostr.pub") === -1 && heroStatus.account.acct.indexOf("threads.net") === -1;
+}
