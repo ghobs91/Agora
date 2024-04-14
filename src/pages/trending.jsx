@@ -17,7 +17,6 @@ import pmem from '../utils/pmem';
 import states from '../utils/states';
 import { saveStatus } from '../utils/states';
 import useTitle from '../utils/useTitle';
-import translateNostrTrendingArrayStructure from '../utils/protocol-translator';
 
 const LIMIT = 20;
 
@@ -83,7 +82,6 @@ function Trending({ columnMode, ...props }) {
     const results = await trendIterator.current.next();
     const nostrTrending = await fetch(`https://api.nostr.band/v0/trending/notes`, {method: "get"});
     const nostrTrendingResponse = await nostrTrending.json();
-    const translatedNostrTrendingArray = translateNostrTrendingArrayStructure(nostrTrendingResponse);
 
     async function getBridgedProfileUrl(result) {
         const myCurrentInstance = api().instance;

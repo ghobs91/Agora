@@ -59,6 +59,6 @@ export function canAutoLoadThisInstance(myCurrentInstance, heroStatus) {
     return myCurrentInstance != 'ditto.pub' && myCurrentInstance != 'skybridge.fly.dev' && heroStatus.account.acct.indexOf("mostr.pub") === -1 && heroStatus.account.acct.indexOf("threads.net") === -1;
 }
 
-export function translateNostrTrendingArrayStructure(post) {
-
+export function translateNostrTrendingArrayStructure(nostrTrendingArray) {
+    return true;
 }
