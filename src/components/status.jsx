@@ -60,7 +60,7 @@ import MenuLink from './menu-link';
 import RelativeTime from './relative-time';
 import TranslationBlock from './translation-block';
 import { useLocation } from 'react-router-dom';
-import { createNostrUser, sendVibeEvent, getVibeTagCount, setVibeTagCount, vibeCountDict } from '../utils/vibe-tag';
+import { sendVibeEvent, getVibeTagCount, setVibeTagCount, vibeCountDict } from '../utils/vibe-tag';
 
 const INLINE_TRANSLATE_LIMIT = 140;
 const throttle = pThrottle({
@@ -509,8 +509,6 @@ function Status({
   };
 
   const favouriteStatus = async (e) => {
-    createNostrUser();
-    sendVibeEvent(status.id, 'mastodonPost', 'positive');
     if (!sameInstance) {
       (async () => {
         try {

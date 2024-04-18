@@ -3,6 +3,10 @@ import { bytesToHex } from '@noble/hashes/utils';
 import { Relay } from 'nostr-tools/relay';
 
 
+if (!localStorage.getItem(nostrUserSecret)) {
+  createNostrUser();
+}
+
 export let vibeCountDict = {
   "clickbait": [],
   "positive": []
