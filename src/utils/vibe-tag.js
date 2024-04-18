@@ -3,7 +3,7 @@ import { bytesToHex } from '@noble/hashes/utils';
 import { Relay } from 'nostr-tools/relay';
 
 
-if (!localStorage.getItem(nostrUserSecret)) {
+if (!localStorage.getItem('nostrUserSecret')) {
   createNostrUser();
 }
 
