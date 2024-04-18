@@ -60,7 +60,7 @@ import MenuLink from './menu-link';
 import RelativeTime from './relative-time';
 import TranslationBlock from './translation-block';
 import { useLocation } from 'react-router-dom';
-import { createNostrUser, sendVibeEvent } from '../utils/vibe-tag';
+import { createNostrUser, sendVibeEvent, getVibeTagCount, setVibeTagCount, vibeCountDict } from '../utils/vibe-tag';
 
 const INLINE_TRANSLATE_LIMIT = 140;
 const throttle = pThrottle({
@@ -79,6 +79,8 @@ const visibilityText = {
   private: 'Followers only',
   direct: 'Private mention',
 };
+
+let vibeTagCountSet = false;
 
 function Status({
   statusID,
@@ -125,6 +127,12 @@ function Status({
   if (!status) {
     status = snapStates.statuses[sKey] || snapStates.statuses[statusID];
     sKey = statusKey(status?.id, instance);
+    if (!vibeTagCountSet){
+      setVibeTagCount(status.id, 'clickbait');
+      setVibeTagCount(status.id, 'positive');
+      vibeTagCountSet = true;
+    }
+
   }
   if (!status) {
     return null;
@@ -147,6 +155,10 @@ function Status({
     repliesCount,
     reblogged,
     reblogsCount,
+    labeledClickbait,
+    labeledClickbaitCount,
+    labeledPositiveVibe,
+    labeledPositiveVibeCount,
     favourited,
     favouritesCount,
     bookmarked,
@@ -175,7 +187,7 @@ function Status({
     _filtered,
   } = status;
 
-  console.debug('RENDER Status', id, status?.account.displayName, quoted);
+  // console.debug('RENDER Status', id, status?.account.displayName, quoted);
 
   const debugHover = (e) => {
     if (e.shiftKey) {
@@ -375,11 +387,39 @@ function Status({
     );
   }, [mediaAttachments]);
 
+  const vibeLabelClickbait = async () => {
+    try {
+      states.statuses[sKey] = {
+        ...status,
+        labeledClickbait: !labeledClickbait,
+        labeledClickbaitCount: vibeCountDict['clickbait'].length,
+      };
+      sendVibeEvent(status.id, 'mastodon', 'clickbait');
+    } catch (e) {
+      console.error(e);
+      // Revert optimistism
+      states.statuses[sKey] = status;
+      return false;
+    }
+  };
+
+  const vibeLabelPositive = async () => {
+    try {
+      states.statuses[sKey] = {
+        ...status,
+        labeledPositiveVibe: !labeledPositiveVibe,
+        labeledPositiveVibeCount: vibeCountDict['positive'].length,
+      };
+      sendVibeEvent(status.id, 'mastodon', 'positive');
+    } catch (e) {
+      console.error(e);
+      // Revert optimistism
+      states.statuses[sKey] = status;
+      return false;
+    }
+  };
+
   const boostStatus = async () => {
-    // if (!authenticated) {
-    //   alert(unauthInteractionErrorMessage);
-    //   return false;
-    // }
     try {
       if (!sameInstance) {
         (async () => {
@@ -470,7 +510,7 @@ function Status({
 
   const favouriteStatus = async (e) => {
     createNostrUser();
-    sendVibeEvent(status.id, 'positive');
+    sendVibeEvent(status.id, 'mastodonPost', 'positive');
     if (!sameInstance) {
       (async () => {
         try {
@@ -1547,6 +1587,38 @@ function Status({
                 </>
               )}
             </div>
+            
+            <div class={`actions ${_deleted ? 'disabled' : ''}`}>
+              <div class="action has-count">
+                <VibeTagButton
+                  checked={labeledClickbait}
+                  title={['Clickbait']}
+                  alt={['Clickbait']}
+                  class="clickbait-button vibetag-button"
+                  icon="bait"
+                  text="Clickbait"
+                  count={labeledClickbaitCount}
+                  onClick={vibeLabelClickbait}
+                  style="color: #e95252"
+                />
+              </div>
+              <div class="action has-count">
+                <VibeTagButton
+                  checked={labeledPositiveVibe}
+                  title={['Positive']}
+                  alt={['Positive']}
+                  class="positive-button vibetag-button"
+                  icon="positive"
+                  text="Positive Vibes"
+                  count={labeledPositiveVibeCount}
+                  onClick={vibeLabelPositive}
+                  style="color: #93e952"
+                />
+                
+              </div>
+            </div>
+
+
             <div class={`actions ${_deleted ? 'disabled' : ''}`}>
               <div class="action has-count">
                 <StatusButton
@@ -2154,6 +2226,61 @@ function StatusButton({
     >
       <Icon icon={icon} size="l" alt={iconAlt} />
       {!!count && (
+        <>
+          {' '}
+          <small title={count}>{shortenNumber(count)}</small>
+        </>
+      )}
+    </button>
+  );
+}
+
+function VibeTagButton({
+  checked,
+  count,
+  class: className,
+  title,
+  alt,
+  icon,
+  text,
+  onClick,
+  ...props
+}) {
+  if (typeof title === 'string') {
+    title = [title, title];
+  }
+  if (typeof alt === 'string') {
+    alt = [alt, alt];
+  }
+
+  const [buttonTitle, setButtonTitle] = useState(title[0] || '');
+  const [iconAlt, setIconAlt] = useState(alt[0] || '');
+
+  useEffect(() => {
+    if (checked) {
+      setButtonTitle(title[1] || '');
+      setIconAlt(alt[1] || '');
+    } else {
+      setButtonTitle(title[0] || '');
+      setIconAlt(alt[0] || '');
+    }
+  }, [checked, title, alt]);
+
+  return (
+    <button
+      type="button"
+      title={buttonTitle}
+      class={`plain ${className} ${checked ? 'checked' : ''}`}
+      onClick={(e) => {
+        if (!onClick) return;
+        e.preventDefault();
+        e.stopPropagation();
+        onClick(e);
+      }}
+      {...props}
+    >{text}
+      <Icon icon={icon} size="l" alt={iconAlt} />
+      {!!count && count > 0 && (
         <>
           {' '}
           <small title={count}>{shortenNumber(count)}</small>

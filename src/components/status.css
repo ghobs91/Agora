@@ -1398,6 +1398,16 @@ a.card:is(:hover, :focus):visited {
 
 /* ACTIONS */
 
+li.timeline-item-container > .status-link {
+  margin-bottom: 10px !important;
+}
+.timeline-item-container {
+  background-color: #18191a !important;
+  -moz-border-radius: 15px 15px 0px 0px;
+  -webkit-border-radius: 15px 15px 0px 0px;
+  border-radius: 15px 15px 0px 0px;
+}
+
 .status .actions {
   display: flex;
   gap: 15px;
@@ -1436,18 +1446,26 @@ a.card:is(:hover, :focus):visited {
 .status .action > button.plain.reblog-button:not(:disabled):is(:hover, :focus) {
   color: var(--reblog-color);
 }
-li.timeline-item-container > .status-link {
-  margin-bottom: 10px !important;
+.status .action > button.plain.clickbait-button {
+  color: #e95252;
+  border-color: #e95252;
 }
-.timeline-item-container {
-  background-color: #18191a !important;
-  -moz-border-radius: 15px 15px 0px 0px;
-  -webkit-border-radius: 15px 15px 0px 0px;
-  border-radius: 15px 15px 0px 0px;
+.status .action > button.plain.positive-button {
+  color: #93e952;
+  border-color: #93e952;
 }
+
 .status .action > button.plain.reblog-button.checked {
   color: var(--reblog-color);
   border-color: var(--reblog-color);
+}
+.status .action > button.plain.clickbait-button.checked {
+  color: rgb(242, 164, 164);
+  background-color: #f00;
+}
+.status .action > button.plain.positive-button.checked {
+  background-color: #326a2e;;
+  color: green;
 }
 @keyframes reblogged {
   5% {
