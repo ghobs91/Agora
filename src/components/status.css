@@ -1460,13 +1460,18 @@ li.timeline-item-container > .status-link {
   border-color: var(--reblog-color);
 }
 .status .action > button.plain.clickbait-button.checked {
-  color: rgb(242, 164, 164);
-  background-color: #f00;
+  color: rgb(47, 8, 8);
+  background-color: #9d2a2a;
 }
 .status .action > button.plain.positive-button.checked {
-  background-color: #326a2e;;
-  color: green;
+  background-color: #1db812;
+  color: rgb(56, 89, 31);
 }
+
+.disabled-vibe-button {
+  cursor: default !important;
+}
+
 @keyframes reblogged {
   5% {
     transform: translate(-2px, -2px);

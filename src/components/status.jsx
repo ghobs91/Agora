@@ -388,34 +388,42 @@ function Status({
   }, [mediaAttachments]);
 
   const vibeLabelClickbait = async () => {
-    try {
-      states.statuses[sKey] = {
-        ...status,
-        labeledClickbait: !labeledClickbait,
-        labeledClickbaitCount: vibeCountDict['clickbait'].length,
-      };
-      sendVibeEvent(status.id, 'mastodon', 'clickbait');
-    } catch (e) {
-      console.error(e);
-      // Revert optimistism
-      states.statuses[sKey] = status;
-      return false;
+    const alreadyChecked = localStorage.getItem(status.id);
+    if (!alreadyChecked) {
+      try {
+        states.statuses[sKey] = {
+          ...status,
+          labeledClickbait: !labeledClickbait,
+          labeledClickbaitCount: vibeCountDict['clickbait'].length,
+        };
+        sendVibeEvent(status.id, 'mastodon', 'clickbait');
+      } catch (e) {
+        console.error(e);
+        // Revert optimistism
+        states.statuses[sKey] = status;
+        return false;
+      }
+    } else {
+      return;
     }
   };
 
   const vibeLabelPositive = async () => {
-    try {
-      states.statuses[sKey] = {
-        ...status,
-        labeledPositiveVibe: !labeledPositiveVibe,
-        labeledPositiveVibeCount: vibeCountDict['positive'].length,
-      };
-      sendVibeEvent(status.id, 'mastodon', 'positive');
-    } catch (e) {
-      console.error(e);
-      // Revert optimistism
-      states.statuses[sKey] = status;
-      return false;
+    const alreadyChecked = localStorage.getItem(status.id);
+    if (!alreadyChecked) {
+      try {
+        states.statuses[sKey] = {
+          ...status,
+          labeledPositiveVibe: !labeledPositiveVibe,
+          labeledPositiveVibeCount: vibeCountDict['positive'].length,
+        };
+        sendVibeEvent(status.id, 'mastodon', 'positive');
+      } catch (e) {
+        console.error(e);
+        // Revert optimistism
+        states.statuses[sKey] = status;
+        return false;
+      }
     }
   };
 
@@ -1589,30 +1597,31 @@ function Status({
             <div class={`actions ${_deleted ? 'disabled' : ''}`}>
               <div class="action has-count">
                 <VibeTagButton
-                  checked={labeledClickbait}
+                  checked={localStorage.getItem(status.id) === 'clickbait'}
                   title={['Clickbait']}
                   alt={['Clickbait']}
-                  class="clickbait-button vibetag-button"
+                  class={`clickbait-button vibetag-button ${localStorage.getItem(status.id) ? 'disabled-vibe-button': ''}`}
                   icon="bait"
                   text="Clickbait"
                   count={labeledClickbaitCount}
                   onClick={vibeLabelClickbait}
                   style="color: #e95252"
+                  disabled={localStorage.getItem(status.id)}
                 />
               </div>
               <div class="action has-count">
                 <VibeTagButton
-                  checked={labeledPositiveVibe}
+                  checked={localStorage.getItem(status.id) === 'positive'}
                   title={['Positive']}
                   alt={['Positive']}
-                  class="positive-button vibetag-button"
+                  class={`positive-button vibetag-button ${localStorage.getItem(status.id) ? 'disabled-vibe-button': ''}`}
                   icon="positive"
                   text="Positive Vibes"
                   count={labeledPositiveVibeCount}
                   onClick={vibeLabelPositive}
                   style="color: #93e952"
+                  disabled={localStorage.getItem(status.id)}
                 />
-                
               </div>
             </div>
 
@@ -2242,6 +2251,7 @@ function VibeTagButton({
   icon,
   text,
   onClick,
+  disabled,
   ...props
 }) {
   if (typeof title === 'string') {
@@ -2269,6 +2279,7 @@ function VibeTagButton({
       type="button"
       title={buttonTitle}
       class={`plain ${className} ${checked ? 'checked' : ''}`}
+      disabled={disabled}
       onClick={(e) => {
         if (!onClick) return;
         e.preventDefault();

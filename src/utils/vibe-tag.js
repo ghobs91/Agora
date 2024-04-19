@@ -15,7 +15,9 @@ export let vibeCountDict = {
 export function createNostrUser() {
     let sk = generateSecretKey() // `sk` is a Uint8Array
     let skHex = bytesToHex(sk) 
+    let pk = getPublicKey(sk)
     localStorage.setItem('nostrUserSecret', skHex);
+    localStorage.setItem('nostrUserPubkey', pk);
 }
 
 export async function sendVibeEvent(vibeSubject, vibeSubjectType, vibeTag) {
@@ -35,8 +37,8 @@ export async function sendVibeEvent(vibeSubject, vibeSubjectType, vibeTag) {
     const signedEvent = finalizeEvent(eventTemplate, sk)
     await relay.publish(signedEvent)
     setVibeTagCount(vibeSubject, vibeTag)
+    localStorage.setItem(vibeSubject, vibeTag);
     relay.close()
-
 }
 
 export async function getVibeTagCount(vibeTag) {
