@@ -11,7 +11,7 @@ const LIMIT = 200;
 
 function FollowedHashtags() {
   const { masto, instance } = api();
-  useTitle(`Followed Hashtags`, `/ft`);
+  useTitle(`Followed Hashtags`, `/fh`);
   const [uiState, setUIState] = useState('default');
 
   const [followedHashtags, setFollowedHashtags] = useState([]);

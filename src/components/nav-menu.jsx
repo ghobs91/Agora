@@ -185,8 +185,12 @@ function NavMenu(props) {
               <MenuLink to="/l">
                 <Icon icon="list" size="l" /> <span>Lists</span>
               </MenuLink>
-              <MenuLink to="/ft">
+              <MenuLink to="/fh">
                 <Icon icon="hashtag" size="l" /> <span>Followed Hashtags</span>
+              </MenuLink>
+              <MenuLink to="/ft">
+                <Icon icon="filters" size="l" />
+                Filters
               </MenuLink>
               <MenuLink to="/b">
                 <Icon icon="bookmark" size="l" /> <span>Bookmarks</span>

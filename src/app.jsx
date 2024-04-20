@@ -28,6 +28,7 @@ import FollowedHashtags from './pages/followed-hashtags';
 import Following from './pages/following';
 import Hashtag from './pages/hashtag';
 import Home from './pages/home';
+import Filters from './pages/filters';
 import HttpRoute from './pages/http-route';
 import List from './pages/list';
 import Lists from './pages/lists';
@@ -284,7 +285,8 @@ function App() {
         )}
         {isLoggedIn && <Route path="/importfriends" element={<ImportFriends />} />}
         {isLoggedIn && <Route path="/importtwitter" element={<ImportTwitter />} />}
-        {isLoggedIn && <Route path="/ft" element={<FollowedHashtags />} />}
+        {isLoggedIn && <Route path="/fh" element={<FollowedHashtags />} />}
+        {isLoggedIn && <Route path="/ft" element={<Filters />} />}
         <Route path="/:instance?/t/:hashtag" element={<Hashtag />} />
         <Route path="/:instance?/a/:id" element={<AccountStatuses />} />
         <Route path="/:instance?/p">
