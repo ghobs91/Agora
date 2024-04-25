@@ -37,7 +37,7 @@ export function bridgifySearchQuery(instance, query, params) {
         } else if (query.match(/^[0-9a-fA-F]{64}$/)) {
           params.q += "@mostr.pub";
           return params.q;
-        } else if (query.indexOf("npub" > -1)) {
+        } else if (query.includes("npub")) {
           params.q += "@momostr.pink";
           return params.q;
         }

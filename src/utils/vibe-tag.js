@@ -42,6 +42,17 @@ export async function sendVibeEvent(vibeSubject, vibeSubjectType, vibeTag) {
 }
 
 export async function getVibeTagCount(vibeTag) {
+  relay.subscribe([
+    {
+      kinds: [5183]
+    },
+    ], {
+      onevent(event) {
+        if (event.tags[0][1] === vibeSubject && event.tags[1][1] === vibeTag && vibeCountDict[vibeTag].indexOf(event.id) === -1) {
+          vibeCountDict[vibeTag].push(event.id);
+        }
+      }
+    });
   return vibeCountDict[vibeTag];
 }
 

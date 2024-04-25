@@ -1597,7 +1597,7 @@ function Status({
             <div class={`actions ${_deleted ? 'disabled' : ''}`}>
               <div class="action has-count">
                 <VibeTagButton
-                  checked={localStorage.getItem(status.id) === 'clickbait'}
+                  checked={labeledClickbait}
                   title={['Clickbait']}
                   alt={['Clickbait']}
                   class={`clickbait-button vibetag-button ${localStorage.getItem(status.id) ? 'disabled-vibe-button': ''}`}
@@ -1611,7 +1611,7 @@ function Status({
               </div>
               <div class="action has-count">
                 <VibeTagButton
-                  checked={localStorage.getItem(status.id) === 'positive'}
+                  checked={labeledPositiveVibe}
                   title={['Positive']}
                   alt={['Positive']}
                   class={`positive-button vibetag-button ${localStorage.getItem(status.id) ? 'disabled-vibe-button': ''}`}
