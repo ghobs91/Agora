@@ -62,6 +62,7 @@ import ImportFriends from './pages/importFriends';
 import ImportTwitter from './pages/importTwitter';
 import Modal from './components/modal';
 import ListManageMembers from './pages/list';
+// import {formattedShortcuts} from './utils/shortcuts';
 
 window.__STATES__ = states;
 
@@ -82,49 +83,7 @@ function App() {
   const snapStates = useSnapshot(states);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [uiState, setUIState] = useState('loading');
-  const myCurrentInstance = api().instance;
-  store.local.set('instanceURL', myCurrentInstance);
   store.local.set('provocContentWordDict', '');
-  const { instance } = api();
-  const { masto } = api({ instance });
-  const formattedShortcuts = [
-    {
-      icon: "home",
-      id: "home",
-      path: "/",
-      subtitle: undefined,
-      title: "Home"
-    },
-    {
-      id: 'trending',
-      title: 'Trending',
-      subtitle: '',
-      path: instance.indexOf('skybridge.fly.dev') > -1 ? `/l/1860062187893555200`: instance.indexOf('masto.host') > -1 ? `/mastodon.social/trending` : `/${instance}/trending`,
-      icon: 'chart',
-    },
-    {
-      id: 'foryou',
-      title: 'For You',
-      subtitle: '',
-      path: `/foryou`,
-      icon: 'algorithm',
-    },
-    {
-      id: 'search',
-      title: 'Search',
-      path: '/search',
-      icon: 'search',
-    },
-    {
-      icon: "notification",
-      id: "notifications",
-      path: "/notifications",
-      subtitle: undefined,
-      title: "Notifications"
-    },
-  ]
-
-
 
   useLayoutEffect(() => {
     const theme = store.local.get('theme');
@@ -181,10 +140,16 @@ function App() {
     } else {
       window.__IGNORE_GET_ACCOUNT_ERROR__ = true;
       const account = getCurrentAccount();
+      const myCurrentInstance = api().instance;
+      store.local.set('instanceURL', myCurrentInstance);
+      const { instance } = api();
+      const { masto } = api({ instance });
+
       if (account) {
         store.session.set('currentAccount', account.info.id);
         const { client } = api({ account });
         const { instance } = client;
+
         // console.log('masto', masto);
         initStates();
         initPreferences(client);
@@ -251,6 +216,43 @@ function App() {
     const $body = document.body;
     $body.classList.toggle('cloak', snapStates.settings.cloakMode);
   }, [snapStates.settings.cloakMode]);
+
+  // const formattedShortcuts = [
+  //   {
+  //     icon: "home",
+  //     id: "home",
+  //     path: "/",
+  //     subtitle: undefined,
+  //     title: "Home"
+  //   },
+  //   {
+  //     id: 'trending',
+  //     title: 'Trending',
+  //     subtitle: '',
+  //     path: store.session.get('instanceURL').indexOf('skybridge.fly.dev') > -1 ? `/l/1860062187893555200`: store.session.get(instanceURL).indexOf('masto.host') > -1 ? `/mastodon.social/trending` : `/${instance}/trending`,
+  //     icon: 'chart',
+  //   },
+  //   {
+  //     id: 'foryou',
+  //     title: 'For You',
+  //     subtitle: '',
+  //     path: `/foryou`,
+  //     icon: 'algorithm',
+  //   },
+  //   {
+  //     id: 'search',
+  //     title: 'Search',
+  //     path: '/search',
+  //     icon: 'search',
+  //   },
+  //   {
+  //     icon: "notification",
+  //     id: "notifications",
+  //     path: "/notifications",
+  //     subtitle: undefined,
+  //     title: "Notifications"
+  //   },
+  // ]
 
   return (
     <>
@@ -328,7 +330,7 @@ function App() {
         )}
         {isLoggedIn && <nav class="tab-bar">
           <ul>
-            {formattedShortcuts.map(
+            {/* {formattedShortcuts.map(
               ({ id, path, title, subtitle, icon }, i) => {
                 return (
                   <li key={i + title}>
@@ -365,7 +367,7 @@ function App() {
                   </li>
                 );
               },
-            )}
+            )} */}
           </ul>
         </nav>}
 
