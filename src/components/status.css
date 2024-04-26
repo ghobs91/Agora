@@ -1446,7 +1446,7 @@ li.timeline-item-container > .status-link {
 .status .action > button.plain.reblog-button:not(:disabled):is(:hover, :focus) {
   color: var(--reblog-color);
 }
-.status .action > button.plain.clickbait-button {
+.status .action > button.plain.provocative-button {
   color: #e95252;
   border-color: #e95252;
 }
@@ -1459,7 +1459,7 @@ li.timeline-item-container > .status-link {
   color: var(--reblog-color);
   border-color: var(--reblog-color);
 }
-.status .action > button.plain.clickbait-button.checked {
+.status .action > button.plain.provocative-button.checked {
   color: rgb(47, 8, 8);
   background-color: #9d2a2a;
 }
