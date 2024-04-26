@@ -128,7 +128,7 @@ function Status({
     status = snapStates.statuses[sKey] || snapStates.statuses[statusID];
     sKey = statusKey(status?.id, instance);
     if (!vibeTagCountSet){
-      setVibeTagCount(status.id, 'clickbait');
+      setVibeTagCount(status.id, 'provocative');
       setVibeTagCount(status.id, 'positive');
       vibeTagCountSet = true;
     }
@@ -155,8 +155,8 @@ function Status({
     repliesCount,
     reblogged,
     reblogsCount,
-    labeledClickbait,
-    labeledClickbaitCount,
+    labeledProvocative,
+    labeledProvocativeCount,
     labeledPositiveVibe,
     labeledPositiveVibeCount,
     favourited,
@@ -387,16 +387,16 @@ function Status({
     );
   }, [mediaAttachments]);
 
-  const vibeLabelClickbait = async () => {
+  const vibeLabelProvocative = async () => {
     const alreadyChecked = localStorage.getItem(status.id);
     if (!alreadyChecked) {
       try {
         states.statuses[sKey] = {
           ...status,
-          labeledClickbait: !labeledClickbait,
-          labeledClickbaitCount: vibeCountDict['clickbait'].length,
+          labeledProvocative: !labeledProvocative,
+          labeledProvocativeCount: vibeCountDict['provocative'].length,
         };
-        sendVibeEvent(status.id, 'mastodon', 'clickbait');
+        sendVibeEvent(status.id, 'mastodon', 'provocative', status.content);
       } catch (e) {
         console.error(e);
         // Revert optimistism
@@ -417,7 +417,7 @@ function Status({
           labeledPositiveVibe: !labeledPositiveVibe,
           labeledPositiveVibeCount: vibeCountDict['positive'].length,
         };
-        sendVibeEvent(status.id, 'mastodon', 'positive');
+        sendVibeEvent(status.id, 'mastodon', 'positive', status.content);
       } catch (e) {
         console.error(e);
         // Revert optimistism
@@ -1597,14 +1597,14 @@ function Status({
             <div class={`actions ${_deleted ? 'disabled' : ''}`}>
               <div class="action has-count">
                 <VibeTagButton
-                  checked={labeledClickbait}
-                  title={['Clickbait']}
-                  alt={['Clickbait']}
-                  class={`clickbait-button vibetag-button ${localStorage.getItem(status.id) ? 'disabled-vibe-button': ''}`}
-                  icon="bait"
-                  text="Clickbait"
-                  count={labeledClickbaitCount}
-                  onClick={vibeLabelClickbait}
+                  checked={labeledProvocative}
+                  title={['Provocative']}
+                  alt={['Provocative']}
+                  class={`provocative-button vibetag-button ${localStorage.getItem(status.id) ? 'disabled-vibe-button': ''}`}
+                  icon="provocative"
+                  text="Provocative"
+                  count={labeledProvocativeCount}
+                  onClick={vibeLabelProvocative}
                   style="color: #e95252"
                   disabled={localStorage.getItem(status.id)}
                 />
@@ -2287,7 +2287,7 @@ function VibeTagButton({
         onClick(e);
       }}
       {...props}
-    >{text}
+    >{text + " "}
       <Icon icon={icon} size="l" alt={iconAlt} />
       {!!count && count > 0 && (
         <>

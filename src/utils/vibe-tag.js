@@ -8,9 +8,11 @@ if (!localStorage.getItem('nostrUserSecret')) {
 }
 
 export let vibeCountDict = {
-  "clickbait": [],
+  "provocative": [],
   "positive": []
 };
+
+export let provocContentWordDict = {};
 
 export function createNostrUser() {
     let sk = generateSecretKey() // `sk` is a Uint8Array
@@ -20,7 +22,7 @@ export function createNostrUser() {
     localStorage.setItem('nostrUserPubkey', pk);
 }
 
-export async function sendVibeEvent(vibeSubject, vibeSubjectType, vibeTag) {
+export async function sendVibeEvent(vibeSubject, vibeSubjectType, vibeTag, vibeSubjectContent) {
     let sk = localStorage.getItem('nostrUserSecret');
     const relay = await Relay.connect('wss://relay.damus.io');
     let eventTemplate = {
@@ -39,6 +41,45 @@ export async function sendVibeEvent(vibeSubject, vibeSubjectType, vibeTag) {
     setVibeTagCount(vibeSubject, vibeTag)
     localStorage.setItem(vibeSubject, vibeTag);
     relay.close()
+    if (vibeTag === "provocative") {
+      iterateProvocativeWordTracker(vibeSubjectContent)
+    }
+}
+
+export async function iterateProvocativeWordTracker(content) {
+  let sk = localStorage.getItem('nostrUserSecret');
+  const relay = await Relay.connect('wss://relay.damus.io');
+  let eventTemplate = {
+      kind: 1967,
+      created_at: Math.floor(Date.now() / 1000),
+      tags: [
+          ["provoc_content", content]
+      ],
+      content: 'provoc_content',
+  }
+
+  // this assigns the pubkey, calculates the event id and signs the event in a single step
+  const signedEvent = finalizeEvent(eventTemplate, sk)
+  await relay.publish(signedEvent)
+  subscribeToProvocWordDict();
+  relay.close()
+}
+
+export async function subscribeToProvocWordDict() {
+  const relay = await Relay.connect('wss://relay.damus.io');
+  relay.subscribe([
+    {
+      kinds: [1967]
+    },
+    ], {
+      onevent(event) {
+        if (event.tags[0][0] === "provoc_content") {
+          
+          let provocContentWordArray = event.tags[0][1].split(" ");
+          provocContentWordDict[event.id] = provocContentWordArray;
+        }
+      }
+    });
 }
 
 export async function getVibeTagCount(vibeTag) {
