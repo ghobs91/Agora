@@ -20,9 +20,15 @@ export function createNostrUser() {
     localStorage.setItem('nostrUserPubkey', pk);
 }
 
+export function relayPicker() {
+  let relayList = ['wss://relay.damus.io', 'wss://a.nos.lol/', 'wss://e.nos.lol/', 'wss://nostr.mom/', 'wss://offchain.pub/']
+  const selectedRelay = relayList[Math.floor(Math.random()*relayList.length)];
+  return selectedRelay;
+}
+
 export async function sendVibeEvent(vibeSubject, vibeSubjectType, vibeTag, vibeSubjectContent) {
     let sk = localStorage.getItem('nostrUserSecret');
-    const relay = await Relay.connect('wss://relay.damus.io');
+    const relay = await Relay.connect(relayPicker());
     let eventTemplate = {
         kind: 5183,
         created_at: Math.floor(Date.now() / 1000),
@@ -46,7 +52,7 @@ export async function sendVibeEvent(vibeSubject, vibeSubjectType, vibeTag, vibeS
 
 export async function iterateProvocativeWordTracker(content) {
   let sk = localStorage.getItem('nostrUserSecret');
-  const relay = await Relay.connect('wss://relay.damus.io');
+  const relay = await Relay.connect(relayPicker());
   let eventTemplate = {
       kind: 1967,
       created_at: Math.floor(Date.now() / 1000),
@@ -64,17 +70,13 @@ export async function iterateProvocativeWordTracker(content) {
 }
 
 export async function subscribeToProvocWordDict() {
-  const relay = await Relay.connect('wss://relay.damus.io');
+  const relay = await Relay.connect(relayPicker());
   relay.subscribe([
     {
       kinds: [1967]
     },
     ], {
       onevent(event) {
-        // if (!localStorage.getItem("provocContentWordDict")) {
-        //   const placeholderDict = {"evil": 0};
-        //   localStorage.setItem("provocContentWordDict", JSON.stringify(placeholderDict));
-        // }
         let provocContentWordDictCheck = localStorage.getItem("provocContentWordDict");
         if (!provocContentWordDictCheck) {
           let placeholder = JSON.stringify({"": 0});
@@ -82,12 +84,15 @@ export async function subscribeToProvocWordDict() {
         }
         let provocContentWordDict = JSON.parse(localStorage.getItem("provocContentWordDict"));
         if (event.tags[0][0] === "provoc_content") {
+          const regex = /<([a-z]+)([^>]*?)>/gi;
           let provocContentWordArray = event.tags[0][1].replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(" ");
           provocContentWordArray.forEach((word) => {
-            if (Object.keys(provocContentWordDict).includes(word)){
-              provocContentWordDict[word] += 1;
-            } else {
-              provocContentWordDict[word] = 0;
+            if (!word.match(regex)) {
+              if (Object.keys(provocContentWordDict).includes(word)){
+                provocContentWordDict[word] += 1;
+              } else {
+                provocContentWordDict[word] = 0;
+              }
             }
           });
           localStorage.setItem("provocContentWordDict", JSON.stringify(provocContentWordDict));

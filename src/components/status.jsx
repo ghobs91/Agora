@@ -138,6 +138,35 @@ function Status({
     return null;
   }
 
+  let shouldHide;
+
+  let provocContentWordDictCheck = localStorage.getItem("provocContentWordDict");
+  if (!provocContentWordDictCheck) {
+    let placeholder = JSON.stringify({"": 0});
+    localStorage.setItem("provocContentWordDict", placeholder);
+  }
+
+  let provocContentWordDict = JSON.parse(localStorage.getItem("provocContentWordDict"));
+  let statusWordArray = status.content.split(" ");
+  let provocContentWordArray = Object.entries(provocContentWordDict);
+  // Sort the array based on numerical values in descending order
+
+  let sortedArray = provocContentWordArray.sort(function(a, b) {
+    return b[1] - a[1];
+  });
+
+  let worstWordsArray = sortedArray.slice(0, 10)
+  let worstWordsObj = {};
+  worstWordsArray.forEach(function(item) {
+    worstWordsObj[item[0]] = item[1];
+  });
+  statusWordArray.forEach((word) => {
+    if (worstWordsObj[word] > 5) {
+      shouldHide = true;
+      return;
+    }
+  });
+
   const {
     account: {
       acct,
@@ -197,7 +226,7 @@ function Status({
     }
   };
 
-  if (allowFilters && size !== 'l' && _filtered) {
+  if ((allowFilters && size !== 'l' && _filtered) || shouldHide) {
     return (
       <FilteredStatus
         status={status}
@@ -339,6 +368,7 @@ function Status({
   const contentRef = useTruncated();
   const mediaContainerRef = useTruncated();
   const readMoreText = 'Read more →';
+  
 
   const statusRef = useRef(null);
 
