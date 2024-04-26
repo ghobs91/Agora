@@ -84,6 +84,7 @@ function App() {
   const [uiState, setUIState] = useState('loading');
   const myCurrentInstance = api().instance;
   store.local.set('instanceURL', myCurrentInstance);
+  store.local.set('provocContentWordDict', '');
   const { instance } = api();
   const { masto } = api({ instance });
   const formattedShortcuts = [

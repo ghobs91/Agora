@@ -12,8 +12,6 @@ export let vibeCountDict = {
   "positive": []
 };
 
-export let provocContentWordDict = {};
-
 export function createNostrUser() {
     let sk = generateSecretKey() // `sk` is a Uint8Array
     let skHex = bytesToHex(sk) 
@@ -73,10 +71,28 @@ export async function subscribeToProvocWordDict() {
     },
     ], {
       onevent(event) {
+        // if (!localStorage.getItem("provocContentWordDict")) {
+        //   const placeholderDict = {"evil": 0};
+        //   localStorage.setItem("provocContentWordDict", JSON.stringify(placeholderDict));
+        // }
+        let provocContentWordDictCheck = localStorage.getItem("provocContentWordDict");
+        if (!provocContentWordDictCheck) {
+          let placeholder = JSON.stringify({"": 0});
+          localStorage.setItem("provocContentWordDict", placeholder);
+        }
+        let provocContentWordDict = JSON.parse(localStorage.getItem("provocContentWordDict"));
         if (event.tags[0][0] === "provoc_content") {
-          
-          let provocContentWordArray = event.tags[0][1].split(" ");
-          provocContentWordDict[event.id] = provocContentWordArray;
+          let provocContentWordArray = event.tags[0][1].replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(" ");
+          provocContentWordArray.forEach((word) => {
+            if (Object.keys(provocContentWordDict).includes(word)){
+              provocContentWordDict[word] += 1;
+            } else {
+              provocContentWordDict[word] = 0;
+            }
+          });
+          localStorage.setItem("provocContentWordDict", JSON.stringify(provocContentWordDict));
+          let provocContentWordDictTest = JSON.parse(localStorage.getItem("provocContentWordDict"));
+          console.log(`provocContentWordDictTest: ${provocContentWordDictTest}`)
         }
       }
     });

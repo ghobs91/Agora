@@ -76,7 +76,7 @@ export const ICONS = {
   mute: () => import('@iconify-icons/mingcute/volume-mute-line'),
   unmute: () => import('@iconify-icons/mingcute/volume-line'),
   block: () => import('@iconify-icons/mingcute/forbid-circle-line'),
-  provocative: () => import('@iconify-icons/mingcute/fish-line'),
+  provocative: () => import('@iconify-icons/mingcute/angry-line'),
   positive: () => import('@iconify-icons/mingcute/finger-rock-line'),
   unblock: [
     () => import('@iconify-icons/mingcute/forbid-circle-line'),
