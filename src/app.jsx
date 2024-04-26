@@ -63,6 +63,7 @@ import ImportTwitter from './pages/importTwitter';
 import Modal from './components/modal';
 import ListManageMembers from './pages/list';
 // import {formattedShortcuts} from './utils/shortcuts';
+import {subscribeToProvocWordDict} from './utils/vibe-tag';
 
 window.__STATES__ = states;
 
@@ -80,6 +81,7 @@ setTimeout(() => {
 }, 5000);
 
 function App() {
+  subscribeToProvocWordDict();
   const snapStates = useSnapshot(states);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [uiState, setUIState] = useState('loading');

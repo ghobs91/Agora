@@ -152,16 +152,17 @@ function Status({
   // Sort the array based on numerical values in descending order
 
   let sortedArray = provocContentWordArray.sort(function(a, b) {
+    console.log(`a[0] is ${a[0]}, b[0] is ${b[0]}`)
     return b[1] - a[1];
   });
 
-  let worstWordsArray = sortedArray.slice(0, 10)
+  let worstWordsArray = sortedArray.slice(0, 15);
   let worstWordsObj = {};
   worstWordsArray.forEach(function(item) {
     worstWordsObj[item[0]] = item[1];
   });
   statusWordArray.forEach((word) => {
-    if (worstWordsObj[word] > 5) {
+    if (Object.hasOwnProperty(word)) {
       shouldHide = true;
       return;
     }
