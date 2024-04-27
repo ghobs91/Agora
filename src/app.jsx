@@ -219,42 +219,50 @@ function App() {
     $body.classList.toggle('cloak', snapStates.settings.cloakMode);
   }, [snapStates.settings.cloakMode]);
 
-  // const formattedShortcuts = [
-  //   {
-  //     icon: "home",
-  //     id: "home",
-  //     path: "/",
-  //     subtitle: undefined,
-  //     title: "Home"
-  //   },
-  //   {
-  //     id: 'trending',
-  //     title: 'Trending',
-  //     subtitle: '',
-  //     path: store.session.get('instanceURL').indexOf('skybridge.fly.dev') > -1 ? `/l/1860062187893555200`: store.session.get(instanceURL).indexOf('masto.host') > -1 ? `/mastodon.social/trending` : `/${instance}/trending`,
-  //     icon: 'chart',
-  //   },
-  //   {
-  //     id: 'foryou',
-  //     title: 'For You',
-  //     subtitle: '',
-  //     path: `/foryou`,
-  //     icon: 'algorithm',
-  //   },
-  //   {
-  //     id: 'search',
-  //     title: 'Search',
-  //     path: '/search',
-  //     icon: 'search',
-  //   },
-  //   {
-  //     icon: "notification",
-  //     id: "notifications",
-  //     path: "/notifications",
-  //     subtitle: undefined,
-  //     title: "Notifications"
-  //   },
-  // ]
+  const trending = localStorage.getItem('instanceURL').indexOf('skybridge.fly.dev') > -1 ? {
+    id: 'trending',
+    title: 'Trending',
+    subtitle: '',
+    path: `/l/1860062187893555200`,
+    icon: 'chart',
+  } : localStorage.getItem('instanceURL').indexOf('masto.host') > -1 ? {
+    id: 'trending',
+    title: 'Trending',
+    subtitle: '',
+    path: `/mastodon.social/trending`,
+    icon: 'chart',
+  } : {}
+
+  const formattedShortcuts = [
+    {
+      icon: "home",
+      id: "home",
+      path: "/",
+      subtitle: undefined,
+      title: "Home"
+    },
+    trending,
+    {
+      id: 'foryou',
+      title: 'For You',
+      subtitle: '',
+      path: `/foryou`,
+      icon: 'algorithm',
+    },
+    {
+      id: 'search',
+      title: 'Search',
+      path: '/search',
+      icon: 'search',
+    },
+    {
+      icon: "notification",
+      id: "notifications",
+      path: "/notifications",
+      subtitle: undefined,
+      title: "Notifications"
+    },
+  ]
 
   return (
     <>
@@ -332,7 +340,7 @@ function App() {
         )}
         {isLoggedIn && <nav class="tab-bar">
           <ul>
-            {/* {formattedShortcuts.map(
+            {formattedShortcuts.map(
               ({ id, path, title, subtitle, icon }, i) => {
                 return (
                   <li key={i + title}>
@@ -369,7 +377,7 @@ function App() {
                   </li>
                 );
               },
-            )} */}
+            )}
           </ul>
         </nav>}
 
