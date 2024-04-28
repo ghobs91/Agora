@@ -60,7 +60,7 @@ import MenuLink from './menu-link';
 import RelativeTime from './relative-time';
 import TranslationBlock from './translation-block';
 import { useLocation } from 'react-router-dom';
-import { sendVibeEvent, getVibeTagCount, setVibeTagCount, vibeCountDict } from '../utils/vibe-tag';
+import { sendVibeEvent, setVibeTagCount, vibeCountDict, stripHtmlTags } from '../utils/vibe-tag';
 
 const INLINE_TRANSLATE_LIMIT = 140;
 const throttle = pThrottle({
@@ -147,7 +147,8 @@ function Status({
   }
 
   let provocContentWordDict = JSON.parse(localStorage.getItem("provocContentWordDict"));
-  let statusWordArray = status.content.split(" ");
+  let cleanedContent = stripHtmlTags(status.content);
+  let statusWordArray = cleanedContent.split(" ");
   let provocContentWordArray = Object.entries(provocContentWordDict);
   // Sort the array based on numerical values in descending order
 
@@ -427,7 +428,7 @@ function Status({
           labeledProvocative: !labeledProvocative,
           labeledProvocativeCount: vibeCountDict['provocative'].length,
         };
-        sendVibeEvent(status.id, 'mastodon', 'provocative', status.content);
+        sendVibeEvent(status.id, 'mastodon', 'provocative', cleanedContent);
       } catch (e) {
         console.error(e);
         // Revert optimistism
@@ -448,7 +449,7 @@ function Status({
           labeledPositiveVibe: !labeledPositiveVibe,
           labeledPositiveVibeCount: vibeCountDict['positive'].length,
         };
-        sendVibeEvent(status.id, 'mastodon', 'positive', status.content);
+        sendVibeEvent(status.id, 'mastodon', 'positive', cleanedContent);
       } catch (e) {
         console.error(e);
         // Revert optimistism

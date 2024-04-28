@@ -45,9 +45,12 @@ export async function sendVibeEvent(vibeSubject, vibeSubjectType, vibeTag, vibeS
     setVibeTagCount(vibeSubject, vibeTag)
     localStorage.setItem(vibeSubject, vibeTag);
     relay.close()
-    if (vibeTag === "provocative") {
-      iterateProvocativeWordTracker(vibeSubjectContent)
-    }
+    iterateProvocativeWordTracker(vibeSubjectContent)
+}
+
+export function stripHtmlTags(content) {
+  const regex = /<[^>]+(>|$)/g; // Matches any HTML tag
+  return content.replace(regex, '');
 }
 
 export async function iterateProvocativeWordTracker(content) {
@@ -66,6 +69,7 @@ export async function iterateProvocativeWordTracker(content) {
   const signedEvent = finalizeEvent(eventTemplate, sk)
   await relay.publish(signedEvent)
   subscribeToProvocWordDict();
+  subscribeToPositiveVibesWordDict();
   relay.close()
 }
 
@@ -92,6 +96,38 @@ export async function subscribeToProvocWordDict() {
                 provocContentWordDict[word] += 1;
               } else {
                 provocContentWordDict[word] = 0;
+              }
+            }
+          });
+          localStorage.setItem("provocContentWordDict", JSON.stringify(provocContentWordDict));
+          let provocContentWordDictTest = JSON.parse(localStorage.getItem("provocContentWordDict"));
+          console.log(`provocContentWordDictTest: ${provocContentWordDictTest}`)
+        }
+      }
+    });
+}
+
+export async function subscribeToPositiveVibesWordDict() {
+  const relay = await Relay.connect(relayPicker());
+  relay.subscribe([
+    {
+      kinds: [1967]
+    },
+    ], {
+      onevent(event) {
+        let provocContentWordDictCheck = localStorage.getItem("provocContentWordDict");
+        if (!provocContentWordDictCheck) {
+          let placeholder = JSON.stringify({"": 0});
+          localStorage.setItem("provocContentWordDict", placeholder);
+        }
+        let provocContentWordDict = JSON.parse(localStorage.getItem("provocContentWordDict"));
+        if (event.tags[0][0] === "positive") {
+          const regex = /<([a-z]+)([^>]*?)>/gi;
+          let positiveContentWordArray = event.tags[0][1].replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(" ");
+          positiveContentWordArray.forEach((word) => {
+            if (!word.match(regex)) {
+              if (Object.keys(provocContentWordDict).includes(word)){
+                provocContentWordDict[word] -= 1;
               }
             }
           });
