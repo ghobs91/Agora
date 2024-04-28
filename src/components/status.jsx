@@ -163,7 +163,7 @@ function Status({
     worstWordsObj[item[0]] = item[1];
   });
   statusWordArray.forEach((word) => {
-    if (Object.hasOwnProperty(word)) {
+    if (worstWordsObj.hasOwnProperty(word)) {
       shouldHide = true;
       return;
     }
