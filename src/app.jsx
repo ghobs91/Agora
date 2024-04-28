@@ -219,19 +219,25 @@ function App() {
     $body.classList.toggle('cloak', snapStates.settings.cloakMode);
   }, [snapStates.settings.cloakMode]);
 
-  const trending = localStorage.getItem('instanceURL').indexOf('skybridge.fly.dev') > -1 ? {
-    id: 'trending',
-    title: 'Trending',
-    subtitle: '',
-    path: `/l/1860062187893555200`,
-    icon: 'chart',
-  } : localStorage.getItem('instanceURL').indexOf('masto.host') > -1 ? {
+  const instanceUrl = store.local.get('instanceURL');
+
+  let trending = {
     id: 'trending',
     title: 'Trending',
     subtitle: '',
     path: `/mastodon.social/trending`,
     icon: 'chart',
-  } : {}
+  }
+
+  if (instanceUrl?.indexOf('skybridge.fly.dev')) {
+    trending = {
+      id: 'trending',
+      title: 'Trending',
+      subtitle: '',
+      path: `/l/1860062187893555200`,
+      icon: 'chart',
+    }
+  }
 
   const formattedShortcuts = [
     {
