@@ -49,8 +49,10 @@ export async function sendVibeEvent(vibeSubject, vibeSubjectType, vibeTag, vibeS
 }
 
 export function stripHtmlTags(content) {
-  const regex = /<[^>]+(>|$)/g; // Matches any HTML tag
-  return content.replace(regex, '');
+  const tempElement = document.createElement('div');
+  tempElement.innerHTML = content;
+  console.log(`cleaned up text: ${tempElement.textContent || tempElement.innerText}`)
+  return tempElement.textContent || tempElement.innerText;
 }
 
 export async function iterateProvocativeWordTracker(content) {
