@@ -1630,11 +1630,11 @@ function Status({
               <div class="action has-count">
                 <VibeTagButton
                   checked={labeledProvocative}
-                  title={['Provocative']}
-                  alt={['Provocative']}
+                  title={['Bummer']}
+                  alt={['Bummer']}
                   class={`provocative-button vibetag-button ${localStorage.getItem(status.id) ? 'disabled-vibe-button': ''}`}
                   icon="provocative"
-                  text="Provocative"
+                  text="Bummer"
                   count={labeledProvocativeCount}
                   onClick={vibeLabelProvocative}
                   style="color: #e95252"
