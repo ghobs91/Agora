@@ -60,7 +60,7 @@ import MenuLink from './menu-link';
 import RelativeTime from './relative-time';
 import TranslationBlock from './translation-block';
 import { useLocation } from 'react-router-dom';
-import { sendVibeEvent, setVibeTagCount, vibeCountDict, stripHtmlTags } from '../utils/vibe-tag';
+import { sendVibeEvent, setVibeTagCount, vibeCountDict, cleanContentString } from '../utils/vibe-tag';
 
 const INLINE_TRANSLATE_LIMIT = 140;
 const throttle = pThrottle({
@@ -147,8 +147,8 @@ function Status({
   }
 
   let provocContentWordDict = JSON.parse(localStorage.getItem("provocContentWordDict"));
-  let cleanedContent = stripHtmlTags(status.content);
-  let statusWordArray = cleanedContent.split(" ");
+  let cleanedContent = cleanContentString(status.content);
+  let statusWordArray = cleanedContent;
   let provocContentWordArray = Object.entries(provocContentWordDict);
   // Sort the array based on numerical values in descending order
 

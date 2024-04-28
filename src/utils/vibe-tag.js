@@ -2,7 +2,6 @@ import { generateSecretKey, getPublicKey, finalizeEvent, verifyEvent } from 'nos
 import { bytesToHex } from '@noble/hashes/utils';
 import { Relay } from 'nostr-tools/relay';
 
-
 if (!localStorage.getItem('nostrUserSecret')) {
   createNostrUser();
 }
@@ -48,6 +47,14 @@ export async function sendVibeEvent(vibeSubject, vibeSubjectType, vibeTag, vibeS
     iterateProvocativeWordTracker(vibeSubjectContent)
 }
 
+export function cleanContentString(content) {
+  let cleanedContent = stripHtmlTags(content);
+  cleanedContent = cleanedContent.split(" ").filter((word) => {
+    return word.length >= 4 && isNaN(word);
+  })
+  return cleanedContent;
+}
+
 export function stripHtmlTags(content) {
   const tempElement = document.createElement('div');
   tempElement.innerHTML = content;
@@ -91,13 +98,13 @@ export async function subscribeToProvocWordDict() {
         let provocContentWordDict = JSON.parse(localStorage.getItem("provocContentWordDict"));
         if (event.tags[0][0] === "provoc_content") {
           const regex = /<([a-z]+)([^>]*?)>/gi;
-          let provocContentWordArray = event.tags[0][1].replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(" ");
+          let provocContentWordArray = cleanContentString(event.tags[0][1]);
           provocContentWordArray.forEach((word) => {
             if (!word.match(regex)) {
               if (Object.keys(provocContentWordDict).includes(word)){
                 provocContentWordDict[word] += 1;
               } else {
-                provocContentWordDict[word] = 0;
+                provocContentWordDict[word] = 1;
               }
             }
           });
@@ -125,7 +132,7 @@ export async function subscribeToPositiveVibesWordDict() {
         let provocContentWordDict = JSON.parse(localStorage.getItem("provocContentWordDict"));
         if (event.tags[0][0] === "positive") {
           const regex = /<([a-z]+)([^>]*?)>/gi;
-          let positiveContentWordArray = event.tags[0][1].replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(" ");
+          let positiveContentWordArray = cleanContentString(event.tags[0][1]);
           positiveContentWordArray.forEach((word) => {
             if (!word.match(regex)) {
               if (Object.keys(provocContentWordDict).includes(word)){
