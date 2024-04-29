@@ -69,7 +69,7 @@ export async function iterateProvocativeWordTracker(content) {
       kind: 1967,
       created_at: Math.floor(Date.now() / 1000),
       tags: [
-          ["provoc_content", content]
+          ["provoc_content", JSON.stringify(content)]
       ],
       content: 'provoc_content',
   }
