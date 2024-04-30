@@ -60,7 +60,7 @@ import MenuLink from './menu-link';
 import RelativeTime from './relative-time';
 import TranslationBlock from './translation-block';
 import { useLocation } from 'react-router-dom';
-import { sendVibeEvent, setVibeTagCount, vibeCountDict, cleanContentString } from '../utils/vibe-tag';
+import { sendVibeEvent, setVibeTagCount, vibeCountDict, cleanContentString, commonwords } from '../utils/vibe-tag';
 
 const INLINE_TRANSLATE_LIMIT = 140;
 const throttle = pThrottle({
@@ -162,8 +162,12 @@ function Status({
   worstWordsArray.forEach(function(item) {
     worstWordsObj[item[0]] = item[1];
   });
+  console.log(`Top provocative words: ${worstWordsArray}`);
+  const commonWordsArray = commonwords.map(obj => obj.word);
   statusWordArray.forEach((word) => {
-    if (worstWordsObj.hasOwnProperty(word)) {
+    if (commonWordsArray.includes(word)) {
+       console.log(`ignore common word: ${word}`);
+    } else if (worstWordsObj.hasOwnProperty(word)) {
       shouldHide = true;
       return;
     }
