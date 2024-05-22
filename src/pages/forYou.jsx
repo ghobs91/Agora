@@ -20,6 +20,8 @@ import states, { saveStatus } from '../utils/states';
 import useTitle from '../utils/useTitle';
 import TheAlgorithm from "fedialgo"
 import { getCurrentAccount } from '../utils/store-utils';
+import { NotificationsLink } from './home';
+
 const LIMIT = 20;
 
 function ForYou(props) {
@@ -139,7 +141,7 @@ function ForYou(props) {
         useItemID
         boostsCarousel={snapStates.settings.boostsCarousel}
         allowFilters
-        // refresh={reloadCount}
+        headerEnd={<NotificationsLink />}
       />
     </>
   );

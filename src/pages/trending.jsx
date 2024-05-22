@@ -17,6 +17,7 @@ import pmem from '../utils/pmem';
 import states from '../utils/states';
 import { saveStatus } from '../utils/states';
 import useTitle from '../utils/useTitle';
+import { NotificationsLink } from './home';
 
 const LIMIT = 20;
 
@@ -37,7 +38,7 @@ function Trending({ columnMode, ...props }) {
   const myCurrentInstance = api().instance;
 
   const { masto, instance } = api({
-    instance: params.instance === 'ditto.pub' ? 'mastodon.social' : params.instance === 'skybridge.fly.dev' ? 'mastodon.social' :  props?.instance || params.instance,
+    instance: params.instance === 'ditto.pub' ? 'mastodon.social' : params.instance === 'skybridge.fly.dev' ? 'mastodon.social' : params.instance.indexOf('masto.host') > -1 ? 'mastodon.social' : props?.instance || params.instance,
   });
   const title = `Trending`;
   useTitle(title, `/:myCurrentInstance?/trending`);
@@ -192,39 +193,7 @@ function Trending({ columnMode, ...props }) {
       boostsCarousel={snapStates.settings.boostsCarousel}
       allowFilters
       timelineStart={TimelineStart}
-      headerEnd={
-        <Menu2
-          portal
-          // setDownOverflow
-          overflow="auto"
-          viewScroll="close"
-          position="anchor"
-          menuButton={
-            <button type="button" class="plain">
-              <Icon icon="more" size="l" />
-            </button>
-          }
-        >
-          <MenuItem
-            onClick={() => {
-              let newInstance = prompt(
-                'Enter a new instance e.g. "mastodon.social"',
-              );
-              if (!/\./.test(newInstance)) {
-                if (newInstance) alert('Invalid instance');
-                return;
-              }
-              if (newInstance) {
-                newInstance = newInstance.toLowerCase().trim();
-                // navigate(`/${newInstance}/trending`);
-                location.hash = `/${newInstance}/trending`;
-              }
-            }}
-          >
-            <Icon icon="bus" /> <span>Go to another instance…</span>
-          </MenuItem>
-        </Menu2>
-      }
+      headerEnd={<NotificationsLink />}
     />
   );
 }
