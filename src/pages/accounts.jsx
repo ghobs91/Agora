@@ -40,7 +40,7 @@ function Accounts({ onClose }) {
               const isCurrent = account.info.id === currentAccount;
               const isDefault = i === 0; // first account is always default
               const isBluesky = (account.instanceURL.indexOf('skybridge.fly.dev') > -1)
-              const isNostr = (account.instanceURL.indexOf('ditto.pub') > -1)
+              const isNostr = (account.instanceURL.indexOf('gleasonator.dev') > -1)
               const isMastodon = (!isBluesky && !isNostr)
               return (
                 <li key={account.info.id}>

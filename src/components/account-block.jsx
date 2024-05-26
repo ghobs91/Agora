@@ -75,10 +75,10 @@ function AccountBlock({
         if (onClick) return onClick(e);
         if (internal) {
           const myCurrentInstance = api().instance;
-          if (myCurrentInstance === "ditto.pub") {
+          if (myCurrentInstance === "gleasonator.dev") {
             (async () => {
               const userId = url.split("users/")[1]
-              const dittoProfileCall = await fetch(`https://ditto.pub/api/v1/accounts/${userId}`, {method: "get"});
+              const dittoProfileCall = await fetch(`https://gleasonator.dev/api/v1/accounts/${userId}`, {method: "get"});
               const dittoProfileCallResponse = await dittoProfileCall.json();
               if (dittoProfileCallResponse) {
                 location.hash = url.replace("https:/", "").replace("users", "a");
