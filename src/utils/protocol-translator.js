@@ -1,14 +1,14 @@
 export function bridgifySearchQuery(instance, query, params) {
   if (instance === "gleasonator.dev") {
     let convertedQuery = query;
-    if (query.indexOf("bsky.social") > -1 || query.indexOf("bsky.team") > -1) {
+    if (isSearchingBlueskyAccount(query)) {
       if (query.indexOf("@") === 0) {
         convertedQuery = query.replace("@", "")
       }
       convertedQuery += "_at_bsky.brid.gy@momostr.pink";
       params.q = convertedQuery;
       return params.q;
-    } else if (query.indexOf("@") > 0) {
+    } else if (isSearchingMastodonAccount(query)) {
       let replacedString = params.q.replace("@", "_at_");
       replacedString += "@momostr.pink";
       params.q = replacedString
@@ -27,14 +27,12 @@ export function bridgifySearchQuery(instance, query, params) {
       // })();
       // console.log(`instance === "gleasonator.dev"`)
     } else if (instance === "skybridge.fly.dev") {
-      if (query.indexOf("@") === 0) {
-        let replacedString = params.q.replace("@", "");
+      if (isSearchingMastodonAccount(query)) {
+        let replacedString; 
+        if (query.indexOf('@') === 0) {
+          replacedString = params.q.replace("@", "");
+        }
         replacedString = replacedString.replace("@", ".");
-        replacedString += ".ap.brid.gy";
-        params.q = replacedString
-        return params.q;
-      } else if (query.indexOf("@") > 0) {
-        let replacedString = params.q.replace("@", ".");
         replacedString += ".ap.brid.gy";
         params.q = replacedString
         return params.q;
@@ -62,6 +60,14 @@ export function bridgifySearchQuery(instance, query, params) {
         return params.q;
       }
     }
+}
+
+export function isSearchingBlueskyAccount(query) {
+  return query.indexOf(".") > -1 && (query.indexOf("@") === 0 || query.indexOf("@") === -1);
+}
+
+export function isSearchingMastodonAccount(query) {
+  return query.slice(1).indexOf("@") > -1;
 }
 
 export function canAutoLoadThisInstance(myCurrentInstance, heroStatus) {
