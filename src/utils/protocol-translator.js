@@ -1,12 +1,17 @@
 export function bridgifySearchQuery(instance, query, params) {
   if (instance === "gleasonator.dev") {
+    let convertedQuery = query;
     if (query.indexOf("bsky.social") > -1 || query.indexOf("bsky.team") > -1) {
-      let convertedQuery = query;
       if (query.indexOf("@") === 0) {
         convertedQuery = query.replace("@", "")
       }
       convertedQuery += "_at_bsky.brid.gy@momostr.pink";
       params.q = convertedQuery;
+      return params.q;
+    } else if (query.indexOf("@") > 0) {
+      let replacedString = params.q.replace("@", "_at_");
+      replacedString += "@momostr.pink";
+      params.q = replacedString
       return params.q;
     }
       // (async () => {
