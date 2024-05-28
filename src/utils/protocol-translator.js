@@ -1,21 +1,26 @@
 export function bridgifySearchQuery(instance, query, params) {
   if (instance === "gleasonator.dev") {
+    if (query.indexOf("bsky.social") > -1 || query.indexOf("bsky.team") > -1) {
       let convertedQuery = query;
       if (query.indexOf("@") === 0) {
         convertedQuery = query.replace("@", "")
       }
-      (async () => {
-        convertedQuery = query.replace("@", "_at_");
-        const matchedMostrHexPing = await fetch(`https://mostr.pub/.well-known/nostr.json?name=${convertedQuery}`, {method: "get"});
-        const matchedMostrHexPingResponse = await matchedMostrHexPing.json();
-        if (matchedMostrHexPingResponse && matchedMostrHexPingResponse["names"]) {
-          const matchedMostrHex = matchedMostrHexPingResponse["names"][convertedQuery]
-          const dittoProfileCall = await fetch(`https://gleasonator.dev/api/v1/accounts/${matchedMostrHex}`, {method: "get"});
-          const dittoProfileCallResponse = await dittoProfileCall.json();
-          location.hash = `/${instance}/a/${dittoProfileCallResponse.id}`;
-        }
-      })();
-      console.log(`instance === "gleasonator.dev"`)
+      convertedQuery += "_at_bsky.brid.gy@momostr.pink";
+      params.q = convertedQuery;
+      return params.q;
+    }
+      // (async () => {
+      //   convertedQuery = query.replace("@", "_at_");
+      //   const matchedMostrHexPing = await fetch(`https://mostr.pub/.well-known/nostr.json?name=${convertedQuery}`, {method: "get"});
+      //   const matchedMostrHexPingResponse = await matchedMostrHexPing.json();
+      //   if (matchedMostrHexPingResponse && matchedMostrHexPingResponse["names"]) {
+      //     const matchedMostrHex = matchedMostrHexPingResponse["names"][convertedQuery]
+      //     const dittoProfileCall = await fetch(`https://gleasonator.dev/api/v1/accounts/${matchedMostrHex}`, {method: "get"});
+      //     const dittoProfileCallResponse = await dittoProfileCall.json();
+      //     location.hash = `/${instance}/a/${dittoProfileCallResponse.id}`;
+      //   }
+      // })();
+      // console.log(`instance === "gleasonator.dev"`)
     } else if (instance === "skybridge.fly.dev") {
       if (query.indexOf("@") === 0) {
         let replacedString = params.q.replace("@", "");
