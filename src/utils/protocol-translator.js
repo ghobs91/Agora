@@ -1,5 +1,7 @@
 export function bridgifySearchQuery(instance, query, params) {
   if (instance === "gleasonator.dev") {
+      // // // // // // // // // // // // // 
+      // Searching from a Nostr Account //
     let convertedQuery = query;
     if (isSearchingBlueskyAccount(query)) {
       if (query.indexOf("@") === 0) {
@@ -8,12 +10,18 @@ export function bridgifySearchQuery(instance, query, params) {
       convertedQuery += "_at_bsky.brid.gy@momostr.pink";
       params.q = convertedQuery;
       return params.q;
+    } else if (isSearchingTwitterAccount(query)) {
+      params.q.replace("@twitter.com", "_at_bird.makeup@momostr.pink");
+      return params.q;
     } else if (isSearchingMastodonAccount(query)) {
-      let replacedString = params.q.replace("@", "_at_");
+      if (query.indexOf("@") === 0) {
+        convertedQuery = query.replace("@", "")
+      }
+      let replacedString = convertedQuery.replace("@", "_at_");
       replacedString += "@momostr.pink";
       params.q = replacedString
       return params.q;
-    }
+    } 
       // (async () => {
       //   convertedQuery = query.replace("@", "_at_");
       //   const matchedMostrHexPing = await fetch(`https://mostr.pub/.well-known/nostr.json?name=${convertedQuery}`, {method: "get"});
@@ -27,6 +35,8 @@ export function bridgifySearchQuery(instance, query, params) {
       // })();
       // console.log(`instance === "gleasonator.dev"`)
     } else if (instance === "skybridge.fly.dev") {
+       // // // // // // // // // // // // // 
+      // Searching from a Bluesky Account //
       if (isSearchingMastodonAccount(query)) {
         let replacedString; 
         if (query.indexOf('@') === 0) {
@@ -36,21 +46,32 @@ export function bridgifySearchQuery(instance, query, params) {
         replacedString += ".ap.brid.gy";
         params.q = replacedString
         return params.q;
+      } else if (isSearchingNostrAccount(query)) {
+        params.q = query += ".momostr.pink.ap.brid.gy";
       }
     } else {
-      if (query.indexOf("@") === -1) {
-        if (query.indexOf("bsky.social") > -1 || query.indexOf("bsky.team") > -1) {
-          params.q += "@bsky.brid.gy";
-          return params.q;
-        } else if (query.match(/^[0-9a-fA-F]{64}$/)) {
-          params.q += "@mostr.pub";
-          return params.q;
-        } else if (query.includes("npub")) {
-          params.q += "@momostr.pink";
-          return params.q;
-        }
-      } else if (query.indexOf("@twitter.com") > -1) {
-        const replacedString = params.q.replace("twitter.com", "bird.makeup")
+      // // // // // // // // // // // // // 
+      // Searching from a Mastodon Account //
+      if (isSearchingBlueskyAccount(query)) {
+        params.q += "@bsky.brid.gy";
+        return params.q;
+      } else if (isSearchingNostrAccount(query)) {
+        params.q += "@momostr.pink"
+      }
+      // if (query.indexOf("@") === -1) {
+      //   if (query.indexOf("bsky.social") > -1 || query.indexOf("bsky.team") > -1) {
+      //     params.q += "@bsky.brid.gy";
+      //     return params.q;
+      //   } else if (query.match(/^[0-9a-fA-F]{64}$/)) {
+      //     params.q += "@mostr.pub";
+      //     return params.q;
+      //   } else if (query.includes("npub")) {
+      //     params.q += "@momostr.pink";
+      //     return params.q;
+      //   }
+      // } 
+      else if (isSearchingTwitterAccount(query)) {
+        const replacedString = params.q.replace("twitter.com", "bird.makeup");
         params.q = replacedString;
         return params.q;
       }
@@ -63,11 +84,19 @@ export function bridgifySearchQuery(instance, query, params) {
 }
 
 export function isSearchingBlueskyAccount(query) {
-  return query.indexOf(".") > -1 && (query.indexOf("@") === 0 || query.indexOf("@") === -1);
+  return query.indexOf(".") > -1 && (query.slice(1).indexOf("@") === -1);
 }
 
 export function isSearchingMastodonAccount(query) {
-  return query.slice(1).indexOf("@") > -1;
+  return (query.slice(1).indexOf("@") > -1) && (query.indexOf("twitter.com" < 0));
+}
+
+export function isSearchingNostrAccount(query) {
+  return query.indexOf("npub") > -1;
+}
+
+export function isSearchingTwitterAccount(query) {
+  return query.indexOf("@twitter.com") > -1;
 }
 
 export function canAutoLoadThisInstance(myCurrentInstance, heroStatus) {
