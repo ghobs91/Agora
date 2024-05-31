@@ -90,7 +90,7 @@ function NameText({
           <br />
           <i>
             @
-            <span class="ib">{acct.split('@skybridge.fly.dev')[0]}</span>
+            <span class="ib">{acct.split('@skybridge-rpoo.onrender.com')[0]}</span>
           </i>
         </>
       )}

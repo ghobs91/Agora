@@ -38,7 +38,7 @@ function Trending({ columnMode, ...props }) {
   const myCurrentInstance = api().instance;
 
   const { masto, instance } = api({
-    instance: params.instance === 'gleasonator.dev' ? 'mastodon.social' : params.instance === 'skybridge.fly.dev' ? 'mastodon.social' : params.instance.indexOf('masto.host') > -1 ? 'mastodon.social' : props?.instance || params.instance,
+    instance: params.instance === 'gleasonator.dev' ? 'mastodon.social' : params.instance === 'skybridge-rpoo.onrender.com' ? 'mastodon.social' : params.instance.indexOf('masto.host') > -1 ? 'mastodon.social' : props?.instance || params.instance,
   });
   const title = `Trending`;
   useTitle(title, `/:myCurrentInstance?/trending`);

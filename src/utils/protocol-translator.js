@@ -34,7 +34,7 @@ export function bridgifySearchQuery(instance, query, params) {
       //   }
       // })();
       // console.log(`instance === "gleasonator.dev"`)
-    } else if (instance === "skybridge.fly.dev") {
+    } else if (instance === "skybridge-rpoo.onrender.com") {
        // // // // // // // // // // // // // 
       // Searching from a Bluesky Account //
       if (isSearchingMastodonAccount(query)) {
@@ -101,7 +101,7 @@ export function isSearchingTwitterAccount(query) {
 
 export function canAutoLoadThisInstance(myCurrentInstance, heroStatus) {
     // Automatically switch to users instance to allow interacting with a status
-    return myCurrentInstance != 'gleasonator.dev' && myCurrentInstance != 'skybridge.fly.dev' && heroStatus.account.acct.indexOf("mostr.pub") === -1 && heroStatus.account.acct.indexOf("threads.net") === -1;
+    return myCurrentInstance != 'gleasonator.dev' && myCurrentInstance != 'skybridge-rpoo.onrender.com' && heroStatus.account.acct.indexOf("mostr.pub") === -1 && heroStatus.account.acct.indexOf("threads.net") === -1;
 }
 
 export function translateNostrTrendingArrayStructure(nostrTrendingArray) {

@@ -12,7 +12,7 @@
 //       id: 'trending',
 //       title: 'Trending',
 //       subtitle: '',
-//       path: instanceURL.indexOf('skybridge.fly.dev') > -1 ? `/l/1860062187893555200`: instanceURL.indexOf('masto.host') > -1 ? `/mastodon.social/trending` : `/${instance}/trending`,
+//       path: instanceURL.indexOf('skybridge-rpoo.onrender.com') > -1 ? `/l/1860062187893555200`: instanceURL.indexOf('masto.host') > -1 ? `/mastodon.social/trending` : `/${instance}/trending`,
 //       icon: 'chart',
 //     },
 //     {
