@@ -234,7 +234,7 @@ function App() {
       id: 'trending',
       title: 'Trending',
       subtitle: '',
-      path: `/l/1860062187893555200`,
+      path: `/l/1907708119266885632`,
       icon: 'chart',
     }
   }
