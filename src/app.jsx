@@ -229,7 +229,7 @@ function App() {
     icon: 'chart',
   }
 
-  if (instanceUrl?.indexOf('skybridge-rpoo.onrender.com')) {
+  if (instanceUrl?.indexOf('skybridge.fly.dev')) {
     trending = {
       id: 'trending',
       title: 'Trending',

@@ -234,7 +234,7 @@ function Login() {
       <form onSubmit={onSubmit}>
         <label>
           <input
-            value={"skybridge-rpoo.onrender.com"}
+            value={"skybridge.fly.dev"}
             required
             type="text"
             class="large hidden-login-input"
@@ -273,7 +273,7 @@ function Login() {
       <form onSubmit={onSignupSubmit}>
         <label>
           <input
-            value={"skybridge-rpoo.onrender.com"}
+            value={"skybridge.fly.dev"}
             required
             type="text"
             class="large hidden-login-input"
