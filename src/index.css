@@ -476,14 +476,17 @@ kbd {
 
 .mastodon-account-pill {
   background-color: #563ACC !important;
+  color: white !important;
 }
 
 .bluesky-account-pill {
   background-color: #1f7efd !important;
+  color: white !important;
 }
 
 .nostr-account-pill {
-  background-color: #b300ff !important
+  background-color: #b300ff !important;
+  color: white !important;
 }
 
 .search-blurb-container {
