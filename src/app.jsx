@@ -221,23 +221,35 @@ function App() {
 
   const instanceUrl = store.local.get('instanceURL');
 
-  let trending = {
-    id: 'trending',
-    title: 'Trending',
-    subtitle: '',
-    path: `/mastodon.social/trending`,
-    icon: 'chart',
-  }
-
-  if (instanceUrl?.indexOf('skybridge.fly.dev')) {
-    trending = {
+    let trending = instanceUrl?.indexOf('skybridge.fly.dev') > -1 ? 
+    {
       id: 'trending',
       title: 'Trending',
       subtitle: '',
       path: `/l/1907708119266885632`,
       icon: 'chart',
+    } : {
+      id: 'trending',
+      title: 'Trending',
+      subtitle: '',
+      path: `/mastodon.social/trending`,
+      icon: 'chart',
     }
-  }
+
+    let forYou = instanceUrl?.indexOf('skybridge.fly.dev') > -1 ? 
+    {
+      id: 'foryou',
+      title: 'For You',
+      subtitle: '',
+      path: `/l/1770979263374688256`,
+      icon: 'chart',
+    } : {
+      id: 'foryou',
+      title: 'For You',
+      subtitle: '',
+      path: `/mastodon.social/trending`,
+      icon: 'chart',
+    }
 
   const formattedShortcuts = [
     {
@@ -248,13 +260,7 @@ function App() {
       title: "Home"
     },
     trending,
-    {
-      id: 'foryou',
-      title: 'For You',
-      subtitle: '',
-      path: `/foryou`,
-      icon: 'algorithm',
-    },
+    forYou,
     {
       id: 'search',
       title: 'Search',
