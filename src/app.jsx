@@ -242,13 +242,13 @@ function App() {
       title: 'For You',
       subtitle: '',
       path: `/l/1770979263374688256`,
-      icon: 'chart',
+      icon: 'algorithm',
     } : {
       id: 'foryou',
       title: 'For You',
       subtitle: '',
-      path: `/mastodon.social/trending`,
-      icon: 'chart',
+      path: `/foryou`,
+      icon: 'algorithm',
     }
 
   const formattedShortcuts = [
