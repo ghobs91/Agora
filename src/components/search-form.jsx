@@ -45,7 +45,7 @@ const SearchForm = forwardRef((props, ref) => {
             const params = {
               q: query,
             };
-            if (instance === "gleasonator.dev") {
+            if (instance === "ditto.pub") {
               bridgifySearchQuery(instance, query, params);
             } else if (instance === "skybridge.fly.dev") {
               params.q = bridgifySearchQuery(instance, query, params);

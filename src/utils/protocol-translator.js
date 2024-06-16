@@ -1,5 +1,5 @@
 export function bridgifySearchQuery(instance, query, params) {
-  if (instance === "gleasonator.dev") {
+  if (instance === "ditto.pub") {
       // // // // // // // // // // // // // 
       // Searching from a Nostr Account //
     let convertedQuery = query;
@@ -28,12 +28,12 @@ export function bridgifySearchQuery(instance, query, params) {
       //   const matchedMostrHexPingResponse = await matchedMostrHexPing.json();
       //   if (matchedMostrHexPingResponse && matchedMostrHexPingResponse["names"]) {
       //     const matchedMostrHex = matchedMostrHexPingResponse["names"][convertedQuery]
-      //     const dittoProfileCall = await fetch(`https://gleasonator.dev/api/v1/accounts/${matchedMostrHex}`, {method: "get"});
+      //     const dittoProfileCall = await fetch(`https://ditto.pub/api/v1/accounts/${matchedMostrHex}`, {method: "get"});
       //     const dittoProfileCallResponse = await dittoProfileCall.json();
       //     location.hash = `/${instance}/a/${dittoProfileCallResponse.id}`;
       //   }
       // })();
-      // console.log(`instance === "gleasonator.dev"`)
+      // console.log(`instance === "ditto.pub"`)
     } else if (instance === "skybridge.fly.dev") {
        // // // // // // // // // // // // // 
       // Searching from a Bluesky Account //
@@ -101,7 +101,7 @@ export function isSearchingTwitterAccount(query) {
 
 export function canAutoLoadThisInstance(myCurrentInstance, heroStatus) {
     // Automatically switch to users instance to allow interacting with a status
-    return myCurrentInstance != 'gleasonator.dev' && myCurrentInstance != 'skybridge.fly.dev' && heroStatus.account.acct.indexOf("mostr.pub") === -1 && heroStatus.account.acct.indexOf("threads.net") === -1;
+    return myCurrentInstance != 'ditto.pub' && myCurrentInstance != 'skybridge.fly.dev' && heroStatus.account.acct.indexOf("mostr.pub") === -1 && heroStatus.account.acct.indexOf("threads.net") === -1;
 }
 
 export function translateNostrTrendingArrayStructure(nostrTrendingArray) {

@@ -38,7 +38,7 @@ function Trending({ columnMode, ...props }) {
   const myCurrentInstance = api().instance;
 
   const { masto, instance } = api({
-    instance: params.instance === 'gleasonator.dev' ? 'mastodon.social' : params.instance === 'skybridge.fly.dev' ? 'mastodon.social' : params.instance.indexOf('masto.host') > -1 ? 'mastodon.social' : props?.instance || params.instance,
+    instance: params.instance === 'ditto.pub' ? 'mastodon.social' : params.instance === 'skybridge.fly.dev' ? 'mastodon.social' : params.instance.indexOf('masto.host') > -1 ? 'mastodon.social' : props?.instance || params.instance,
   });
   const title = `Trending`;
   useTitle(title, `/:myCurrentInstance?/trending`);
@@ -86,7 +86,7 @@ function Trending({ columnMode, ...props }) {
 
     async function getBridgedProfileUrl(result) {
         const myCurrentInstance = api().instance;
-        if (myCurrentInstance === "gleasonator.dev") {
+        if (myCurrentInstance === "ditto.pub") {
           if (result.account.url.indexOf("mostr.pub") === -1) {
             const accountInstanceBase = result.account.url.split("/@")[0].replace("https://", "");
             const handleFormattedForMostr = result.account.username + "_at_" + accountInstanceBase;
@@ -94,7 +94,7 @@ function Trending({ columnMode, ...props }) {
             const matchedMostrHexPingResponse = await matchedMostrHexPing.json();
             if (matchedMostrHexPingResponse && matchedMostrHexPingResponse["names"]) {
               const matchedMostrHex = matchedMostrHexPingResponse["names"][handleFormattedForMostr]
-              result.account.url = `https://gleasonator.dev/users/${matchedMostrHex}`
+              result.account.url = `https://ditto.pub/users/${matchedMostrHex}`
             }
             saveStatus(result, instance);
           } else {

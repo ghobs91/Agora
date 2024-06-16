@@ -195,7 +195,7 @@ function Login() {
       <form onSubmit={onSubmit}>
         <label>
           <input
-            value={"gleasonator.dev"}
+            value={"ditto.pub"}
             required
             type="text"
             class="large hidden-login-input"
