@@ -465,7 +465,7 @@ export function cleanContentString(content) {
 export function stripHtmlTags(content) {
   const tempElement = document.createElement('div');
   tempElement.innerHTML = content;
-  console.log(`cleaned up text: ${tempElement.textContent || tempElement.innerText}`)
+  // console.log(`cleaned up text: ${tempElement.textContent || tempElement.innerText}`)
   return tempElement.textContent || tempElement.innerText;
 }
 

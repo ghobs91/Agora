@@ -10,6 +10,7 @@
     "sourcemap": "npx source-map-explorer dist/assets/*.js"
   },
   "dependencies": {
+    "@atproto/api": "^0.12.22",
     "@formatjs/intl-localematcher": "~0.4.2",
     "@formkit/auto-animate": "~0.8.0",
     "@github/text-expander-element": "~2.5.0",

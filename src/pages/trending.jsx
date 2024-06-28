@@ -18,6 +18,7 @@ import states from '../utils/states';
 import { saveStatus } from '../utils/states';
 import useTitle from '../utils/useTitle';
 import { NotificationsLink } from './home';
+import { BskyAgent } from '@atproto/api'
 
 const LIMIT = 20;
 
@@ -30,6 +31,28 @@ const fetchLinks = pmem(
     maxAge: 10 * 60 * 1000, // 10 minutes
   },
 );
+
+async function blueSkyPopularFeed() {
+  const agent = new BskyAgent({
+    service: 'https://bsky.social'
+  })
+  const bskyLogin = await agent.login({
+    identifier: 'ghobstest.bsky.social',
+    password: 'M&c)mgv~%sUBW85'
+  })
+  
+  console.log(`bskyLoginToken: ${bskyLogin.data.accessJwt}`);
+  
+  const bskyPopularFeedUrl = `https://shimeji.us-east.host.bsky.network/xrpc/app.bsky.feed.getFeed?feed=at://did:plc:xfqcsi7wuwedeqaa5m7aih44/app.bsky.feed.generator/aaahonshw52xy&limit=30`;
+  const bskyPopularFeedResults = await fetch(bskyPopularFeedUrl, {
+    headers: {
+      Authorization: `Bearer ${bskyLogin.data.accessJwt}`,
+    },
+  });
+  
+  const bskyPopularFeed = await bskyPopularFeedResults.json();
+  console.log(`bskyPopularFeed: ${bskyPopularFeed}`);
+}
 
 function Trending({ columnMode, ...props }) {
   const snapStates = useSnapshot(states);

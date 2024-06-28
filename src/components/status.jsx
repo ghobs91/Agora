@@ -153,7 +153,7 @@ function Status({
   // Sort the array based on numerical values in descending order
 
   let sortedArray = provocContentWordArray.sort(function(a, b) {
-    console.log(`a[0] is ${a[0]}, b[0] is ${b[0]}`)
+    // console.log(`a[0] is ${a[0]}, b[0] is ${b[0]}`)
     return b[1] - a[1];
   });
 
@@ -166,7 +166,7 @@ function Status({
   const commonWordsArray = commonwords.map(obj => obj.word);
   statusWordArray.forEach((word) => {
     if (commonWordsArray.includes(word)) {
-       console.log(`ignore common word: ${word}`);
+      //  console.log(`ignore common word: ${word}`);
     } else if (worstWordsObj.hasOwnProperty(word)) {
       shouldHide = true;
       return;
@@ -1630,7 +1630,7 @@ function Status({
               )}
             </div>
             
-            <div class={`actions ${_deleted ? 'disabled' : ''}`}>
+            {/* <div class={`actions ${_deleted ? 'disabled' : ''}`}>
               <div class="action has-count">
                 <VibeTagButton
                   checked={labeledProvocative}
@@ -1659,7 +1659,7 @@ function Status({
                   disabled={localStorage.getItem(status.id)}
                 />
               </div>
-            </div>
+            </div> */}
 
 
             <div class={`actions ${_deleted ? 'disabled' : ''}`}>

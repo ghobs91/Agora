@@ -363,7 +363,7 @@ function App() {
                         if (e.target.classList.contains('is-active')) {
                           e.preventDefault();
                           const page = document.getElementById(`${id}-page`);
-                          console.log(id, page);
+                          // console.log(id, page);
                           if (page) {
                             page.scrollTop = 0;
                             const updatesButton =
