@@ -24,6 +24,7 @@ import store from '../utils/store';
 
 const DEFAULT_TEXT_SIZE = 16;
 const TEXT_SIZES = [16, 17, 18, 19, 20];
+const vibeTopics = ["Negativity", "Politics", "SJW"]
 
 function Settings({ onClose }) {
   const snapStates = useSnapshot(states);
@@ -254,6 +255,58 @@ function Settings({ onClose }) {
               </label>
             </li>
             <li>
+              <div
+                class={`sub-section ${
+                  !snapStates.settings.contentTranslation
+                    ? 'more-insignificant'
+                    : ''
+                }`}
+              >
+                <p class="checkbox-fieldset">
+                  Vibes you want to avoid
+                  {snapStates.settings.hiddenVibeTopics.length >
+                    0 && (
+                    <>
+                      {' '}
+                      (
+                      {
+                        snapStates.settings.hiddenVibeTopics
+                          .length
+                      }
+                      )
+                    </>
+                  )}
+                  :
+                  <div class="checkbox-fields">
+                    {vibeTopics.map((topic) => (
+                      <label>
+                        <input
+                          type="checkbox"
+                          checked={snapStates.settings.hiddenVibeTopics.includes(
+                            topic,
+                          )}
+                          onChange={(e) => {
+                            const { checked } = e.target;
+                            if (checked) {
+                              states.settings.hiddenVibeTopics.push(
+                                topic,
+                              );
+                            } else {
+                              states.settings.hiddenVibeTopics =
+                                snapStates.settings.hiddenVibeTopics.filter(
+                                  (code) => code !== topic,
+                                );
+                            }
+                          }}
+                        />{' '}
+                        {topic}
+                      </label>
+                    ))}
+                  </div>
+                </p>
+              </div>
+            </li>
+            <li>
               <label>
                 <input
                   type="checkbox"
@@ -339,6 +392,7 @@ function Settings({ onClose }) {
                     ))}
                   </div>
                 </p>
+                <hr />
                 <p class="insignificant">
                   <small>
                     Note: This feature uses an external API to translate,
@@ -353,7 +407,6 @@ function Settings({ onClose }) {
                     .
                   </small>
                 </p>
-                <hr />
                 <div>
                   <label>
                     <input

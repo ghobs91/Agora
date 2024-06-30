@@ -192,7 +192,8 @@ function Status({
     "bribery", "lobbying", "cronyism", "nepotism", "favoritism", "secrecy", "opaque", "mismanagement", "failure", "disaster",
     "catastrophe", "dysfunction", "inaction", "gridlock", "stalemate", "deadlock", "shutdown", "resign", "recall", "dismiss",
     "obstruction", "blockade", "embargo", "blacklist", "condemn", "denounce", "criticize", "blast", "assail", "vilify",
-    "denigrate", "attack", "smear", "undercut", "accuse", "charge", "race", "political", "CNN", "MSNBC", "FOX", "NYT", "New York Times"
+    "denigrate", "attack", "smear", "undercut", "accuse", "charge", "race", "political", "CNN", "MSNBC", "FOX", "NYT", "New York Times",
+    "covid", "vax", "government"
   ]
 
   let identityPoliticsWords = [
@@ -205,7 +206,7 @@ function Status({
     "accountability", "responsibility", "action", "initiative", "program",
     "campaign", "leadership", "empowerment", "agency", "opportunity", "access", "barriers", "challenges", "solutions", "impact",
     "research", "data", "statistics", "trends", "patterns", "historical", "context", "background", "experience", "perspective",
-    "feedback", "response", "critique", "analysis", "insight", "understanding", "learning", "growth", "development", "progress"
+    "feedback", "response", "critique", "analysis", "insight", "understanding", "learning", "growth", "development", "progress", "trans"
   ]
 
 

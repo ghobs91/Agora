@@ -66,6 +66,7 @@ const states = proxy({
     contentTranslation: true,
     contentTranslationTargetLanguage: null,
     contentTranslationHideLanguages: [],
+    hiddenVibeTopics: [],
     contentTranslationAutoInline: false,
     cloakMode: false,
   },
