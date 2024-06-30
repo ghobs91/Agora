@@ -718,18 +718,18 @@ function Compose({
             }
             // TODO: check for URLs and use `charactersReservedPerUrl` to calculate max characters
 
-            if (mediaAttachments.length > 0) {
-              // If there are media attachments, check if they have no descriptions
-              const hasNoDescriptions = mediaAttachments.some(
-                (media) => !media.description?.trim?.(),
-              );
-              if (hasNoDescriptions) {
-                const yes = confirm(
-                  'Some media have no descriptions. Continue?',
-                );
-                if (!yes) return;
-              }
-            }
+            // if (mediaAttachments.length > 0) {
+            //   // If there are media attachments, check if they have no descriptions
+            //   const hasNoDescriptions = mediaAttachments.some(
+            //     (media) => !media.description?.trim?.(),
+            //   );
+            //   if (hasNoDescriptions) {
+            //     const yes = confirm(
+            //       'Some media have no descriptions. Continue?',
+            //     );
+            //     if (!yes) return;
+            //   }
+            // }
 
             // Post-cleanup
             spoilerText = (sensitive && spoilerText) || undefined;
