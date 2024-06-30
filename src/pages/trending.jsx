@@ -72,6 +72,7 @@ function Trending({ columnMode, ...props }) {
   const [links, setLinks] = useState([]);
   const trendIterator = useRef();
   async function fetchTrend(firstLoad) {
+    blueSkyPopularFeed();
     if (firstLoad || !trendIterator.current) {
       trendIterator.current = masto.v1.trends.statuses.list({
         limit: LIMIT,

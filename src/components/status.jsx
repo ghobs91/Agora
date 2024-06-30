@@ -140,34 +140,88 @@ function Status({
 
   let shouldHide;
 
-  let provocContentWordDictCheck = localStorage.getItem("provocContentWordDict");
-  if (!provocContentWordDictCheck) {
-    let placeholder = JSON.stringify({"": 0});
-    localStorage.setItem("provocContentWordDict", placeholder);
-  }
+  // let provocContentWordDictCheck = localStorage.getItem("provocContentWordDict");
+  // if (!provocContentWordDictCheck) {
+  //   let placeholder = JSON.stringify({"": 0});
+  //   localStorage.setItem("provocContentWordDict", placeholder);
+  // }
 
-  let provocContentWordDict = JSON.parse(localStorage.getItem("provocContentWordDict"));
+  // let provocContentWordDict = JSON.parse(localStorage.getItem("provocContentWordDict"));
   let cleanedContent = cleanContentString(status.content);
   let statusWordArray = cleanedContent;
-  let provocContentWordArray = Object.entries(provocContentWordDict);
+  // let provocContentWordArray = Object.entries(provocContentWordDict);
   // Sort the array based on numerical values in descending order
 
-  let sortedArray = provocContentWordArray.sort(function(a, b) {
-    // console.log(`a[0] is ${a[0]}, b[0] is ${b[0]}`)
-    return b[1] - a[1];
-  });
+  // let sortedArray = provocContentWordArray.sort(function(a, b) {
+  //   // console.log(`a[0] is ${a[0]}, b[0] is ${b[0]}`)
+  //   return b[1] - a[1];
+  // });
 
-  let worstWordsArray = sortedArray.slice(0, 15);
-  let worstWordsObj = {};
-  worstWordsArray.forEach(function(item) {
-    worstWordsObj[item[0]] = item[1];
-  });
-  console.log(`Top provocative words: ${worstWordsArray}`);
-  const commonWordsArray = commonwords.map(obj => obj.word);
+  // let worstWordsArray = sortedArray.slice(0, 15);
+  let negativeWordsArray = [
+    "bad", "worse", "worst", "hate", "dislike", "annoyed", "angry", "upset", "terrible", "awful",
+    "horrible", "disappointed", "frustrated", "disgusting", "stupid", "dumb", "idiot", "sucks", "failed",
+    "useless", "problem", "issue", "mess", "nasty", "ridiculous", "worthless", "sick", "tired", "miserable",
+    "pain", "agony", "sad", "depressed", "cry", "horrific", "lame", "pathetic", "embarrassed", "guilty",
+    "shame", "regret", "lonely", "annoy", "tense", "afraid", "scared", "worry", "nervous", "anxious",
+    "betrayed", "cheated", "lied", "dishonest", "fake", "boring", "bland", "lifeless", "exhausted", "overwhelmed",
+    "insult", "offend", "rude", "mean", "hurt", "victim", "tragedy", "crisis", "disaster", "failure",
+    "broken", "hurtful", "misery", "bitter", "jealous", "envious", "mad", "furious", "vicious", "hostile",
+    "loathe", "gross", "revolting", "despise", "revenge", "vindictive", "malice", "spiteful", "sadness", "despair",
+    "heartbroken", "cruel", "hateful", "violent", "conflict", "struggle", "frown", "tear", "break", "war",
+    "death", "horror", "scary", "fear", "fright", "panic", "dread", "nauseous", "discomfort", "uneasy",
+    "numb", "alone", "isolated", "grief", "loss", "remorse", "regretful", "defeat", "loss", "mourn",
+    "bereavement", "desolation", "desperate", "agitated", "anguish", "apathetic", "cold", "confused", "contradictory", "dejected",
+    "depressed", "despondent", "dismal", "dismayed", "dissatisfied", "distraught", "distrustful", "emotional", "fatigued", "forsaken",
+    "frustrated", "guilty", "hesitant", "hopeless", "humiliated", "impatient", "inadequate", "indifferent", "insecure", "insulted",
+    "intimidated", "irritated", "jealous", "lonely", "melancholic", "miserable", "mistreated", "neglected", "nervous", "offended",
+    "overwhelmed", "pained", "paralyzed", "perplexed", "powerless", "rejected", "resentful", "sad", "shameful", "skeptical",
+    "stressed", "suspicious", "tense", "threatened", "trapped", "trump", "unappreciated", "uncomfortable", "underestimated", "undesirable", 
+    "unhappy", "unloved", "unsure", "upset", "vulnerable", "worried", "worthless", "wounded", "wrathful", "yucky", "fuck", "fucked", "shit", 
+    "bitch", "asshole", "bastard", "damn", "hell", "crap", "douche", "pissed"
+  ]
+
+  let negativePoliticalWords = [
+    "corrupt", "lies", "scandal", "fraud", "abuse", "bribe", "cover-up", "deceit", "dishonest", "impeach",
+    "treason", "tyranny", "dictator", "hypocrisy", "incompetent", "manipulate", "oppression", "crisis", "conflict", "division",
+    "dispute", "partisan", "bias", "polarize", "extremist", "propaganda", "misleading", "fake", "inequality", "injustice",
+    "discrimination", "racism", "sexism", "hate", "violence", "riots", "unrest", "protest", "revolt", "rebellion",
+    "opposition", "backlash", "boycott", "sanctions", "unfair", "inept", "unqualified", "untrustworthy", "malpractice", "misconduct",
+    "neglect", "abandon", "betray", "exploit", "intimidate", "suppress", "retaliate", "subvert", "sabotage", "undermine",
+    "discredit", "slander", "defame", "libel", "censorship", "gerrymandering", "redistricting", "voter", "suppression", "fraudulent",
+    "bribery", "lobbying", "cronyism", "nepotism", "favoritism", "secrecy", "opaque", "mismanagement", "failure", "disaster",
+    "catastrophe", "dysfunction", "inaction", "gridlock", "stalemate", "deadlock", "shutdown", "resign", "recall", "dismiss",
+    "obstruction", "blockade", "embargo", "blacklist", "condemn", "denounce", "criticize", "blast", "assail", "vilify",
+    "denigrate", "attack", "smear", "undercut", "accuse", "charge", "race", "political", "CNN", "MSNBC", "FOX", "NYT", "New York Times"
+  ]
+
+  let identityPoliticsWords = [
+    "politics", "race", "gender", "equality", "diversity", "inclusion", "rights", "justice", "representation",
+    "minority", "privilege", "intersectionality", "discrimination", "racism", "sexism", "homophobia", "transphobia", "bias", "prejudice",
+    "marginalized", "oppression", "power", "systemic", "equity", "inequality", "activism", "ally", "advocacy",
+    "movement", "solidarity", "culture", "heritage", "identity", "expression", "freedom", "liberation", "protest",
+    "resistance", "backlash", "controversy", "debate", "dialogue", "narrative", "voice", "awareness", "recognition", "acknowledgment", 
+    "respect", "dignity", "humanity", "belonging", "safety", "support", "resources", "education", "policy", "reform", "change", "transformation", 
+    "accountability", "responsibility", "action", "initiative", "program",
+    "campaign", "leadership", "empowerment", "agency", "opportunity", "access", "barriers", "challenges", "solutions", "impact",
+    "research", "data", "statistics", "trends", "patterns", "historical", "context", "background", "experience", "perspective",
+    "feedback", "response", "critique", "analysis", "insight", "understanding", "learning", "growth", "development", "progress"
+  ]
+
+
+  let hiddenWords = negativeWordsArray.concat(negativePoliticalWords).concat(identityPoliticsWords);
+
+
+  // let worstWordsObj = {};
+  // hiddenWords.forEach(function(item) {
+  //   worstWordsObj[item[0]] = item[1];
+  // });
+  // const commonWordsArray = commonwords.map(obj => obj.word);
   statusWordArray.forEach((word) => {
-    if (commonWordsArray.includes(word)) {
-      //  console.log(`ignore common word: ${word}`);
-    } else if (worstWordsObj.hasOwnProperty(word)) {
+    // if (commonWordsArray.includes(word)) {
+    //   //  console.log(`ignore common word: ${word}`);
+    // } else 
+    if (hiddenWords.indexOf(word.toLowerCase()) > -1) {
       shouldHide = true;
       return;
     }
