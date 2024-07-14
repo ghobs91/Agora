@@ -176,12 +176,12 @@ function Status({
     "frustrated", "guilty", "hesitant", "hopeless", "humiliated", "impatient", "inadequate", "indifferent", "insecure", "insulted",
     "intimidated", "irritated", "jealous", "lonely", "melancholic", "miserable", "mistreated", "neglected", "nervous", "offended",
     "overwhelmed", "pained", "paralyzed", "perplexed", "powerless", "rejected", "resentful", "sad", "shameful", "skeptical",
-    "stressed", "suspicious", "tense", "threatened", "trapped", "trump", "unappreciated", "uncomfortable", "underestimated", "undesirable", 
+    "stressed", "suspicious", "tense", "threatened", "trapped", "unappreciated", "uncomfortable", "underestimated", "undesirable", 
     "unhappy", "unloved", "unsure", "upset", "vulnerable", "worried", "worthless", "wounded", "wrathful", "yucky", "fuck", "fucked", "shit", 
     "bitch", "asshole", "bastard", "damn", "hell", "crap", "douche", "pissed"
   ]
 
-  let negativePoliticalWords = [
+  let politicalWords = [
     "corrupt", "lies", "scandal", "fraud", "abuse", "bribe", "cover-up", "deceit", "dishonest", "impeach",
     "treason", "tyranny", "dictator", "hypocrisy", "incompetent", "manipulate", "oppression", "crisis", "conflict", "division",
     "dispute", "partisan", "bias", "polarize", "extremist", "propaganda", "misleading", "fake", "inequality", "injustice",
@@ -193,7 +193,20 @@ function Status({
     "catastrophe", "dysfunction", "inaction", "gridlock", "stalemate", "deadlock", "shutdown", "resign", "recall", "dismiss",
     "obstruction", "blockade", "embargo", "blacklist", "condemn", "denounce", "criticize", "blast", "assail", "vilify",
     "denigrate", "attack", "smear", "undercut", "accuse", "charge", "race", "political", "CNN", "MSNBC", "FOX", "NYT", "New York Times",
-    "covid", "vax", "government"
+    "covid", "vax", "government", "misinformation", "disinformation", "trump", "trump's", "Secret Service", "Election", "Campaign", "Vote", "Ballot", "Candidate", "Politician", "Government", "Congress", "Senate", "House of Representatives",
+    "Legislation", "Bill", "Law", "Amendment", "Policy", "Constitution", "Democracy", "Republic", "Federal", "State",
+    "Local", "Mayor", "Governor", "President", "Prime Minister", "Cabinet", "Parliament", "Minister", "Secretary", "Ambassador",
+    "Diplomacy", "Embassy", "Treaty", "Alliance", "Summit", "Debate", "Platform", "Agenda", "Lobby", "Lobbyist",
+    "PAC", "Super PAC", "Caucus", "Primary", "Convention", "Delegates", "Electorate", "Referendum", "Recall", "Impeachment",
+    "Scandal", "Corruption", "Bribery", "Nepotism", "Cronyism", "Partisan", "Bipartisan", "Majority", "Minority", "Filibuster",
+    "Quorum", "Veto", "Override", "Ratify", "Confirm", "Nominate", "Appoint", "Judiciary", "Court", "Justice",
+    "Judge", "Magistrate", "Ruling", "Verdict", "Appeal", "Sentence", "Constituency", "District", "Gerrymandering", "Redistricting",
+    "Census", "Lobbying", "Petition", "Protest", "Demonstration", "March", "Rally", "Sit-in", "Civil Disobedience", "Activism",
+    "Advocacy", "Rights", "Liberties", "Freedom", "Equality", "Justice", "Opposition", "Coalition", "Faction", "Party",
+    "Democrat", "Republican", "Independent", "Liberal", "Conservative", "Progressive", "Libertarian", "Socialist", "Communist", "Capitalist",
+    "Left-wing", "Right-wing", "Centrist", "Radical", "Extremist", "Nationalism", "Populism", "Globalism", "Isolationism", "Imperialism",
+    "Colonialism", "Totalitarianism", "Authoritarianism", "Dictatorship", "Monarchy", "Oligarchy", "Theocracy", "Anarchy", "Federalism", "Confederation",
+    "Statecraft", "Sovereignty", "Autonomy", "Mandate", "Jurisdiction", "Bureaucracy", "Agency", "Department", "Regulation", "Decree"
   ]
 
   let identityPoliticsWords = [
@@ -210,7 +223,7 @@ function Status({
   ]
 
 
-  let hiddenWords = negativeWordsArray.concat(negativePoliticalWords).concat(identityPoliticsWords);
+  let hiddenWords = negativeWordsArray.concat(politicalWords).concat(identityPoliticsWords);
 
 
   // let worstWordsObj = {};
