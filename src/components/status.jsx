@@ -206,7 +206,7 @@ function Status({
     "Democrat", "Republican", "Independent", "Liberal", "Conservative", "Progressive", "Libertarian", "Socialist", "Communist", "Capitalist",
     "Left-wing", "Right-wing", "Centrist", "Radical", "Extremist", "Nationalism", "Populism", "Globalism", "Isolationism", "Imperialism",
     "Colonialism", "Totalitarianism", "Authoritarianism", "Dictatorship", "Monarchy", "Oligarchy", "Theocracy", "Anarchy", "Federalism", "Confederation",
-    "Statecraft", "Sovereignty", "Autonomy", "Mandate", "Jurisdiction", "Bureaucracy", "Agency", "Department", "Regulation", "Decree"
+    "Statecraft", "Sovereignty", "Autonomy", "Mandate", "Jurisdiction", "Bureaucracy", "Agency", "Department", "Regulation", "Decree", "biden"
   ]
 
   let identityPoliticsWords = [
@@ -219,7 +219,7 @@ function Status({
     "accountability", "responsibility", "action", "initiative", "program",
     "campaign", "leadership", "empowerment", "agency", "opportunity", "access", "barriers", "challenges", "solutions", "impact",
     "research", "data", "statistics", "trends", "patterns", "historical", "context", "background", "experience", "perspective",
-    "feedback", "response", "critique", "analysis", "insight", "understanding", "learning", "growth", "development", "progress", "trans"
+    "feedback", "response", "critique", "analysis", "insight", "understanding", "learning", "growth", "development", "progress", "trans", "transgender"
   ]
 
 

@@ -2,6 +2,7 @@ import { forwardRef } from 'preact/compat';
 import { useImperativeHandle, useRef, useState } from 'preact/hooks';
 import { useSearchParams } from 'react-router-dom';
 import { bridgifySearchQuery } from '../utils/protocol-translator';
+import { isNostrAccount } from '../utils/protocol-translator';
 
 import { api } from '../utils/api';
 
@@ -45,7 +46,7 @@ const SearchForm = forwardRef((props, ref) => {
             const params = {
               q: query,
             };
-            if (instance === "ditto.pub") {
+            if (isNostrAccount(instance)) {
               bridgifySearchQuery(instance, query, params);
             } else if (instance === "skybridge.fly.dev") {
               params.q = bridgifySearchQuery(instance, query, params);

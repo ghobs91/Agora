@@ -9,6 +9,7 @@ import Avatar from './avatar';
 import EmojiText from './emoji-text';
 import Icon from './icon';
 import { api } from '../utils/api';
+import { isNostrAccount } from '../utils/protocol-translator';
 
 function AccountBlock({
   skeleton,
@@ -75,7 +76,7 @@ function AccountBlock({
         if (onClick) return onClick(e);
         if (internal) {
           const myCurrentInstance = api().instance;
-          if (myCurrentInstance === "ditto.pub") {
+          if (isNostrAccount(myCurrentInstance)) {
             (async () => {
               const userId = url.split("users/")[1]
               const dittoProfileCall = await fetch(`https://ditto.pub/api/v1/accounts/${userId}`, {method: "get"});

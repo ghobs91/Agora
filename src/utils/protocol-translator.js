@@ -1,5 +1,10 @@
+export function isNostrAccount(instance) {
+  let nostrAccountLoginBridges = ["gleasonator.dev", "ditto.pub"];
+  return nostrAccountLoginBridges.indexOf(instance) > -1;
+}
+
 export function bridgifySearchQuery(instance, query, params) {
-  if (instance === "ditto.pub") {
+  if (isNostrAccount(instance)) {
       // // // // // // // // // // // // // 
       // Searching from a Nostr Account //
     let convertedQuery = query;

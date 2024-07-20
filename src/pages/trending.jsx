@@ -19,6 +19,7 @@ import { saveStatus } from '../utils/states';
 import useTitle from '../utils/useTitle';
 import { NotificationsLink } from './home';
 import { BskyAgent } from '@atproto/api'
+import { isNostrAccount } from '../utils/protocol-translator';
 
 const LIMIT = 20;
 
@@ -43,7 +44,8 @@ async function blueSkyPopularFeed() {
   
   console.log(`bskyLoginToken: ${bskyLogin.data.accessJwt}`);
   
-  const bskyPopularFeedUrl = `https://shimeji.us-east.host.bsky.network/xrpc/app.bsky.feed.getFeed?feed=at://did:plc:xfqcsi7wuwedeqaa5m7aih44/app.bsky.feed.generator/aaahonshw52xy&limit=30`;
+  // const bskyPopularFeedUrl = `https://shimeji.us-east.host.bsky.network/xrpc/app.bsky.feed.getFeed?feed=at://did:plc:xfqcsi7wuwedeqaa5m7aih44/app.bsky.feed.generator/aaahonshw52xy&limit=30`;
+  const bskyPopularFeedUrl = "https://public.api.bsky.app/xrpc/app.bsky.feed.getFeed?feed=at://did:plc:xfqcsi7wuwedeqaa5m7aih44/app.bsky.feed.generator/aaahonshw52xy"
   const bskyPopularFeedResults = await fetch(bskyPopularFeedUrl, {
     headers: {
       Authorization: `Bearer ${bskyLogin.data.accessJwt}`,
@@ -51,7 +53,7 @@ async function blueSkyPopularFeed() {
   });
   
   const bskyPopularFeed = await bskyPopularFeedResults.json();
-  console.log(`bskyPopularFeed: ${bskyPopularFeed}`);
+  console.log(`bskyPopularFeed: ${bskyPopularFeed.feed}`);
 }
 
 function Trending({ columnMode, ...props }) {
@@ -61,7 +63,7 @@ function Trending({ columnMode, ...props }) {
   const myCurrentInstance = api().instance;
 
   const { masto, instance } = api({
-    instance: params.instance === 'ditto.pub' ? 'mastodon.social' : params.instance === 'skybridge.fly.dev' ? 'mastodon.social' : params.instance.indexOf('masto.host') > -1 ? 'mastodon.social' : props?.instance || params.instance,
+    instance: isNostrAccount(params.instance) ? 'mastodon.social' : params.instance === 'skybridge.fly.dev' ? 'mastodon.social' : params.instance.indexOf('masto.host') > -1 ? 'mastodon.social' : props?.instance || params.instance,
   });
   const title = `Trending`;
   useTitle(title, `/:myCurrentInstance?/trending`);
@@ -110,7 +112,7 @@ function Trending({ columnMode, ...props }) {
 
     async function getBridgedProfileUrl(result) {
         const myCurrentInstance = api().instance;
-        if (myCurrentInstance === "ditto.pub") {
+        if (isNostrAccount(myCurrentInstance)) {
           if (result.account.url.indexOf("mostr.pub") === -1) {
             const accountInstanceBase = result.account.url.split("/@")[0].replace("https://", "");
             const handleFormattedForMostr = result.account.username + "_at_" + accountInstanceBase;
