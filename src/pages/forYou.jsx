@@ -48,6 +48,8 @@ function ForYou(props) {
     weights["Diversity"] = 3
 
     let newWeights = weights
+    const scores = status.scores;
+    newWeights = await algoObj.weightAdjust(scores)
     const newFeed = await algo.setWeights(newWeights);
     if (firstLoad || !listIterator.current) {
       listIterator.current = newFeed;

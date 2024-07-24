@@ -178,7 +178,7 @@ function Status({
     "overwhelmed", "pained", "paralyzed", "perplexed", "powerless", "rejected", "resentful", "sad", "shameful", "skeptical",
     "stressed", "suspicious", "tense", "threatened", "trapped", "unappreciated", "uncomfortable", "underestimated", "undesirable", 
     "unhappy", "unloved", "unsure", "upset", "vulnerable", "worried", "worthless", "wounded", "wrathful", "yucky", "fuck", "fucked", "shit", 
-    "bitch", "asshole", "bastard", "damn", "hell", "crap", "douche", "pissed"
+    "bitch", "asshole", "bastard", "damn", "hell", "crap", "douche", "pissed", "Auschwitz"
   ]
 
   let politicalWords = [
@@ -203,10 +203,10 @@ function Status({
     "Judge", "Magistrate", "Ruling", "Verdict", "Appeal", "Sentence", "Constituency", "District", "Gerrymandering", "Redistricting",
     "Census", "Lobbying", "Petition", "Protest", "Demonstration", "March", "Rally", "Sit-in", "Civil Disobedience", "Activism",
     "Advocacy", "Rights", "Liberties", "Freedom", "Equality", "Justice", "Opposition", "Coalition", "Faction", "Party",
-    "Democrat", "Republican", "Independent", "Liberal", "Conservative", "Progressive", "Libertarian", "Socialist", "Communist", "Capitalist",
+    "Democrat", "Republican", "Republicans", "Independent", "Liberal", "Conservative", "Progressive", "Libertarian", "Socialist", "Communist", "Capitalist",
     "Left-wing", "Right-wing", "Centrist", "Radical", "Extremist", "Nationalism", "Populism", "Globalism", "Isolationism", "Imperialism",
     "Colonialism", "Totalitarianism", "Authoritarianism", "Dictatorship", "Monarchy", "Oligarchy", "Theocracy", "Anarchy", "Federalism", "Confederation",
-    "Statecraft", "Sovereignty", "Autonomy", "Mandate", "Jurisdiction", "Bureaucracy", "Agency", "Department", "Regulation", "Decree", "biden"
+    "Statecraft", "Sovereignty", "Autonomy", "Mandate", "Jurisdiction", "Bureaucracy", "Agency", "Department", "Regulation", "Decree", "biden", "harris", "kamala", "vance"
   ]
 
   let identityPoliticsWords = [
