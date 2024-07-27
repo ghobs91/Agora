@@ -193,7 +193,8 @@ function Status({
     "catastrophe", "dysfunction", "inaction", "gridlock", "stalemate", "deadlock", "shutdown", "resign", "recall", "dismiss",
     "obstruction", "blockade", "embargo", "blacklist", "condemn", "denounce", "criticize", "blast", "assail", "vilify",
     "denigrate", "attack", "smear", "undercut", "accuse", "charge", "race", "political", "CNN", "MSNBC", "FOX", "NYT", "New York Times",
-    "covid", "vax", "government", "misinformation", "disinformation", "trump", "trump's", "Secret Service", "Election", "Campaign", "Vote", "Ballot", "Candidate", "Politician", "Government", "Congress", "Senate", "House of Representatives",
+    "covid", "vax", "government", "misinformation", "disinformation", "trump", "trump's", "Secret Service", "Election", "Campaign", "Vote", 
+    "Ballot", "Candidate", "Politician", "Government", "Congress", "Senate", "House of Representatives",
     "Legislation", "Bill", "Law", "Amendment", "Policy", "Constitution", "Democracy", "Republic", "Federal", "State",
     "Local", "Mayor", "Governor", "President", "Prime Minister", "Cabinet", "Parliament", "Minister", "Secretary", "Ambassador",
     "Diplomacy", "Embassy", "Treaty", "Alliance", "Summit", "Debate", "Platform", "Agenda", "Lobby", "Lobbyist",
@@ -206,7 +207,9 @@ function Status({
     "Democrat", "Republican", "Republicans", "Independent", "Liberal", "Conservative", "Progressive", "Libertarian", "Socialist", "Communist", "Capitalist",
     "Left-wing", "Right-wing", "Centrist", "Radical", "Extremist", "Nationalism", "Populism", "Globalism", "Isolationism", "Imperialism",
     "Colonialism", "Totalitarianism", "Authoritarianism", "Dictatorship", "Monarchy", "Oligarchy", "Theocracy", "Anarchy", "Federalism", "Confederation",
-    "Statecraft", "Sovereignty", "Autonomy", "Mandate", "Jurisdiction", "Bureaucracy", "Agency", "Department", "Regulation", "Decree", "biden", "harris", "kamala", "vance"
+    "Statecraft", "Sovereignty", "Autonomy", "Mandate", "Jurisdiction", "Bureaucracy", "Agency", "Department", "Regulation", "Decree", "biden", "harris", 
+    "kamala", "vance", "israel", "israeli", "palestine", "palestinian", "gaza", "idf", "jewish", "jew", "muslim", "christian", "christians",
+    "patriarchy", "fascist", "fascism", "nazi", "democracy", "politics"
   ]
 
   let identityPoliticsWords = [
@@ -219,7 +222,8 @@ function Status({
     "accountability", "responsibility", "action", "initiative", "program",
     "campaign", "leadership", "empowerment", "agency", "opportunity", "access", "barriers", "challenges", "solutions", "impact",
     "research", "data", "statistics", "trends", "patterns", "historical", "context", "background", "experience", "perspective",
-    "feedback", "response", "critique", "analysis", "insight", "understanding", "learning", "growth", "development", "progress", "trans", "transgender"
+    "feedback", "response", "critique", "analysis", "insight", "understanding", "learning", "growth", "development", "progress", "trans", "transgender",
+    "supremacy"
   ]
 
 
