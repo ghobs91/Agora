@@ -220,6 +220,10 @@
   background-color: var(--outline-color);
 }
 
+.status-container:has(.status.filtered) {
+  display: none;
+}
+
 .status.filtered {
   padding-block: 12px;
   display: flex;
