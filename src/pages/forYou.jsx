@@ -36,9 +36,9 @@ function ForYou(props) {
   async function fetchList(firstLoad) {
     const currAccount = getCurrentAccount();
     const currUser = currAccount.info;
-    const algo = new TheAlgorithm(masto, currUser)
-    const feed = await algo.getFeed()
-    let weights = await algo.getWeights()
+    const algo = new TheAlgorithm(masto, currUser);
+    const feed = await algo.getFeed();
+    let weights = await algo.getWeights();
     console.log(`weights: ${weights}`);
     weights["Favs"] = 2
     weights["Interacts"] = 1
@@ -49,7 +49,7 @@ function ForYou(props) {
 
     let newWeights = weights
     const scores = status.scores;
-    newWeights = await algoObj.weightAdjust(scores)
+    newWeights = await algo.weightAdjust(scores);
     const newFeed = await algo.setWeights(newWeights);
     if (firstLoad || !listIterator.current) {
       listIterator.current = newFeed;
