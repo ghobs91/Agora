@@ -48,7 +48,7 @@ const SearchForm = forwardRef((props, ref) => {
             };
             if (isNostrAccount(instance)) {
               bridgifySearchQuery(instance, query, params);
-            } else if (instance === "skybridge.fly.dev") {
+            } else if (instance === "skybridge-rpoo.onrender.com") {
               params.q = bridgifySearchQuery(instance, query, params);
             } else {
               params.q = bridgifySearchQuery(instance, query, params);

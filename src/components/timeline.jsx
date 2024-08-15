@@ -287,14 +287,14 @@ function Timeline({
       id: 'trending',
       title: 'Trending',
       subtitle: '',
-      path: instance.indexOf('skybridge.fly.dev') > -1 ? `/l/1907708119266885632`: instance.indexOf('masto.host') > -1 ? `/mastodon.social/trending` : `/${instance}/trending`,
+      path: instance.indexOf('skybridge-rpoo.onrender.com') > -1 ? `/l/1907708119266885632`: instance.indexOf('masto.host') > -1 ? `/mastodon.social/trending` : `/${instance}/trending`,
       icon: 'chart',
     },
     {
       id: 'foryou',
       title: 'For You',
       subtitle: '',
-      path: instance.indexOf('skybridge.fly.dev') > -1 ? `/l/1770979263374688256` : `/foryou`,
+      path: instance.indexOf('skybridge-rpoo.onrender.com') > -1 ? `/l/1770979263374688256` : `/foryou`,
       icon: 'algorithm',
     },
     {

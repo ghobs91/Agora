@@ -39,7 +39,7 @@ export function bridgifySearchQuery(instance, query, params) {
       //   }
       // })();
       // console.log(`instance === "ditto.pub"`)
-    } else if (instance === "skybridge.fly.dev") {
+    } else if (instance === "skybridge-rpoo.onrender.com") {
        // // // // // // // // // // // // // 
       // Searching from a Bluesky Account //
       if (isSearchingMastodonAccount(query)) {
@@ -106,7 +106,7 @@ export function isSearchingTwitterAccount(query) {
 
 export function canAutoLoadThisInstance(myCurrentInstance, heroStatus) {
     // Automatically switch to users instance to allow interacting with a status
-    return myCurrentInstance != 'ditto.pub' && myCurrentInstance != 'skybridge.fly.dev' && heroStatus.account.acct.indexOf("mostr.pub") === -1 && heroStatus.account.acct.indexOf("threads.net") === -1;
+    return myCurrentInstance != 'ditto.pub' && myCurrentInstance != 'skybridge-rpoo.onrender.com' && heroStatus.account.acct.indexOf("mostr.pub") === -1 && heroStatus.account.acct.indexOf("threads.net") === -1;
 }
 
 export function translateNostrTrendingArrayStructure(nostrTrendingArray) {

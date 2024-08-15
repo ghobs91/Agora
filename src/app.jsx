@@ -221,7 +221,7 @@ function App() {
 
   const instanceUrl = store.local.get('instanceURL');
 
-    let trending = instanceUrl?.indexOf('skybridge.fly.dev') > -1 ? 
+    let trending = instanceUrl?.indexOf('skybridge-rpoo.onrender.com') > -1 ? 
     {
       id: 'trending',
       title: 'Trending',
@@ -236,7 +236,7 @@ function App() {
       icon: 'chart',
     }
 
-    let forYou = instanceUrl?.indexOf('skybridge.fly.dev') > -1 ? 
+    let forYou = instanceUrl?.indexOf('skybridge-rpoo.onrender.com') > -1 ? 
     {
       id: 'foryou',
       title: 'For You',
