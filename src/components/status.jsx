@@ -178,7 +178,7 @@ function Status({
     "overwhelmed", "pained", "paralyzed", "perplexed", "powerless", "rejected", "resentful", "sad", "shameful", "skeptical",
     "stressed", "suspicious", "tense", "threatened", "trapped", "unappreciated", "uncomfortable", "underestimated", "undesirable", 
     "unhappy", "unloved", "unsure", "upset", "vulnerable", "worried", "worthless", "wounded", "wrathful", "yucky", "fuck", "fucked", "shit", 
-    "bitch", "asshole", "bastard", "damn", "hell", "crap", "douche", "pissed", "Auschwitz", "#Auschwitz", "COVID-19"
+    "bitch", "asshole", "bastard", "damn", "hell", "crap", "douche", "pissed", "Auschwitz", "#Auschwitz", "COVID-19", "musk"
   ]
 
   let politicalWords = [
@@ -223,7 +223,7 @@ function Status({
     "campaign", "leadership", "empowerment", "agency", "opportunity", "access", "barriers", "challenges", "solutions", "impact",
     "research", "data", "statistics", "trends", "patterns", "historical", "context", "background", "experience", "perspective",
     "feedback", "response", "critique", "analysis", "insight", "understanding", "learning", "growth", "development", "progress", "trans", "transgender",
-    "supremacy"
+    "supremacy", "qanon", "anti-vax", "anti-vaxxer", "mask"
   ]
 
 
