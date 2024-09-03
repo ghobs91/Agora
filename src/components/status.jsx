@@ -148,7 +148,15 @@ function Status({
 
   // let provocContentWordDict = JSON.parse(localStorage.getItem("provocContentWordDict"));
   let cleanedContent = cleanContentString(status.content);
-  let statusWordArray = cleanedContent;
+
+  let statusWordArray;
+  if (status.mediaAttachments.length > 0 && status.mediaAttachments[0].description) {
+    let cleanedAltText = status.mediaAttachments ? cleanContentString(status.mediaAttachments[0].description) : '';
+    console.log(`cleanedAltText: ${cleanedAltText}`);
+    statusWordArray = cleanedContent.concat(cleanedAltText);
+  } else {
+    statusWordArray = cleanedContent;
+  }
   // let provocContentWordArray = Object.entries(provocContentWordDict);
   // Sort the array based on numerical values in descending order
 
@@ -209,7 +217,7 @@ function Status({
     "Colonialism", "Totalitarianism", "Authoritarianism", "Dictatorship", "Monarchy", "Oligarchy", "Theocracy", "Anarchy", "Federalism", "Confederation",
     "Statecraft", "Sovereignty", "Autonomy", "Mandate", "Jurisdiction", "Bureaucracy", "Agency", "Department", "Regulation", "Decree", "biden", "harris", 
     "kamala", "vance", "israel", "israeli", "palestine", "palestinian", "gaza", "idf", "jewish", "jew", "muslim", "christian", "christians",
-    "patriarchy", "fascist", "fascism", "nazi", "democracy", "politics"
+    "patriarchy", "fascist", "fascism", "nazi", "democracy", "politics", "putin"
   ]
 
   let identityPoliticsWords = [
@@ -239,7 +247,7 @@ function Status({
     // if (commonWordsArray.includes(word)) {
     //   //  console.log(`ignore common word: ${word}`);
     // } else 
-    if (hiddenWords.indexOf(word.toLowerCase()) > -1) {
+    if (hiddenWords.indexOf(word.toLowerCase().replace(/[^\w\s]|_/g, "")) > -1) {
       shouldHide = true;
       return;
     }
