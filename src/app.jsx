@@ -226,7 +226,7 @@ function App() {
       id: 'trending',
       title: 'Trending',
       subtitle: '',
-      path: `/l/1907708119266885632`,
+      path: `/l/1942881672471511040`,
       icon: 'chart',
     } : {
       id: 'trending',
