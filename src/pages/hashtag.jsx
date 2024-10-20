@@ -41,7 +41,9 @@ function Hashtags({ columnMode, ...props }) {
   hashtag = hashtags[0];
 
   const { masto, instance, authenticated } = api({
-    instance: props?.instance || params.instance,
+    // instance: props?.instance || params.instance,
+    // default to mastodon.social for loading hashtag feed, to maximize results
+    instance: "mastodon.social"
   });
   const { authenticated: currentAuthenticated } = api();
   const hashtagTitle = hashtags.map((t) => `#${t}`).join(' ');
