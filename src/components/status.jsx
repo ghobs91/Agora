@@ -235,7 +235,9 @@ function Status({
   ]
 
 
-  let hiddenWords = negativeWordsArray.concat(politicalWords).concat(identityPoliticsWords);
+  // let hiddenWords = negativeWordsArray.concat(politicalWords).concat(identityPoliticsWords);
+  let hiddenWords = [];
+
 
 
   // let worstWordsObj = {};
