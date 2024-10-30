@@ -287,7 +287,7 @@ function Timeline({
       id: 'trending',
       title: 'Trending',
       subtitle: '',
-      path: instance.indexOf('skybridge.fly.dev') > -1 ? `/l/1942881672471511040`: instance.indexOf('masto.host') > -1 ? `/mastodon.social/trending` : `/${instance}/trending`,
+      path: instance.indexOf('skybridge.fly.dev') > -1 ? `/l/1961420711617101824`: instance.indexOf('masto.host') > -1 ? `/mastodon.social/trending` : `/${instance}/trending`,
       icon: 'chart',
     },
     {
